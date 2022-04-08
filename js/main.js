@@ -1047,5 +1047,4 @@ function lineprint(lines) {
         window.buffer.push(buff);
         opentime = line[0] + line[1];
     }
-}   }
 }
