@@ -1,10 +1,11 @@
 $(function() {
 
+    // Listen for Konami    
     var pattern = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
     var current = 0;
 
     var keyHandler = function(event) {
-        console.log(event.key);
+        // console.log(event.key);
         // If the key isn't in the pattern, or isn't the current key in the pattern, reset
         if (pattern.indexOf(event.key) < 0 || event.key !== pattern[current]) {
             current = 0;
@@ -21,12 +22,51 @@ $(function() {
             $(bodyInject).appendTo($('body'));
             $('img.one').prop('src', imgInject);
             updateBlocks();
+            document.removeEventListener('keydown', keyHandler, false);
+            // start egg
+            $(document).click(function() {
+                $("#userinputworkaround").focus()
+            });
+            $("#userinputworkaround").focus();
+
+            $(window).on("keydown", function(e) {
+
+                if (window.ctrlDown && e.keyCode == 67) {
+                    abort();
+                    return;
+                }
+                if (window.consolerunning) {
+                    $("#userinputworkaround").val("");
+                    window.userinput = "";
+                    return;
+                }
+                setTimeout(function() {
+                    window.userinput = $("#userinputworkaround").val();
+                    if (e.which == 13) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        $("#userinputworkaround").val("");
+                        runCommand(window.userinput);
+                    } else if (e.which == 38) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        oneCommandBack();
+                    } else if (e.which == 40) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        oneCommandForward();
+                    }
+                    updateConsole();
+                }, 50);
+            });
+            updateConsole();
+            // end egg  
         }
 
     };
     // Listen for keydown events
     document.addEventListener('keydown', keyHandler, false);
-
+    // End Listen for Konami  
 
 
     //IN PREPARATION FOR A LIST OF THE RUNNING SYSTEMS
@@ -201,44 +241,7 @@ window.consolecontent = "GLaDOS v1.04 (c) 1981 Aperture Science, Inc & USask CoM
 window.consoleurl = "<br>Aperture@GLaDOS:~$ ";
 window.commandhistory = [""];
 window.currentcommand = 0;
-$(function() {
-    $(document).click(function() {
-        $("#userinputworkaround").focus()
-    });
-    $("#userinputworkaround").focus();
 
-    $(window).on("keydown", function(e) {
-
-        if (window.ctrlDown && e.keyCode == 67) {
-            abort();
-            return;
-        }
-        if (window.consolerunning) {
-            $("#userinputworkaround").val("");
-            window.userinput = "";
-            return;
-        }
-        setTimeout(function() {
-            window.userinput = $("#userinputworkaround").val();
-            if (e.which == 13) {
-                e.preventDefault();
-                e.stopPropagation();
-                $("#userinputworkaround").val("");
-                runCommand(window.userinput);
-            } else if (e.which == 38) {
-                e.preventDefault();
-                e.stopPropagation();
-                oneCommandBack();
-            } else if (e.which == 40) {
-                e.preventDefault();
-                e.stopPropagation();
-                oneCommandForward();
-            }
-            updateConsole();
-        }, 50);
-    });
-    updateConsole();
-});
 
 function oneCommandBack() {
     window.currentcommand = window.currentcommand > 0 ? window.currentcommand - 1 : 0;
