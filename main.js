@@ -1021,14 +1021,15 @@ const bodyInject = `<div id="e_eggwrapper">
     </div>
     <div id="logofirst">
         <div id="logowrapper" class="transition">
-            <span class="transition one" id="one"></span>
-            <span class="transition one" id="two"></span>
-            <span class="transition one" id="three"></span>
-            <span class="transition one" id="four"></span>
-            <span class="transition one" id="five"></span>
-            <span class="transition one" id="six"></span>
-            <span class="transition one" id="seven"></span>
-            <span class="transition one" id="eight"></span>
+            <div class="transition one" id="one"></div>
+            <div class="transition one" id="one"></div>
+            <div class="transition one" id="two"></div>
+            <div class="transition one" id="three"></div>
+            <div class="transition one" id="four"></div>
+            <div class="transition one" id="five"></div>
+            <div class="transition one" id="six"></div>
+            <div class="transition one" id="seven"></div>
+            <div class="transition one" id="eight"></div>
         </div>
     </div>
 </div>
