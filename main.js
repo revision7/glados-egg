@@ -950,6 +950,7 @@ body {
 .one {
     width: 45%;
     position: absolute;
+    background-image: url("data:image/png;base64,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");
 }
 
 #one {
@@ -1020,14 +1021,14 @@ const bodyInject = `<div id="e_eggwrapper">
     </div>
     <div id="logofirst">
         <div id="logowrapper" class="transition">
-            <img src="images/one.png" class="transition one" id="one">
-            <img src="images/one.png" class="transition one" id="two">
-            <img src="images/one.png" class="transition one" id="three">
-            <img src="images/one.png" class="transition one" id="four">
-            <img src="images/one.png" class="transition one" id="five">
-            <img src="images/one.png" class="transition one" id="six">
-            <img src="images/one.png" class="transition one" id="seven">
-            <img src="images/one.png" class="transition one" id="eight">
+            <span class="transition one" id="one"></span>
+            <span class="transition one" id="two"></span>
+            <span class="transition one" id="three"></span>
+            <span class="transition one" id="four"></span>
+            <span class="transition one" id="five"></span>
+            <span class="transition one" id="six"></span>
+            <span class="transition one" id="seven"></span>
+            <span class="transition one" id="eight"></span>
         </div>
     </div>
 </div>
