@@ -76,8 +76,6 @@ var eggkeyHandler = function(event) {
 };
 
 $(function() {
-
-
     // Listen for keydown events
     document.addEventListener('keydown', eggkeyHandler, false);
     // End Listen for Konami  
@@ -585,7 +583,6 @@ function clearabort() {
 function clear() {
     window.consolecontent = "";
 }
-
 
 function exit() {
     clearabort();
