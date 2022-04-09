@@ -624,7 +624,7 @@ function credits() {
     print("GLaDOS (Genetic Lifeform and Disk Operating System) is an artificial intelligence created by USask CoM ITU.");
     println();
 }
-
+ 
 function lineprint(lines) {
     window.buffer = [];
     for (id in lines) {
