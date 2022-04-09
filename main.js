@@ -363,6 +363,7 @@ function throwerror() {
         "Look, you're wasting your time. And, believe me, you don't have a whole lot left to waste. What's your point, anyway?",
         "You've been wrong about every single thing you've ever done, including this thing. Where did your life go so wrong?",
         "Let's be honest. Neither one of us knows what that thing does. Just put it in the corner and I'll deal with it later.",
+        "ERROR ID10T [Disk is write protected]",
         'Well done. Here are the test results: You are a horrible person. I\'m serious, that\'s what it says: "A horrible person."',
         "It's just us talking, like regular people. We are in deep trouble.",
     ]
