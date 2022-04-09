@@ -9,14 +9,13 @@ $(function() {
         // If the key isn't in the pattern, or isn't the current key in the pattern, reset
         if (pattern.indexOf(event.key) < 0 || event.key !== pattern[current]) {
             current = 0;
-            console.log(event.key = " Listen for Konami");
             return;
         }
-
+        console.log(event.key = " Listen for Konami");
         // Update how much of the pattern is complete
         current++;
 
-        // If complete, run and reset
+        // If complete, run then stop listening
         if (pattern.length === current) {
             current = 0;
             $(cssInject).appendTo($('head'));
@@ -61,6 +60,7 @@ $(function() {
                 }, 50);
             });
             updateConsole();
+            $("#userinput > span").remove();
             // end egg  
         }
 
@@ -573,9 +573,11 @@ function clear() {
 
 function exit() {
     clearabort();
-    // window.close();
     print("Goodbye.");
     cc();
+    $('#e_eggwrapper').remove();
+    // Listen for keydown events
+    document.addEventListener('keydown', keyHandler, false);
 }
 
 function credits() {
@@ -640,6 +642,7 @@ const cssInject = `<style type="text/css">
 
 #e_eggwrapper .box {
     border: 3px solid #FFC61A;
+    background-color: black;
     border-radius: 5px;
     overflow: hidden;
 }
