@@ -4,7 +4,7 @@ $(function() {
     var pattern = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
     var current = 0;
 
-    var keyHandler = function(event) {
+    var eggkeyHandler = function(event) {
 
         // If the key isn't in the pattern, or isn't the current key in the pattern, reset
         if (pattern.indexOf(event.key) < 0 || event.key !== pattern[current]) {
@@ -22,7 +22,8 @@ $(function() {
             $(bodyInject).appendTo($('body'));
             $('img.one').prop('src', imgInject);
             updateBlocks();
-            document.removeEventListener('keydown', keyHandler, false);
+            document.removeEventListener('keydown', eggkeyHandler, false);
+
             // start egg
             $(document).click(function() {
                 $("#userinputworkaround").focus()
@@ -59,14 +60,24 @@ $(function() {
                     updateConsole();
                 }, 50);
             });
+            var startdelay = true;
+            setTimeout(function() {
+                if (startdelay) {
+                    window.userinput = "";
+                    $("#userinputworkaround").val("");
+                    updateConsole();
+                    startdelay = false;
+                }
+            }, 200);
             updateConsole();
-            $("#userinput > span").remove();
+
             // end egg  
+
         }
 
     };
     // Listen for keydown events
-    document.addEventListener('keydown', keyHandler, false);
+    document.addEventListener('keydown', eggkeyHandler, false);
     // End Listen for Konami  
 
 
@@ -167,6 +178,7 @@ function updateBlocks() {
     $("#temperature").html(Math.round(Math.random() * 100) + "%");
     $("#humidity").html(Math.round(Math.random() * 100) + "%");
     $("#dewpoint").html(Math.round(Math.random() * 100) + "%");
+
 }
 
 function strip(html) {
@@ -267,6 +279,7 @@ function spanify(str) {
 
 function oc() { //open console
     window.consolerunning = false;
+    window.userinput = "";
     updateConsole();
 }
 
@@ -577,7 +590,7 @@ function exit() {
     cc();
     $('#e_eggwrapper').remove();
     // Listen for keydown events
-    document.addEventListener('keydown', keyHandler, false);
+    document.addEventListener('keydown', eggkeyHandler, false);
 }
 
 function credits() {
@@ -623,6 +636,7 @@ function lineprint(lines) {
         opentime = line[0] + line[1];
     }
 }
+
 
 const cssInject = `<style type="text/css">
 #e_eggwrapper *:not(input) {
