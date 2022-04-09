@@ -66,7 +66,7 @@ var eggkeyHandler = function(event) {
                 updateConsole();
                 startdelay = false;
             }
-        }, 500);
+        }, 200);
         updateConsole();
 
         // end egg  
@@ -363,6 +363,10 @@ function throwerror() {
         "Look, you're wasting your time. And, believe me, you don't have a whole lot left to waste. What's your point, anyway?",
         "You've been wrong about every single thing you've ever done, including this thing. Where did your life go so wrong?",
         "Let's be honest. Neither one of us knows what that thing does. Just put it in the corner and I'll deal with it later.",
+        "ERROR 24 [File not found]",
+        "ERROR 07 [Unknown Employee]",
+        "ERROR 01 [Illegal attempt to initiate disciplinary action]",
+        "ERROR 18 [User not authorized to transfer system tapes]",
         "ERROR ID10T [Disk is write protected]",
         'Well done. Here are the test results: You are a horrible person. I\'m serious, that\'s what it says: "A horrible person."',
         "It's just us talking, like regular people. We are in deep trouble.",
@@ -381,7 +385,7 @@ window.abort = function() {}
 
 function help(argv) {
     if (typeof argv[0] === "undefined") {
-        println("help or '?'...... This overview");
+        println("help or '?'..... This overview");
         println("clear........... Clear the console");
         println("apply........... It's always such a pleasure");
         println("game............ Shall we play a game?");
@@ -409,20 +413,30 @@ function opensource() {
 
 function USA() {
     abort = function() {};
-    println('USA wins.');
-    println();
+    if (window.commandhistory.length > 2 && window.commandhistory[window.commandhistory.length - 3].indexOf("global") === -1) {
+        throwerror();
+    } else if (window.commandhistory.length > 2) {
+        println('Russia loses.');
+        println();
+    }
 }
 
 function Russia() {
     abort = function() {};
-    println('Russia loses.');
-    println();
+    if (window.commandhistory.length > 2 && window.commandhistory[window.commandhistory.length - 3].indexOf("global") === -1) {
+        throwerror();
+    } else if (window.commandhistory.length > 2) {
+        println('USA loses.');
+        println();
+    }
 }
 
 function game() {
     abort = function() {};
     println("<br>");
-    println("1. global_thermonuclear_warfare.exe");
+    println("- chess.exe");
+    println("- global_thermonuclear_warfare.exe");
+    println("- pacman.exe");
     println();
 }
 
@@ -467,11 +481,12 @@ function apply() {
         [0, 0, ""],
         [202, 2935, "Forms FORM-29827281-12-2:"],
         [3237, 935, "Application Form"],
-        [4160, 3000, "......"],
-        [7174, 3000, ".........."],
+        [4160, 3000, ".............."],
+        [7174, 3000, ".............."],
         [12577, 8000, "Below is your form FORMS-EN-2873-FORM Unique Indentity Number (Plus Letters) (UIN(+L)): Please memorize your UIN(+L), as you may be required to recite it from memory as proof. The opening and closing braces are decorative and should not be memorized. Note that the character \"0\" is uniquely different than the character \"O\". When you are finished memorizing your case-sensitive UIN(+L), please nod \"yes\" to proceed."],
-        [21077, 4000, "............"],
-        [25577, 9000, "Memorize this: >>> <span class=\"fade-out\">" + getRandomInt() + "000O0+" + getRandomletters() + "</span> <<<"]
+        [21077, 2000, ".........."],
+        [23077, 2000, ".........."],
+        [25577, 9000, "Memorize your UIN(+L): >>> <span class=\"fade-out\">" + getRandomInt() + "000O0+" + getRandomletters() + "</span> <<<"]
     ];
     lineprint(lines);
     buff = setTimeout(function() {
@@ -481,6 +496,9 @@ function apply() {
 
     buff = setTimeout(function() {
         oc();
+        println();
+        println("To continue, please type your memorized UIN(+L) at the prompt:");
+        println();
         $('<style type="text/css">.fade-out { visibility:hidden }</style>').appendTo($('head'));
     }, 40000);
     window.buffer.push(buff);
