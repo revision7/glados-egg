@@ -1,81 +1,83 @@
+// Listen for Konami    
+var pattern = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+var current = 0;
+
+var eggkeyHandler = function(event) {
+
+    // If the key isn't in the pattern, or isn't the current key in the pattern, reset
+    if (pattern.indexOf(event.key) < 0 || event.key !== pattern[current]) {
+        current = 0;
+        return;
+    }
+    console.log(event.key = " Listen for Konami");
+    // Update how much of the pattern is complete
+    current++;
+
+    // If complete, run then stop listening
+    if (pattern.length === current) {
+        current = 0;
+        $(cssInject).appendTo($('head'));
+        $(bodyInject).appendTo($('body'));
+        $('img.one').prop('src', imgInject);
+        updateBlocks();
+        document.removeEventListener('keydown', eggkeyHandler, false);
+
+        // start egg
+        $(document).click(function() {
+            $("#userinputworkaround").focus()
+        });
+        $("#userinputworkaround").focus();
+
+        $(window).on("keydown", function(e) {
+
+            if (window.ctrlDown && e.keyCode == 67) {
+                abort();
+                return;
+            }
+            if (window.consolerunning) {
+                $("#userinputworkaround").val("");
+                window.userinput = "";
+                return;
+            }
+            setTimeout(function() {
+                window.userinput = $("#userinputworkaround").val();
+                if (e.which == 13) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    $("#userinputworkaround").val("");
+                    runCommand(window.userinput);
+                } else if (e.which == 38) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    oneCommandBack();
+                } else if (e.which == 40) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    oneCommandForward();
+                }
+                updateConsole();
+            }, 50);
+        });
+        var startdelay = true;
+        setTimeout(function() {
+            if (startdelay) {
+                window.userinput = "";
+                $("#userinputworkaround").val("");
+                updateConsole();
+                startdelay = false;
+            }
+        }, 500);
+        updateConsole();
+
+        // end egg  
+
+    }
+
+};
+
 $(function() {
 
-    // Listen for Konami    
-    var pattern = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-    var current = 0;
 
-    var eggkeyHandler = function(event) {
-
-        // If the key isn't in the pattern, or isn't the current key in the pattern, reset
-        if (pattern.indexOf(event.key) < 0 || event.key !== pattern[current]) {
-            current = 0;
-            return;
-        }
-        console.log(event.key = " Listen for Konami");
-        // Update how much of the pattern is complete
-        current++;
-
-        // If complete, run then stop listening
-        if (pattern.length === current) {
-            current = 0;
-            $(cssInject).appendTo($('head'));
-            $(bodyInject).appendTo($('body'));
-            $('img.one').prop('src', imgInject);
-            updateBlocks();
-            document.removeEventListener('keydown', eggkeyHandler, false);
-
-            // start egg
-            $(document).click(function() {
-                $("#userinputworkaround").focus()
-            });
-            $("#userinputworkaround").focus();
-
-            $(window).on("keydown", function(e) {
-
-                if (window.ctrlDown && e.keyCode == 67) {
-                    abort();
-                    return;
-                }
-                if (window.consolerunning) {
-                    $("#userinputworkaround").val("");
-                    window.userinput = "";
-                    return;
-                }
-                setTimeout(function() {
-                    window.userinput = $("#userinputworkaround").val();
-                    if (e.which == 13) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        $("#userinputworkaround").val("");
-                        runCommand(window.userinput);
-                    } else if (e.which == 38) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        oneCommandBack();
-                    } else if (e.which == 40) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        oneCommandForward();
-                    }
-                    updateConsole();
-                }, 50);
-            });
-            var startdelay = true;
-            setTimeout(function() {
-                if (startdelay) {
-                    window.userinput = "";
-                    $("#userinputworkaround").val("");
-                    updateConsole();
-                    startdelay = false;
-                }
-            }, 200);
-            updateConsole();
-
-            // end egg  
-
-        }
-
-    };
     // Listen for keydown events
     document.addEventListener('keydown', eggkeyHandler, false);
     // End Listen for Konami  
@@ -588,10 +590,18 @@ function clear() {
 function exit() {
     clearabort();
     print("Goodbye.");
-    cc();
-    $('#e_eggwrapper').remove();
-    // Listen for keydown events
-    document.addEventListener('keydown', eggkeyHandler, false);
+    var aserg3456 = true;
+    if (aserg3456) {
+        setTimeout(function() {
+            // Listen for keydown events
+            clear();
+            clearabort();
+            aserg3456 = false;
+            document.addEventListener('keydown', eggkeyHandler, false);
+            updateConsole();
+            $('#e_eggwrapper').remove();
+        }, 1500);
+    }
 }
 
 function credits() {
