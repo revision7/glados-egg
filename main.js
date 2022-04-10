@@ -543,7 +543,7 @@ function poem() {
         [2202, 1935, "Forms FORM-29827281-12-2:"],
         [4237, 1935, "Notice of Dismissal: You won. The cake is a lie."],
         [8160, 1, ""],
-        [8174, 1769, "Well here we are again"],
+/*         [8174, 1769, "Well here we are again"],
         [10577, 1968, "It's always such a pleasure"],
         [13179, 1402, "Remember when you tried"],
         [14647, 2103, "to fool me twice?"],
@@ -595,7 +595,7 @@ function poem() {
         [132232, 2602, "Now I only want you"],
         [134900, 0, ""],
         [134920, 0, "<br><br><br><br>"],
-        [135168, 701, "gone"]
+        [135168, 701, "gone"] */
     ];
 
     lineprint(lines);
