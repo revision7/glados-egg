@@ -232,6 +232,7 @@ window.registeredcommands = [
     "global_thermonuclear_warfare",
     "exit",
     "credits",
+    "poem",
     "USA",
     "Russia",
     "retaliate",
@@ -254,7 +255,7 @@ window.consolerunning = false;
 
 window.userinput = "";
 
-window.consolecontent = "GLaDOS v1.04 (c) 1981 Aperture Science, Inc<br>\
+window.consolecontent = "GLaDOS v1.04 (c) 1981 Aperture Science, Inc.<br>\
 ";
 window.consoleurl = "<br>Aperture@GLaDOS:~$ ";
 window.commandhistory = [""];
@@ -392,7 +393,7 @@ function help(argv) {
     if (typeof argv[0] === "undefined") {
         println("help or '?'..... This overview");
         println("clear........... Clear the console");
-        println("apply........... It's always such a pleasure");
+        println("apply........... Start or continue applying");
         println("game............ Play a game");
         // println("opensource...... ");
         println("credits......... Prints the credits");
@@ -404,6 +405,12 @@ function help(argv) {
         case "help":
             println("Remember before when I was talking about smelly garbage standing around being useless? That was a metaphor. I was actually talking about you. And I'm sorry. You didn't react at the time so I was worried it sailed right over your head. That's why I had to call you garbage a second time just now.");
             break;
+        case "apply":
+            println("Apply as you might, you will never succeed.");
+            break;       
+        case "game":
+            println("Pssst...never engage in global thermonulear warfare. All outcomes are futile.");
+            break;                            
         default:
             throwerror();
             break;
@@ -434,8 +441,8 @@ function USA() {
     if (window.commandhistory.length > 2 && window.commandhistory[window.commandhistory.length - 3].indexOf("global") === -1) {
         throwerror();
     } else if (window.commandhistory.length > 2) {
-        $('<style type="text/css">.e_eggwrapperambiguous { display:none }</style>').appendTo($('head'));
-        println('USA detects the launch and fires back.');
+        $('<style type="text/css">.e_eggwrapperambiguous { display:inline }</style>').appendTo($('head'));
+        println('This is NOT a simulation. What were you thinking? USA will detect the launch and fire back.');
         println();
         println('Do you want to "retaliate", or "wait"?:');
     }
@@ -446,8 +453,8 @@ function Russia() {
     if (window.commandhistory.length > 2 && window.commandhistory[window.commandhistory.length - 3].indexOf("global") === -1) {
         throwerror();
     } else if (window.commandhistory.length > 2) {
-        $('<style type="text/css">.e_eggwrapperambiguous { display:none }</style>').appendTo($('head'));       
-        println('Russia detects the launch and fires at your ally.');
+        $('<style type="text/css">.e_eggwrapperambiguous { display:inline }</style>').appendTo($('head'));       
+        println('This is NOT a simulation. What were you thinking? Russia will detect the launch and fire at your ally.');
         println();
         println('Do you want to "retaliate", or "wait"?:');
     }
@@ -466,7 +473,7 @@ function global_thermonuclear_warfare() {
     abort = function() {};
     println();
     cc();
-    $('<style type="text/css">.e_eggwrapperambiguous { display:inline }</style>').appendTo($('head'));    
+    $('<style type="text/css">.e_eggwrapperambiguous { display:none }</style>').appendTo($('head'));    
     lines = [
         // [0, 0, ""],
         [0, 2035, "Oh wow, this is really happening. Ok then, this is definitely <span class='e_eggwrapperambiguous'> not</span> a simulation...<br>"],
@@ -521,8 +528,8 @@ function apply() {
     buff = setTimeout(function() {
         oc();
         println();
-        println("To continue, please type your memorized UIN(+L) at the prompt:");
-        println();
+        println("To continue, please type your memorized UIN(+L) at the prompt. If you have forgotten your UIN(+L), you can recover it by typing in your recovery question's answer; \"name a crime that only I know I've committed\"");
+        println();        
         $('<style type="text/css">.fade-out { visibility:hidden }</style>').appendTo($('head'));
     }, 40000);
     window.buffer.push(buff);
@@ -534,7 +541,7 @@ function poem() {
     lines = [
         [0, 0, ""],
         [2202, 1935, "Forms FORM-29827281-12-2:"],
-        [4237, 1935, "Notice of Dismissal"],
+        [4237, 1935, "Notice of Dismissal: You won. The cake is a lie."],
         [8160, 1, ""],
         [8174, 1769, "Well here we are again"],
         [10577, 1968, "It's always such a pleasure"],
@@ -628,7 +635,7 @@ function clear() {
 
 function exit() {
     clearabort();
-    print("Goodbye.");
+    print("Goodbye. You won't be missed.");
     var aserg3456 = true;
     if (aserg3456) {
         setTimeout(function() {
@@ -645,7 +652,7 @@ function exit() {
 
 function credits() {
     clearabort();
-    print("GLaDOS (Genetic Lifeform and Disk Operating System) is an artificial intelligence created by Aperture Science.");
+    print("GLaDOS (Genetic Lifeform and Disk Operating System) is an artificial intelligence created by Aperture Science. The winner gets cake.");
     println();
 }
  
