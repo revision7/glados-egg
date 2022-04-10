@@ -24,9 +24,9 @@ var eggkeyHandler = function(event) {
 
         // start egg
         $(document).click(function() {
-            $("#userinputworkaround").focus()
+            $("#e_eggwrapper #userinputworkaround").focus()
         });
-        $("#userinputworkaround").focus();
+        $("#e_eggwrapper #userinputworkaround").focus();
 
         $(window).on("keydown", function(e) {
 
@@ -35,16 +35,16 @@ var eggkeyHandler = function(event) {
                 return;
             }
             if (window.consolerunning) {
-                $("#userinputworkaround").val("");
+                $("#e_eggwrapper #userinputworkaround").val("");
                 window.userinput = "";
                 return;
             }
             setTimeout(function() {
-                window.userinput = $("#userinputworkaround").val();
+                window.userinput = $("#e_eggwrapper #userinputworkaround").val();
                 if (e.which == 13) {
                     e.preventDefault();
                     e.stopPropagation();
-                    $("#userinputworkaround").val("");
+                    $("#e_eggwrapper #userinputworkaround").val("");
                     runCommand(window.userinput);
                 } else if (e.which == 38) {
                     e.preventDefault();
@@ -62,7 +62,7 @@ var eggkeyHandler = function(event) {
         setTimeout(function() {
             if (startdelay) {
                 window.userinput = "";
-                $("#userinputworkaround").val("");
+                $("#e_eggwrapper #userinputworkaround").val("");
                 updateConsole();
                 startdelay = false;
             }
@@ -125,7 +125,7 @@ $(function() {
         systemsdevices += bits + bits + bits + bits + '</div>';
         i++;
     }
-    $("#systems").html(systemsdevices);
+    $("#e_eggwrapper #systems").html(systemsdevices);
 
 
     window.ctrlDown = false;
@@ -144,10 +144,10 @@ setInterval(function() {
 window.cursorstate = true;
 setInterval(function() {
     if (window.cursorstate) {
-        $("#cursorblinking").css("text-decoration", "none");
+        $("#e_eggwrapper #cursorblinking").css("text-decoration", "none");
         window.cursorstate = false;
     } else {
-        $("#cursorblinking").css("text-decoration", "underline");
+        $("#e_eggwrapper #cursorblinking").css("text-decoration", "underline");
         window.cursorstate = true;
     }
 }, 350);
@@ -160,11 +160,11 @@ function updateSystems() {
             time = new Date().getTime() / 1000;
             difference = time - data[1];
             if (difference < 60) {
-                $("#" + data[0]).removeClass("down");
-                $("#" + data[0]).addClass("up");
+                $("#e_eggwrapper #" + data[0]).removeClass("down");
+                $("#e_eggwrapper #" + data[0]).addClass("up");
             } else {
-                $("#" + data[0]).removeClass("up");
-                $("#" + data[0]).addClass("down");
+                $("#e_eggwrapper #" + data[0]).removeClass("up");
+                $("#e_eggwrapper #" + data[0]).addClass("down");
             }
         });
         request.fail(function() {
@@ -175,9 +175,9 @@ function updateSystems() {
 }
 
 function updateBlocks() {
-    $("#temperature").html(Math.round(Math.random() * 100) + "%");
-    $("#humidity").html(Math.round(Math.random() * 100) + "%");
-    $("#dewpoint").html(Math.round(Math.random() * 100) + "%");
+    $("#e_eggwrapper #temperature").html(Math.round(Math.random() * 100) + "%");
+    $("#e_eggwrapper #humidity").html(Math.round(Math.random() * 100) + "%");
+    $("#e_eggwrapper #dewpoint").html(Math.round(Math.random() * 100) + "%");
 
 }
 
@@ -234,6 +234,7 @@ window.registeredcommands = [
     "credits",
     "USA",
     "Russia",
+    "retaliate",
     "opensource"
 ]
 
@@ -241,6 +242,10 @@ window.shortcuts = {
     "h": "help",
     "?": "help",
     "c": "clear",
+    "4815162342": "poem",
+    "4-8-15-16-23-42": "poem",
+    "4 8 15 16 23 42": "poem",
+    "wait": "retaliate",
     "global_thermonuclear_warfare.exe": "global_thermonuclear_warfare",
     "global": "global_thermonuclear_warfare",
 }
@@ -249,7 +254,7 @@ window.consolerunning = false;
 
 window.userinput = "";
 
-window.consolecontent = "GLaDOS v1.04 (c) 1981 Aperture Science, Inc & USask CoM ITU<br>\
+window.consolecontent = "GLaDOS v1.04 (c) 1981 Aperture Science, Inc<br>\
 ";
 window.consoleurl = "<br>Aperture@GLaDOS:~$ ";
 window.commandhistory = [""];
@@ -259,13 +264,13 @@ window.currentcommand = 0;
 function oneCommandBack() {
     window.currentcommand = window.currentcommand > 0 ? window.currentcommand - 1 : 0;
     window.userinput = window.commandhistory[window.currentcommand];
-    $("#userinputworkaround").val(window.userinput);
+    $("#e_eggwrapper #userinputworkaround").val(window.userinput);
 }
 
 function oneCommandForward() {
     window.currentcommand = window.currentcommand < window.commandhistory.length - 1 ? window.currentcommand + 1 : window.commandhistory.length - 1;
     window.userinput = window.commandhistory[window.currentcommand];
-    $("#userinputworkaround").val(window.userinput);
+    $("#e_eggwrapper #userinputworkaround").val(window.userinput);
 }
 
 function spanify(str) {
@@ -292,13 +297,13 @@ function updateConsole() {
     //Removing the forcelinebreak-div will freeze hell and make the dead walk the earth. You want that? No, you don't. So don't remove this.
     let cursorpos = doGetCaretPosition(document.getElementById("userinputworkaround"));
     if (window.consolerunning) {
-        $("#console_primary_content").html("<div id=forcelinebreak></div>" + window.consolecontent + "<span id=userinput><span id=cursorblinking>&nbsp;</span></span>");
-        $("#userinput > span").removeClass("mark");
-        $("#userinput > span:last-child").addClass("mark");
+        $("#e_eggwrapper #console_primary_content").html("<div id=forcelinebreak></div>" + window.consolecontent + "<span id=userinput><span id=cursorblinking>&nbsp;</span></span>");
+        $("#e_eggwrapper #userinput > span").removeClass("mark");
+        $("#e_eggwrapper #userinput > span:last-child").addClass("mark");
     } else {
-        $("#console_primary_content").html("<div id=forcelinebreak></div>" + window.consolecontent + window.consoleurl + "<div id=forcelinebreak></div><span id=userinput>" + spanify(window.userinput) + "<span id=cursorblinking>&nbsp;</span></span>");
-        $("#userinput > span").removeClass("mark");
-        $("#userinput > span:nth-child(" + (cursorpos + 1) + ")").addClass("mark");
+        $("#e_eggwrapper #console_primary_content").html("<div id=forcelinebreak></div>" + window.consolecontent + window.consoleurl + "<div id=forcelinebreak></div><span id=userinput>" + spanify(window.userinput) + "<span id=cursorblinking>&nbsp;</span></span>");
+        $("#e_eggwrapper #userinput > span").removeClass("mark");
+        $("#e_eggwrapper #userinput > span:nth-child(" + (cursorpos + 1) + ")").addClass("mark");
     }
 }
 
@@ -364,8 +369,8 @@ function throwerror() {
         "You've been wrong about every single thing you've ever done, including this thing. Where did your life go so wrong?",
         "Let's be honest. Neither one of us knows what that thing does. Just put it in the corner and I'll deal with it later.",
         "ERROR 24 [File not found]",
-        "ERROR 07 [Unknown Employee]",
-        "ERROR 01 [Illegal attempt to initiate disciplinary action]",
+        "ERROR 4-8-15-16-23-42 [The cake is a lie.]",
+        "ERROR 01 [Illegal attempt to initiate action]",
         "ERROR 18 [User not authorized to transfer system tapes]",
         "ERROR ID10T [Disk is write protected]",
         'Well done. Here are the test results: You are a horrible person. I\'m serious, that\'s what it says: "A horrible person."',
@@ -388,7 +393,7 @@ function help(argv) {
         println("help or '?'..... This overview");
         println("clear........... Clear the console");
         println("apply........... It's always such a pleasure");
-        println("game............ Shall we play a game?");
+        println("game............ Play a game");
         // println("opensource...... ");
         println("credits......... Prints the credits");
         println("exit............ Exit");
@@ -411,13 +416,28 @@ function opensource() {
     println();
 }
 
+function retaliate() {
+    abort = function() {};
+    if (window.commandhistory.length > 3 && window.commandhistory[window.commandhistory.length - 4].indexOf("global") === -1) {
+        throwerror();
+    } else if (window.commandhistory.length > 3) {
+        println('That didn\'t work.');
+        println();
+        println('After simulating all possible outcomes, all of them lead to the annihilation of humanity. A strange game. The only winning move is not to play.');
+        println();
+        println('How about a nice game of chess?');
+    }
+}
+
 function USA() {
     abort = function() {};
     if (window.commandhistory.length > 2 && window.commandhistory[window.commandhistory.length - 3].indexOf("global") === -1) {
         throwerror();
     } else if (window.commandhistory.length > 2) {
-        println('Russia loses.');
+        $('<style type="text/css">.e_eggwrapperambiguous { display:none }</style>').appendTo($('head'));
+        println('USA detects the launch and fires back.');
         println();
+        println('Do you want to "retaliate", or "wait"?:');
     }
 }
 
@@ -426,14 +446,16 @@ function Russia() {
     if (window.commandhistory.length > 2 && window.commandhistory[window.commandhistory.length - 3].indexOf("global") === -1) {
         throwerror();
     } else if (window.commandhistory.length > 2) {
-        println('USA loses.');
+        $('<style type="text/css">.e_eggwrapperambiguous { display:none }</style>').appendTo($('head'));       
+        println('Russia detects the launch and fires at your ally.');
         println();
+        println('Do you want to "retaliate", or "wait"?:');
     }
 }
 
 function game() {
     abort = function() {};
-    println("<br>");
+    println("Shall we play a game?<br>");
     println("- chess.exe");
     println("- global_thermonuclear_warfare.exe");
     println("- pacman.exe");
@@ -444,17 +466,19 @@ function global_thermonuclear_warfare() {
     abort = function() {};
     println();
     cc();
+    $('<style type="text/css">.e_eggwrapperambiguous { display:inline }</style>').appendTo($('head'));    
     lines = [
         // [0, 0, ""],
-        [0, 2035, "Oh wow, this is really happening. Ok then...<br>"],
+        [0, 2035, "Oh wow, this is really happening. Ok then, this is definitely <span class='e_eggwrapperambiguous'> not</span> a simulation...<br>"],
         [2037, 935, "Select a target:"],
         [3160, 1, ""],
         [3174, 700, "- USA"],
-        [3877, 700, "- Russia"],
+        [3877, 1000, "- Russia"],
     ];
     lineprint(lines);
     buff = setTimeout(function() {
         oc();
+        
     }, 5000);
     window.buffer.push(buff);
 }
@@ -571,7 +595,7 @@ function poem() {
 
     buff = setTimeout(function() {
         document.getElementById("wantyougone").pause();
-        $("#wantyougone").prop("currentTime", 0);
+        $("#e_eggwrapper #wantyougone").prop("currentTime", 0);
         clearabort();
         oc();
     }, opentime + 2500);
@@ -586,7 +610,7 @@ function poem() {
         for (id in window.buffer) {
             clearTimeout(window.buffer[id]);
             document.getElementById("wantyougone").pause();
-            $("#wantyougone").prop("currentTime", 0);
+            $("#e_eggwrapper #wantyougone").prop("currentTime", 0);
             oc();
         }
         clearabort();
@@ -621,7 +645,7 @@ function exit() {
 
 function credits() {
     clearabort();
-    print("GLaDOS (Genetic Lifeform and Disk Operating System) is an artificial intelligence created by USask CoM ITU.");
+    print("GLaDOS (Genetic Lifeform and Disk Operating System) is an artificial intelligence created by Aperture Science.");
     println();
 }
  
