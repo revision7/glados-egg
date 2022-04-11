@@ -872,7 +872,7 @@ const cssInject = `<style type="text/css">
 
 @media (min-width:1200px) {
     #e_eggwrapper #forcelinebreak {
-        width: 650px;
+        width: 250px;
     }
 }
 
