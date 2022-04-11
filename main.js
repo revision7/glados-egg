@@ -109,7 +109,9 @@ $(function() {
             }
             j++;
         }
-        systemsdevices += bits + bits + bits + bits + '</div>';
+        // systemsdevices += bits + bits + bits + bits + '</div>';
+        systemsdevices += bits + '</div>';
+
         i++;
     }
     $("#e_eggwrapper #systems").html(systemsdevices);
