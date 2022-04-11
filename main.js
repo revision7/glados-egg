@@ -542,7 +542,7 @@ function poem() {
         [0, 0, ""],
         [2202, 1935, "Forms FORM-29827281-12-2:"],
         [4237, 1935, "Notice of Dismissal: You won. The cake is a lie."],
-        [8160, 1, ""],
+        [8160, 1, ""]
 /*         [8174, 1769, "Well here we are again"],
         [10577, 1968, "It's always such a pleasure"],
         [13179, 1402, "Remember when you tried"],
@@ -766,7 +766,7 @@ const cssInject = `<style type="text/css">
     color: #B78116;
 }
 
-#console_primary_content>a {
+#e_eggwrapper #console_primary_content>a {
     cursor: pointer;
     text-decoration: none;
     color: #E0981D;
@@ -1109,7 +1109,8 @@ const cssInject = `<style type="text/css">
 <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
 `;
 
-const bodyInject = `<div id="e_eggwrapper">
+const bodyInject = `
+<div id="e_eggwrapper">
 <div id="console" class="box">
     <div id="console_primary">
         <div id="console_primary_content">
