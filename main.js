@@ -247,7 +247,7 @@ window.consolerunning = false;
 
 window.userinput = "";
 
-window.consolecontent = "GLaDOS v1.04 (c) 1981 Aperture Science, Inc.<br>\
+window.consolecontent = "GLaDOS v" + GLaDOSversion + " (c) 1981 Aperture Science, Inc.<br>\
 ";
 window.consoleurl = "<br>Aperture@GLaDOS:~$ ";
 window.commandhistory = [""];
@@ -795,6 +795,7 @@ const cssInject = `<style type="text/css">
     height: 185px;
     width: 185px;
     z-index: 4;
+    background-color: #20140a;
 }
 
 #e_eggwrapper #logo img:not(.one) {
