@@ -1,3 +1,4 @@
 glados-egg/glados:
   - index.html
   - main.js
+  - README.md
