@@ -761,6 +761,7 @@ const cssInject = `<style type="text/css">
     color: #E0981D;
 }
 
+
 #e_eggwrapper #console_primary_content>a:hover {
     text-decoration: underline;
 }
