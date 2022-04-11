@@ -16,5 +16,3 @@ Activate with Konami cheat code:
 A terminal will appear:
 
 <img width="426" alt="image" src="https://user-images.githubusercontent.com/103392098/162673025-1ef28799-cd83-4afe-96c4-00b4bf345df6.png">
-
-[![Sync Files](https://github.com/revision7/glados-egg/actions/workflows/sync.yml/badge.svg)](https://github.com/revision7/glados-egg/actions/workflows/sync.yml)
