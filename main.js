@@ -1,3 +1,5 @@
+var GLaDOSversion = "1.04.13";
+
 // Listen for Konami    
 var pattern = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
 var current = 0;
@@ -78,6 +80,7 @@ var eggkeyHandler = function(event) {
 $(function() {
     // Listen for keydown events
     document.addEventListener('keydown', eggkeyHandler, false);
+    console.log('GLaDOS ' + GLaDOSversion);
     // End Listen for Konami  
 
 
@@ -641,7 +644,7 @@ function exit() {
 
 function credits() {
     clearabort();
-    print("GLaDOS (Genetic Lifeform and Disk Operating System) is an artificial intelligence created by Aperture Science, Inc. The winner gets cake.");
+    print("GLaDOS (Genetic Lifeform and Disk Operating System) 1.04.13 is an artificial intelligence created by Aperture Science, Inc. The winner gets cake.");
     println();
 }
  
