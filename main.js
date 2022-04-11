@@ -641,7 +641,7 @@ function exit() {
 
 function credits() {
     clearabort();
-    print("GLaDOS (Genetic Lifeform and Disk Operating System) is an artificial intelligence created by Aperture Science. The winner gets cake.");
+    print("GLaDOS (Genetic Lifeform and Disk Operating System) is an artificial intelligence created by Aperture Science, Inc. The winner gets cake.");
     println();
 }
  
