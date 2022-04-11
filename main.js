@@ -683,7 +683,6 @@ function lineprint(lines) {
     }
 }
 
-
 const cssInject = `<style type="text/css">
 #e_eggwrapper *:not(input) {
     box-sizing: border-box;
