@@ -80,7 +80,7 @@ var eggkeyHandler = function(event) {
 $(function() {
     // Listen for keydown events
     document.addEventListener('keydown', eggkeyHandler, false);
-    console.log('GLaDOS ' + GLaDOSversion);
+    console.log('GLaDOS ' + GLaDOSversion + 'waiting');
     // End Listen for Konami  
 
 
