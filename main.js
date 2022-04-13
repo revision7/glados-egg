@@ -424,7 +424,7 @@ function retaliate() {
         println();
         println('After simulating all possible outcomes, all of them lead to the annihilation of humanity. A strange game. The only winning move is not to play.');
         println();
-        println('How about a nice game of chess?');
+        // println('How about a nice game of chess?');
     }
 }
 
