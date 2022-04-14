@@ -221,6 +221,7 @@ window.registeredcommands = [
     "clear",
     "apply",
     "game",
+    "chess",
     "global_thermonuclear_warfare",
     "exit",
     "credits",
@@ -239,6 +240,7 @@ window.shortcuts = {
     "4-8-15-16-23-42": "poem",
     "4 8 15 16 23 42": "poem",
     "wait": "retaliate",
+    "chess.exe": "chess",
     "global_thermonuclear_warfare.exe": "global_thermonuclear_warfare",
     "global": "global_thermonuclear_warfare",
 }
@@ -459,6 +461,14 @@ function game() {
     println("- global_thermonuclear_warfare.exe");
     println("- pacman.exe");
     println();
+}
+
+function chess() {
+    abort = function() {};
+    println();
+    cc();
+    $(chessgame).appendTo('#console_primary_content');
+
 }
 
 function global_thermonuclear_warfare() {
@@ -697,7 +707,7 @@ const chessgame = `<style>
     color: black;
 }
 </style>
-<form id="chessboardgame" name=FF>
+<div><form id="chessboardgame" name=FF>
 <center>
     <script>
         M = I = P = N = q = K = J = 0
@@ -1056,7 +1066,7 @@ const chessgame = `<style>
         Rf(0)
     </script>
     <p style="display: none;"><select name=h><option selected>Q<option>B<option>kn<option>R</select></center>
-</form>`
+</form></div>`
 
 
 const cssInject = `<style type="text/css">
