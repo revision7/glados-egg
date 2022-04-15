@@ -465,6 +465,9 @@ function game() {
 
 function chess() {
     abort = function() {};
+    clear();
+    println();
+    println("You are white. Make your move.");
     println();
     cc();
     $(chessgame).appendTo($('#chessboardgame'));
@@ -479,7 +482,8 @@ function chess() {
         h += '</tr>\n';
     }
     h += '</table>';
-    d.write(h);
+    $(h).appendTo($('#chessboardgame'));    
+    $('#chessboardgame').show();
     Rf(0);
 }
 
@@ -709,18 +713,7 @@ function lineprint(lines) {
 }
 
 
-var chessgame = `<div>
-<style>
-#chessboardgame a {
-    display: block;
-    height: 45px;
-    width: 45px;
-    text-decoration: none;
-    font: 40px "Arial Unicode MS";
-    color: black;
-}
-</style></div>
-<form id="chessboardgame" name=FF>
+var chessgame = `<form id="chessboardgameform" name="FF">
 <center>
     <script>
         M = I = P = N = q = K = J = 0
@@ -1066,7 +1059,7 @@ var chessgame = `<div>
         h = '<table cellpadding=4>';
 
     </script>
-    <p style="display: none;"><select name=h><option selected>Q<option>B<option>kn<option>R</select></center>
+    <a class="close" onclick="javascript:$('#chessboardgame').remove();oc();">EXIT</a><select name="h" style="display: none;"><option selected>Q<option>B<option>kn<option>R</select></center>
 </form></div>`
 
 
@@ -1480,7 +1473,32 @@ const cssInject = `<style type="text/css">
     transform: rotate(315deg);
     left: -11.87%;
     top: 30.08%;
-}</style>
+}
+
+#chessboardgame a {
+    display: block;
+    height: 45px;
+    width: 45px;
+    text-decoration: none;
+    font: 40px "Arial Unicode MS";
+    color: black;
+}
+
+#chessboardgame a.close {
+    color: white;
+    font-size: 16px;
+    font-family: 'Courier Prime', monospace;
+}
+
+#chessboardgame {
+    display: none;
+    z-index: 999999;
+    position: absolute;
+    bottom: 55px;
+    left: 65px; 
+    opacity: 30%;
+}
+</style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
@@ -1491,10 +1509,10 @@ const bodyInject = `<div id="e_eggwrapper">
     <div id="console_primary">
         <div id="console_primary_content">
         </div>
-        <div id="chessboardgame" style="display:none"></div>
     </div>
     <input type="text" id="userinputworkaround" autofocus autocomplete="off">
 </div>
+<div id="chessboardgame" style="display:none"></div>
 <div id="logo" class="box transition">
     <div id="logosecond">
         <div id="logosecondcontent" class="transition">
