@@ -467,8 +467,7 @@ function chess() {
     abort = function() {};
     println();
     cc();
-    $(chessgame).appendTo('#console_primary_content');
-
+    $(chessgame).appendTo($('#chessboardgame'));
 }
 
 function global_thermonuclear_warfare() {
@@ -697,7 +696,8 @@ function lineprint(lines) {
 }
 
 
-const chessgame = `<style>
+var chessgame = `<div>
+<style>
 #chessboardgame a {
     display: block;
     height: 45px;
@@ -707,7 +707,7 @@ const chessgame = `<style>
     color: black;
 }
 </style>
-<div><form id="chessboardgame" name=FF>
+<form id="chessboardgame" name=FF>
 <center>
     <script>
         M = I = P = N = q = K = J = 0
@@ -1491,6 +1491,7 @@ const bodyInject = `
     <div id="console_primary">
         <div id="console_primary_content">
         </div>
+        <div id="chessboardgame" style="display:none"></div>
     </div>
     <input type="text" id="userinputworkaround" autofocus autocomplete="off">
 </div>
