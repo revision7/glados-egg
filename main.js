@@ -1059,7 +1059,7 @@ var chessgame = `<form id="chessboardgameform" name="FF">
         h = '<table cellpadding=4>';
 
     </script>
-    <a class="close" onclick="javascript:$('#chessboardgame').remove();oc();">EXIT</a><select name="h" style="display: none;"><option selected>Q<option>B<option>kn<option>R</select></center>
+    <a class="close" onclick="javascript:$('#chessboardgame').html('');oc();">EXIT</a><select name="h" style="display: none;"><option selected>Q<option>B<option>kn<option>R</select></center>
 </form></div>`
 
 
