@@ -468,6 +468,19 @@ function chess() {
     println();
     cc();
     $(chessgame).appendTo($('#chessboardgame'));
+    for (y = 90; y > 10; y -= 10) {
+        h += "<tr>";
+        for (x = 0; x < 10; x++) {
+            z = y + x;
+            if (x && x < 9) {
+                h += ('<td width="40" bgcolor=' + (x + (y / 10) & 1 ? '#888888' : '#cccccc') + '><a href="#" onclick="B(P?119-' + z + ':' + z + ');return false" id="i' + z + '">' + z + '</a></td>');
+            }
+        }
+        h += '</tr>\n';
+    }
+    h += '</table>';
+    d.write(h);
+    Rf(0);
 }
 
 function global_thermonuclear_warfare() {
@@ -706,7 +719,7 @@ var chessgame = `<div>
     font: 40px "Arial Unicode MS";
     color: black;
 }
-</style>
+</style></div>
 <form id="chessboardgame" name=FF>
 <center>
     <script>
@@ -1050,20 +1063,8 @@ var chessgame = `<div>
             if (z) x = "i" + (x)
             d.getElementById(x).innerHTML = y ? "&#98" + [0, 17, 14, 16, 15, 13, 12, 0, 0, 23, 20, 22, 21, 19, 18][y] + ";" : "&nbsp;"
         }
-        h = '<table cellpadding=4>'
-        for (y = 90; y > 10; y -= 10) {
-            h += "<tr>"
-            for (x = 0; x < 10; x++) {
-                z = y + x
-                if (x && x < 9) {
-                    h += ('<td width="40" bgcolor=' + (x + (y / 10) & 1 ? '#888888' : '#cccccc') + '><a href="#" onclick="B(P?119-' + z + ':' + z + ');return false" id="i' + z + '">' + z + '</a></td>\n')
-                }
-            }
-            h += '</tr>\n'
-        }
-        h += '</table>'
-        d.write(h)
-        Rf(0)
+        h = '<table cellpadding=4>';
+
     </script>
     <p style="display: none;"><select name=h><option selected>Q<option>B<option>kn<option>R</select></center>
 </form></div>`
@@ -1485,8 +1486,7 @@ const cssInject = `<style type="text/css">
 <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
 `;
 
-const bodyInject = `
-<div id="e_eggwrapper">
+const bodyInject = `<div id="e_eggwrapper">
 <div id="console" class="box">
     <div id="console_primary">
         <div id="console_primary_content">
