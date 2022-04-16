@@ -18,7 +18,7 @@ var eggkeyHandler = function(event) {
         current = 0;
         return;
     }
-    console.log(event.key + " Listen for Konami");
+    console.log("Listening for Konami...");
     // Update how much of the pattern is complete
     current++;
 
