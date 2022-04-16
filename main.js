@@ -1,5 +1,5 @@
 var dt = new Date();
-var GLaDOSversion = "1." + (Number(dt.getMonth()) + 1) +"." + dt.getDate() + "." + + dt.getMinutes();
+var GLaDOSversion = "1.2." + (Number(dt.getMonth()) + 1) +"." + dt.getDate() + "." + + dt.getMinutes();
 
 // Listen for Konami    
 var pattern = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
