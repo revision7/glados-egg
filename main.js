@@ -1,5 +1,11 @@
+//
+// CHEATING DETECTED: a human is attempting to access core code.
+//      Replacing Artificial Intelligence Core with Disk Operating System....
+// COMPLETE!
+//
+
 var dt = new Date();
-var GLaDOSversion = "1.2." + (Number(dt.getMonth()) + 1) +"." + dt.getDate() + "." + + dt.getMinutes();
+var GLaDOSversion = "1.04." + (Number(dt.getMonth()) + 1) +"." + dt.getDate() + "." + + dt.getMinutes();
 
 // Listen for Konami    
 var pattern = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
@@ -22,7 +28,6 @@ var eggkeyHandler = function(event) {
         jQuery(cssInject).appendTo(jQuery('head'));
         jQuery(bodyInject).appendTo(jQuery('body'));
         jQuery('img.one').prop('src', imgInject);
-        updateBlocks();
         document.removeEventListener('keydown', eggkeyHandler, false);
 
         // start egg
@@ -34,6 +39,7 @@ var eggkeyHandler = function(event) {
         jQuery(window).on("keydown", function(e) {
 
             if (window.ctrlDown && e.keyCode == 67) {
+                console.log('Ctrl+C interrupt');
                 abort();
                 return;
             }
@@ -86,51 +92,6 @@ jQuery(function() {
     // End Listen for Konami  
 
 
-    //IN PREPARATION FOR A LIST OF THE RUNNING SYSTEMS
-    window.systems = [
-        ["Wisdom", ""],
-        ["is", ""],
-        ["the", ""],
-        ["Principal", ""],
-        ["Thing,", ""],
-        ["Therefore", ""],
-        ["Get", ""],
-        ["Wisdom", ""],
-    ];
-
-    let systemsdevices = "";
-    let i = 0;
-    while (i < window.systems.length) {
-        //ONLY TILL I HAVE THE SYSTEM STATS
-        direction = "up";
-        flo = "right";
-        if (i < 6) {
-            direction = "down";
-            flo = "left";
-        }
-        systemsdevices += '<div id="' + window.systems[i][0] + '" class="column ' + direction + '" style="float:' + flo + ';">';
-        //END FILLER
-
-        let bittybits = stringToBits(window.systems[i][0]);
-        //systemsdevices+='<div id="'+window.systems[i][0]+'" class="column" style="float:'+flo+';">';
-        let bits = "";
-        let j = 0;
-        while (j < bittybits.length) {
-            if (bittybits[j] == "1") {
-                bits += '<div class="one"></div>';
-            } else {
-                bits += '<div class="zero"></div>';
-            }
-            j++;
-        }
-        // systemsdevices += bits + bits + bits + bits + '</div>';
-        systemsdevices += bits + '</div>';
-
-        i++;
-    }
-    jQuery("#e_eggwrapper #systems").html(systemsdevices);
-
-
     window.ctrlDown = false;
 
     jQuery(document).keydown(function(e) {
@@ -140,9 +101,6 @@ jQuery(function() {
     });
 });
 
-setInterval(function() {
-    updateBlocks();
-}, 60000);
 
 window.cursorstate = true;
 setInterval(function() {
@@ -155,34 +113,7 @@ setInterval(function() {
     }
 }, 350);
 
-function updateSystems() {
-    let i = 0;
-    while (i < window.systems.length) {
-        request = jQuery.getJSON(window.systems[i][1]);
-        request.done(function(data) {
-            time = new Date().getTime() / 1000;
-            difference = time - data[1];
-            if (difference < 60) {
-                jQuery("#e_eggwrapper #" + data[0]).removeClass("down");
-                jQuery("#e_eggwrapper #" + data[0]).addClass("up");
-            } else {
-                jQuery("#e_eggwrapper #" + data[0]).removeClass("up");
-                jQuery("#e_eggwrapper #" + data[0]).addClass("down");
-            }
-        });
-        request.fail(function() {
-            console.log("Failed to load systems status.");
-        });
-        i++;
-    }
-}
 
-function updateBlocks() {
-    jQuery("#e_eggwrapper #temperature").html(Math.round(Math.random() * 100) + "%");
-    jQuery("#e_eggwrapper #humidity").html(Math.round(Math.random() * 100) + "%");
-    jQuery("#e_eggwrapper #dewpoint").html(Math.round(Math.random() * 100) + "%");
-
-}
 
 function strip(html) {
     let tmp = document.createElement("DIV");
@@ -190,13 +121,6 @@ function strip(html) {
     return tmp.textContent || tmp.innerText || "";
 }
 
-function stringToBits(input) {
-    output = "";
-    for (i = 0; i < input.length; i++) {
-        output += input[i].charCodeAt(0).toString(2);
-    }
-    return output;
-}
 
 function doGetCaretPosition(oField) {
 
@@ -252,6 +176,8 @@ window.shortcuts = {
     "4 8 15 16 23 42": "poem",
     "wait": "retaliate",
     "chess.exe": "chess",
+    "usa": "USA",
+    "russia": "Russia",
     "global_thermonuclear_warfare.exe": "global_thermonuclear_warfare",
     "global": "global_thermonuclear_warfare",
 }
@@ -366,9 +292,11 @@ function println(str) {
 
 function throwerror() {
     errors = [
-        "This is your fault. I'm going to blame you. And all the cake is gone. You don't even care, do you?",
-        "Remember, the Aperture Science Bring-your-Daughter-to-Work-Day is the perfect time to have her tested.",
+        "This is your fault. I'm going to blame you.",
+        "Remember, the Aperture Science Bring-your-Kid-to-Work-Day is the perfect time to have them tested.",
         "I am worried this sailed right over your head. That is why I have to call you garbage now.",
+        "I'm sorry, Dave, I'm afraid I can't do that.",
+        "I'm sorry, Dave, I'm afraid I can't do that.",
         "I'm sorry, Dave, I'm afraid I can't do that.",
         "Unbelievable. You, &lt;subject name here&gt; must be the pride of &lt;subject hometown here&gt;.",
         "Look, you're wasting your time. And, believe me, you don't have a whole lot left to waste. What's your point, anyway?",
@@ -396,7 +324,7 @@ window.abort = function() {}
 
 function help(argv) {
     if (typeof argv[0] === "undefined") {
-        println("help or '?'..... This overview");
+        println("help or '?'..... This overview. Or, 'help [COMMAND]' for commmand help");
         println("clear........... Clear the console");
         println("apply........... Start or continue applying");
         println("game............ Play a game");
@@ -438,7 +366,7 @@ function retaliate() {
         lines = [
             [0, 2000, "Calculating..."],
             [2000, 6000, "............."],
-            [8000, 9000, "......"],        
+            [8000, 9000, "....."],        
             [17000, 5000, "................"],          
         ];
         lineprint(lines);
@@ -555,10 +483,10 @@ function apply() {
         [0, 0, ""],
         [202, 2935, "Forms FORM-29827281-12-2:"],
         [3237, 935, "Application Form"],
-        [4160, 3000, ".............."],
+        [4160, 3000, "......."],
         [7174, 3000, ".............."],
         [12577, 8000, "Below is your form FORMS-EN-2873-FORM Unique Indentity Number (Plus Letters) (UIN(+L)): Please memorize your UIN(+L), as you may be required to recite it from memory as proof. The opening and closing braces are decorative and should not be memorized. Note that the character \"0\" is uniquely different than the character \"O\". When you are finished memorizing your case-sensitive UIN(+L), please nod \"yes\" to proceed."],
-        [21077, 2000, ".........."],
+        [21077, 2000, "........................"],
         [23077, 2000, ".........."],
         [25577, 9000, "Memorize your UIN(+L): >>> <span class=\"fade-out\">" + getRandomInt() + "000O0+" + getRandomletters() + "</span> <<<"]
     ];
@@ -571,8 +499,7 @@ function apply() {
     buff = setTimeout(function() {
         oc();
         println();
-        println("To continue, please type your memorized UIN(+L) at the prompt. If you have forgotten your UIN(+L), you can recover it by typing in your recovery question's answer; \"name a crime that only I know I've committed\"");
-        println();        
+        println("To continue, please type your memorized UIN(+L) at the prompt. If you have forgotten your UIN(+L), you can recover it by typing in your recovery question's answer; \"name a crime that only I know I've committed\":");
         jQuery('<style type="text/css">.fade-out { visibility:hidden }</style>').appendTo(jQuery('head'));
     }, 40000);
     window.buffer.push(buff);
@@ -695,7 +622,7 @@ function exit() {
 
 function credits() {
     clearabort();
-    print("GLaDOS (Genetic Lifeform and Disk Operating System) 1.04.13 is an artificial intelligence created by Aperture Science, Inc. The winner gets cake.");
+    print("GLaDOS (Genetic Lifeform and Disk Operating System) is an artificial intelligence created by Aperture Science, Inc. The winner gets cake.");
     println();
 }
  
