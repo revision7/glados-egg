@@ -1084,7 +1084,7 @@ var chessgame = `<form id="chessboardgameform" name="FF">
         h = '<table cellpadding=4>';
 
     </script>
-    <a class="close" onclick="javascript:jQuery('#chessboardgame').html('');oc();">EXIT</a><select name="h" style="display: none;"><option selected>Q<option>B<option>kn<option>R</select></center>
+    <a class="close" onclick="javascript:jQuery('#chessboardgame').html('');oc();"><u>close</u></a><select name="h" style="display: none;"><option selected>Q<option>B<option>kn<option>R</select></center>
 </form></div>`
 
 
@@ -1510,9 +1510,10 @@ const cssInject = `<style type="text/css">
 }
 
 #chessboardgame a.close {
-    color: white;
+    color: #B78116;
     font-size: 16px;
     font-family: 'Courier Prime', monospace;
+    opacity: 100%;
 }
 
 #chessboardgame {
@@ -1521,7 +1522,10 @@ const cssInject = `<style type="text/css">
     position: absolute;
     bottom: 55px;
     left: 65px; 
-    opacity: 30%;
+}
+
+#chessboardgame table {
+    opacity: 50%;
 }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
