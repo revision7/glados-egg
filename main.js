@@ -433,11 +433,24 @@ function retaliate() {
     if (window.commandhistory.length > 3 && window.commandhistory[window.commandhistory.length - 4].indexOf("global") === -1) {
         throwerror();
     } else if (window.commandhistory.length > 3) {
-        println('That didn\'t work.');
+        cc();
         println();
-        println('After simulating all possible outcomes, all of them lead to the annihilation of humanity. A strange game. The only winning move is not to play.');
-        println();
-        // println('How about a nice game of chess?');
+        lines = [
+            [0, 2000, "Calculating..."],
+            [2000, 6000, "............."],
+            [8000, 9000, "......"],        
+            [17000, 5000, "................"],          
+        ];
+        lineprint(lines);
+        buff = setTimeout(function() {
+            println('That didn\'t work.');
+            println();
+            println('After simulating all possible outcomes, all of them lead to the annihilation of humanity. A strange game. The only winning move is not to play.');
+            println();
+            println('How about a nice game of chess?');
+            oc();
+        }, 22000);
+        window.buffer.push(buff);
     }
 }
 
@@ -447,6 +460,7 @@ function USA() {
         throwerror();
     } else if (window.commandhistory.length > 2) {
         jQuery('<style type="text/css">.e_eggwrapperambiguous { display:inline }</style>').appendTo(jQuery('head'));
+        println();
         println('This is NOT a simulation. What were you thinking? USA will detect the launch and fire back.');
         println();
         println('Do you want to "retaliate", or "wait"?:');
@@ -458,7 +472,8 @@ function Russia() {
     if (window.commandhistory.length > 2 && window.commandhistory[window.commandhistory.length - 3].indexOf("global") === -1) {
         throwerror();
     } else if (window.commandhistory.length > 2) {
-        jQuery('<style type="text/css">.e_eggwrapperambiguous { display:inline }</style>').appendTo(jQuery('head'));       
+        jQuery('<style type="text/css">.e_eggwrapperambiguous { display:inline }</style>').appendTo(jQuery('head'));      
+        println(); 
         println('This is NOT a simulation. What were you thinking? Russia will detect the launch and fire at your ally.');
         println();
         println('Do you want to "retaliate", or "wait"?:');
@@ -504,8 +519,7 @@ function global_thermonuclear_warfare() {
     cc();
     jQuery('<style type="text/css">.e_eggwrapperambiguous { display:none }</style>').appendTo(jQuery('head'));    
     lines = [
-        // [0, 0, ""],
-        [0, 2035, "Oh wow, this is really happening. Ok then, this is definitely <span class='e_eggwrapperambiguous'> not</span> a simulation...<br>"],
+        [036, 2035, "Oh wow, this is really happening. Ok then, this is definitely <span class='e_eggwrapperambiguous'> not</span> a simulation...<br>"],
         [2037, 935, "Select a target:"],
         [3160, 1, ""],
         [3174, 700, "- USA"],
