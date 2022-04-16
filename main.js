@@ -1106,7 +1106,7 @@ const cssInject = `<style type="text/css">
     background-color: #2d1d04;
     min-width: 870px;
     margin: 0;
-    z-index: 9999;
+    z-index: 999999;
 }
 
 #e_eggwrapper #console {
