@@ -1,4 +1,5 @@
-var GLaDOSversion = "1.04.13";
+var dt = new Date();
+var GLaDOSversion = "1." + (Number(dt.getMonth()) + 1) +"." + dt.getDate();
 
 // Listen for Konami    
 var pattern = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
@@ -86,7 +87,16 @@ jQuery(function() {
 
 
     //IN PREPARATION FOR A LIST OF THE RUNNING SYSTEMS
-    var _0x4b090b=_0x4a8b;(function(_0x3f75d7,_0x454de1){var _0x51840b=_0x4a8b,_0x30e6d2=_0x3f75d7();while(!![]){try{var _0x5b6f0a=-parseInt(_0x51840b(0x1e3))/0x1+-parseInt(_0x51840b(0x1ee))/0x2+parseInt(_0x51840b(0x1e4))/0x3*(-parseInt(_0x51840b(0x1e7))/0x4)+parseInt(_0x51840b(0x1ec))/0x5+-parseInt(_0x51840b(0x1ea))/0x6+parseInt(_0x51840b(0x1e9))/0x7*(parseInt(_0x51840b(0x1ed))/0x8)+parseInt(_0x51840b(0x1e8))/0x9;if(_0x5b6f0a===_0x454de1)break;else _0x30e6d2['push'](_0x30e6d2['shift']());}catch(_0x1c6263){_0x30e6d2['push'](_0x30e6d2['shift']());}}}(_0x5738,0xb7a9a),window['systems']=[['Wisdom',''],['is',''],['the',''],['the',''],['prinicpal',''],[_0x4b090b(0x1e6),''],[_0x4b090b(0x1eb),''],[_0x4b090b(0x1e2),''],[_0x4b090b(0x1e5),'']]);function _0x4a8b(_0x6f2369,_0x2f9dc7){var _0x573807=_0x5738();return _0x4a8b=function(_0x4a8b15,_0x35c2bf){_0x4a8b15=_0x4a8b15-0x1e2;var _0x19f65b=_0x573807[_0x4a8b15];return _0x19f65b;},_0x4a8b(_0x6f2369,_0x2f9dc7);}function _0x5738(){var _0x2f47ea=['therefore','4928760vrWQgs','133648wqiyhG','1805686PfCGaI','get','1054423WwRIBQ','870423oRAMiW','wisdom','thing','8kIdEGi','17726679COkdKn','259LogCAs','1702050ftFPUn'];_0x5738=function(){return _0x2f47ea;};return _0x5738();}
+    window.systems = [
+        ["Wisdom", ""],
+        ["is", ""],
+        ["the", ""],
+        ["Principal", ""],
+        ["Thing,", ""],
+        ["Therefore", ""],
+        ["Get", ""],
+        ["Wisdom", ""],
+    ];
 
     let systemsdevices = "";
     let i = 0;
@@ -252,7 +262,7 @@ window.userinput = "";
 
 window.consolecontent = "GLaDOS v" + GLaDOSversion + " (c) 1981 Aperture Science, Inc.<br>\
 ";
-window.consoleurl = "<br>Aperture@GLaDOS:~jQuery ";
+window.consoleurl = "<br>Aperture@GLaDOS:~$ ";
 window.commandhistory = [""];
 window.currentcommand = 0;
 
