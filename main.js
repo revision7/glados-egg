@@ -18,35 +18,35 @@ var eggkeyHandler = function(event) {
     // If complete, run then stop listening
     if (pattern.length === current) {
         current = 0;
-        $(cssInject).appendTo($('head'));
-        $(bodyInject).appendTo($('body'));
-        $('img.one').prop('src', imgInject);
+        jQuery(cssInject).appendTo(jQuery('head'));
+        jQuery(bodyInject).appendTo(jQuery('body'));
+        jQuery('img.one').prop('src', imgInject);
         updateBlocks();
         document.removeEventListener('keydown', eggkeyHandler, false);
 
         // start egg
-        $(document).click(function() {
-            $("#e_eggwrapper #userinputworkaround").focus()
+        jQuery(document).click(function() {
+            jQuery("#e_eggwrapper #userinputworkaround").focus()
         });
-        $("#e_eggwrapper #userinputworkaround").focus();
+        jQuery("#e_eggwrapper #userinputworkaround").focus();
 
-        $(window).on("keydown", function(e) {
+        jQuery(window).on("keydown", function(e) {
 
             if (window.ctrlDown && e.keyCode == 67) {
                 abort();
                 return;
             }
             if (window.consolerunning) {
-                $("#e_eggwrapper #userinputworkaround").val("");
+                jQuery("#e_eggwrapper #userinputworkaround").val("");
                 window.userinput = "";
                 return;
             }
             setTimeout(function() {
-                window.userinput = $("#e_eggwrapper #userinputworkaround").val();
+                window.userinput = jQuery("#e_eggwrapper #userinputworkaround").val();
                 if (e.which == 13) {
                     e.preventDefault();
                     e.stopPropagation();
-                    $("#e_eggwrapper #userinputworkaround").val("");
+                    jQuery("#e_eggwrapper #userinputworkaround").val("");
                     runCommand(window.userinput);
                 } else if (e.which == 38) {
                     e.preventDefault();
@@ -64,7 +64,7 @@ var eggkeyHandler = function(event) {
         setTimeout(function() {
             if (startdelay) {
                 window.userinput = "";
-                $("#e_eggwrapper #userinputworkaround").val("");
+                jQuery("#e_eggwrapper #userinputworkaround").val("");
                 updateConsole();
                 startdelay = false;
             }
@@ -77,7 +77,8 @@ var eggkeyHandler = function(event) {
 
 };
 
-$(function() {
+
+jQuery(function() {
     // Listen for keydown events
     document.addEventListener('keydown', eggkeyHandler, false);
     console.log('GLaDOS ' + GLaDOSversion + ' waiting');
@@ -117,12 +118,12 @@ $(function() {
 
         i++;
     }
-    $("#e_eggwrapper #systems").html(systemsdevices);
+    jQuery("#e_eggwrapper #systems").html(systemsdevices);
 
 
     window.ctrlDown = false;
 
-    $(document).keydown(function(e) {
+    jQuery(document).keydown(function(e) {
         if (e.which == 17) ctrlDown = true;
     }).keyup(function(e) {
         if (e.which == 17) ctrlDown = false;
@@ -136,10 +137,10 @@ setInterval(function() {
 window.cursorstate = true;
 setInterval(function() {
     if (window.cursorstate) {
-        $("#e_eggwrapper #cursorblinking").css("text-decoration", "none");
+        jQuery("#e_eggwrapper #cursorblinking").css("text-decoration", "none");
         window.cursorstate = false;
     } else {
-        $("#e_eggwrapper #cursorblinking").css("text-decoration", "underline");
+        jQuery("#e_eggwrapper #cursorblinking").css("text-decoration", "underline");
         window.cursorstate = true;
     }
 }, 350);
@@ -147,16 +148,16 @@ setInterval(function() {
 function updateSystems() {
     let i = 0;
     while (i < window.systems.length) {
-        request = $.getJSON(window.systems[i][1]);
+        request = jQuery.getJSON(window.systems[i][1]);
         request.done(function(data) {
             time = new Date().getTime() / 1000;
             difference = time - data[1];
             if (difference < 60) {
-                $("#e_eggwrapper #" + data[0]).removeClass("down");
-                $("#e_eggwrapper #" + data[0]).addClass("up");
+                jQuery("#e_eggwrapper #" + data[0]).removeClass("down");
+                jQuery("#e_eggwrapper #" + data[0]).addClass("up");
             } else {
-                $("#e_eggwrapper #" + data[0]).removeClass("up");
-                $("#e_eggwrapper #" + data[0]).addClass("down");
+                jQuery("#e_eggwrapper #" + data[0]).removeClass("up");
+                jQuery("#e_eggwrapper #" + data[0]).addClass("down");
             }
         });
         request.fail(function() {
@@ -167,9 +168,9 @@ function updateSystems() {
 }
 
 function updateBlocks() {
-    $("#e_eggwrapper #temperature").html(Math.round(Math.random() * 100) + "%");
-    $("#e_eggwrapper #humidity").html(Math.round(Math.random() * 100) + "%");
-    $("#e_eggwrapper #dewpoint").html(Math.round(Math.random() * 100) + "%");
+    jQuery("#e_eggwrapper #temperature").html(Math.round(Math.random() * 100) + "%");
+    jQuery("#e_eggwrapper #humidity").html(Math.round(Math.random() * 100) + "%");
+    jQuery("#e_eggwrapper #dewpoint").html(Math.round(Math.random() * 100) + "%");
 
 }
 
@@ -251,7 +252,7 @@ window.userinput = "";
 
 window.consolecontent = "GLaDOS v" + GLaDOSversion + " (c) 1981 Aperture Science, Inc.<br>\
 ";
-window.consoleurl = "<br>Aperture@GLaDOS:~$ ";
+window.consoleurl = "<br>Aperture@GLaDOS:~jQuery ";
 window.commandhistory = [""];
 window.currentcommand = 0;
 
@@ -259,13 +260,13 @@ window.currentcommand = 0;
 function oneCommandBack() {
     window.currentcommand = window.currentcommand > 0 ? window.currentcommand - 1 : 0;
     window.userinput = window.commandhistory[window.currentcommand];
-    $("#e_eggwrapper #userinputworkaround").val(window.userinput);
+    jQuery("#e_eggwrapper #userinputworkaround").val(window.userinput);
 }
 
 function oneCommandForward() {
     window.currentcommand = window.currentcommand < window.commandhistory.length - 1 ? window.currentcommand + 1 : window.commandhistory.length - 1;
     window.userinput = window.commandhistory[window.currentcommand];
-    $("#e_eggwrapper #userinputworkaround").val(window.userinput);
+    jQuery("#e_eggwrapper #userinputworkaround").val(window.userinput);
 }
 
 function spanify(str) {
@@ -292,13 +293,13 @@ function updateConsole() {
     //Removing the forcelinebreak-div will freeze hell and make the dead walk the earth. You want that? No, you don't. So don't remove this.
     let cursorpos = doGetCaretPosition(document.getElementById("userinputworkaround"));
     if (window.consolerunning) {
-        $("#e_eggwrapper #console_primary_content").html("<div id=forcelinebreak></div>" + window.consolecontent + "<span id=userinput><span id=cursorblinking>&nbsp;</span></span>");
-        $("#e_eggwrapper #userinput > span").removeClass("mark");
-        $("#e_eggwrapper #userinput > span:last-child").addClass("mark");
+        jQuery("#e_eggwrapper #console_primary_content").html("<div id=forcelinebreak></div>" + window.consolecontent + "<span id=userinput><span id=cursorblinking>&nbsp;</span></span>");
+        jQuery("#e_eggwrapper #userinput > span").removeClass("mark");
+        jQuery("#e_eggwrapper #userinput > span:last-child").addClass("mark");
     } else {
-        $("#e_eggwrapper #console_primary_content").html("<div id=forcelinebreak></div>" + window.consolecontent + window.consoleurl + "<div id=forcelinebreak></div><span id=userinput>" + spanify(window.userinput) + "<span id=cursorblinking>&nbsp;</span></span>");
-        $("#e_eggwrapper #userinput > span").removeClass("mark");
-        $("#e_eggwrapper #userinput > span:nth-child(" + (cursorpos + 1) + ")").addClass("mark");
+        jQuery("#e_eggwrapper #console_primary_content").html("<div id=forcelinebreak></div>" + window.consolecontent + window.consoleurl + "<div id=forcelinebreak></div><span id=userinput>" + spanify(window.userinput) + "<span id=cursorblinking>&nbsp;</span></span>");
+        jQuery("#e_eggwrapper #userinput > span").removeClass("mark");
+        jQuery("#e_eggwrapper #userinput > span:nth-child(" + (cursorpos + 1) + ")").addClass("mark");
     }
 }
 
@@ -435,7 +436,7 @@ function USA() {
     if (window.commandhistory.length > 2 && window.commandhistory[window.commandhistory.length - 3].indexOf("global") === -1) {
         throwerror();
     } else if (window.commandhistory.length > 2) {
-        $('<style type="text/css">.e_eggwrapperambiguous { display:inline }</style>').appendTo($('head'));
+        jQuery('<style type="text/css">.e_eggwrapperambiguous { display:inline }</style>').appendTo(jQuery('head'));
         println('This is NOT a simulation. What were you thinking? USA will detect the launch and fire back.');
         println();
         println('Do you want to "retaliate", or "wait"?:');
@@ -447,7 +448,7 @@ function Russia() {
     if (window.commandhistory.length > 2 && window.commandhistory[window.commandhistory.length - 3].indexOf("global") === -1) {
         throwerror();
     } else if (window.commandhistory.length > 2) {
-        $('<style type="text/css">.e_eggwrapperambiguous { display:inline }</style>').appendTo($('head'));       
+        jQuery('<style type="text/css">.e_eggwrapperambiguous { display:inline }</style>').appendTo(jQuery('head'));       
         println('This is NOT a simulation. What were you thinking? Russia will detect the launch and fire at your ally.');
         println();
         println('Do you want to "retaliate", or "wait"?:');
@@ -470,7 +471,7 @@ function chess() {
     println("You are white. Make your move.");
     println();
     cc();
-    $(chessgame).appendTo($('#chessboardgame'));
+    jQuery(chessgame).appendTo(jQuery('#chessboardgame'));
     for (y = 90; y > 10; y -= 10) {
         h += "<tr>";
         for (x = 0; x < 10; x++) {
@@ -482,8 +483,8 @@ function chess() {
         h += '</tr>\n';
     }
     h += '</table>';
-    $(h).appendTo($('#chessboardgame'));    
-    $('#chessboardgame').show();
+    jQuery(h).appendTo(jQuery('#chessboardgame'));    
+    jQuery('#chessboardgame').show();
     Rf(0);
 }
 
@@ -491,7 +492,7 @@ function global_thermonuclear_warfare() {
     abort = function() {};
     println();
     cc();
-    $('<style type="text/css">.e_eggwrapperambiguous { display:none }</style>').appendTo($('head'));    
+    jQuery('<style type="text/css">.e_eggwrapperambiguous { display:none }</style>').appendTo(jQuery('head'));    
     lines = [
         // [0, 0, ""],
         [0, 2035, "Oh wow, this is really happening. Ok then, this is definitely <span class='e_eggwrapperambiguous'> not</span> a simulation...<br>"],
@@ -539,7 +540,7 @@ function apply() {
     ];
     lineprint(lines);
     buff = setTimeout(function() {
-        $('<style type="text/css">.fade-out { visibility:visible }</style>').appendTo($('head'));
+        jQuery('<style type="text/css">.fade-out { visibility:visible }</style>').appendTo(jQuery('head'));
     }, 25500);
     window.buffer.push(buff);
 
@@ -548,7 +549,7 @@ function apply() {
         println();
         println("To continue, please type your memorized UIN(+L) at the prompt. If you have forgotten your UIN(+L), you can recover it by typing in your recovery question's answer; \"name a crime that only I know I've committed\"");
         println();        
-        $('<style type="text/css">.fade-out { visibility:hidden }</style>').appendTo($('head'));
+        jQuery('<style type="text/css">.fade-out { visibility:hidden }</style>').appendTo(jQuery('head'));
     }, 40000);
     window.buffer.push(buff);
 
@@ -620,7 +621,7 @@ function poem() {
 
     buff = setTimeout(function() {
         document.getElementById("wantyougone").pause();
-        $("#e_eggwrapper #wantyougone").prop("currentTime", 0);
+        jQuery("#e_eggwrapper #wantyougone").prop("currentTime", 0);
         clearabort();
         oc();
     }, opentime + 2500);
@@ -635,7 +636,7 @@ function poem() {
         for (id in window.buffer) {
             clearTimeout(window.buffer[id]);
             document.getElementById("wantyougone").pause();
-            $("#e_eggwrapper #wantyougone").prop("currentTime", 0);
+            jQuery("#e_eggwrapper #wantyougone").prop("currentTime", 0);
             oc();
         }
         clearabort();
@@ -663,7 +664,7 @@ function exit() {
             aserg3456 = false;
             document.addEventListener('keydown', eggkeyHandler, false);
             updateConsole();
-            $('#e_eggwrapper').remove();
+            jQuery('#e_eggwrapper').remove();
         }, 1500);
     }
 }
@@ -1059,7 +1060,7 @@ var chessgame = `<form id="chessboardgameform" name="FF">
         h = '<table cellpadding=4>';
 
     </script>
-    <a class="close" onclick="javascript:$('#chessboardgame').html('');oc();">EXIT</a><select name="h" style="display: none;"><option selected>Q<option>B<option>kn<option>R</select></center>
+    <a class="close" onclick="javascript:jQuery('#chessboardgame').html('');oc();">EXIT</a><select name="h" style="display: none;"><option selected>Q<option>B<option>kn<option>R</select></center>
 </form></div>`
 
 
