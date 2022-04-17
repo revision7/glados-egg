@@ -1,6 +1,13 @@
+//    _____ _           _____   ____   _____ 
+//    / ____| |         |  __ \ / __ \ / ____|
+//   | |  __| |     __ _| |  | | |  | | (___  
+//   | | |_ | |    / _` | |  | | |  | |\___ \ 
+//   | |__| | |___| (_| | |__| | |__| |____) |
+//    \_____|______\__,_|_____/ \____/|_____/ 
 //
 // CHEATING DETECTED: a human is attempting to access core code.
-//      Replacing Artificial Intelligence Core with Disk Operating System....
+// Replacing Artificial Intelligence Core with Disk Operating System....
+// .........
 // COMPLETE!
 //
 
