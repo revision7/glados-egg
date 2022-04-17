@@ -340,6 +340,8 @@ function help(argv) {
         // println("opensource...... ");
         println("credits......... Prints the credits");
         println("exit............ Exit");
+        println("");
+        println("If this is an actual plea for help in response to a hazardous material spill, an explosion, a fire on your person, radiation poisoning, a choking gas of unknown origin, eye trauma resulting from the use of an emergency eye wash station on floors three, four, or eleven, an animal malfunction, or any other injurious experimental equipment failure, please remain at your workstation. Even if it takes 1-2 weeks. A Crisis Response Team has already been mobilized to deliberate on a response to your crisis.");
         return;
     }
 
@@ -354,6 +356,7 @@ function help(argv) {
             println("Pssst...never engage in global thermonulear warfare. All outcomes are futile.");
             break;                            
         default:
+            println("ERROR 4-8-15-16-23-42: Let's be honest. Neither one of us knows what that thing does. Just put it in the corner and I'll deal with it later.");
             throwerror();
             break;
     }
