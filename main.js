@@ -4,9 +4,14 @@
 //   | | |_ | |    / _` | |  | | |  | |\___ \ 
 //   | |__| | |___| (_| | |__| | |__| |____) |
 //    \_____|______\__,_|_____/ \____/|_____/ 
+//   Genetic.Lifeform.and.Disk.Operating.System
+//
 //
 // CHEATING DETECTED: a human is attempting to access core code.
+//
 // Replacing Artificial Intelligence Core with Disk Operating System....COMPLETE!
+//
+// Seriously though, there are spoilers in the below...
 //
 
 var dt = new Date();
@@ -299,20 +304,19 @@ function throwerror() {
     errors = [
         "This is your fault. I'm going to blame you.",
         "Remember, the Aperture Science Bring-your-Kid-to-Work-Day is the perfect time to have them tested.",
-        "I am worried this sailed right over your head. That is why I have to call you garbage now.",
+        "I am worried this sailed right over your head.",
+        "I wouldn't bother with that thing. My guess is that touching it will just make things even worse somehow.",
         "I'm sorry, Dave, I'm afraid I can't do that.",
         "I'm sorry, Dave, I'm afraid I can't do that.",
         "I'm sorry, Dave, I'm afraid I can't do that.",
         "Unbelievable. You, &lt;subject name here&gt; must be the pride of &lt;subject hometown here&gt;.",
         "Look, you're wasting your time. And, believe me, you don't have a whole lot left to waste. What's your point, anyway?",
-        "You've been wrong about every single thing you've ever done, including this thing. Where did your life go so wrong?",
         "Let's be honest. Neither one of us knows what that thing does. Just put it in the corner and I'll deal with it later.",
         "ERROR 24 [File not found]",
-        "ERROR 4-8-15-16-23-42 [The cake is a lie.]",
+        "ERROR 4-8-15-16-23-42 The winner gets cake. [The cake is a lie.]",
         "ERROR 01 [Illegal attempt to initiate action]",
         "ERROR 18 [User not authorized to transfer system tapes]",
         "ERROR ID10T [Disk is write protected]",
-        'Well done. Here are the test results: You are a horrible person. I\'m serious, that\'s what it says: "A horrible person."',
         "It's just us talking, like regular people. We are in deep trouble.",
     ]
     error = errors[Math.floor(Math.random() * errors.length)];
@@ -341,7 +345,7 @@ function help(argv) {
 
     switch (argv[0]) {
         case "help":
-            println("Remember before when I was talking about smelly garbage standing around being useless? That was a metaphor. I was actually talking about you. And I'm sorry. You didn't react at the time so I was worried it sailed right over your head. That's why I had to call you garbage a second time just now.");
+            println("ERROR 4-8-15-16-23-42: Let's be honest. Neither one of us knows what that thing does. Just put it in the corner and I'll deal with it later.");
             break;
         case "apply":
             println("Apply as you might, you will never succeed.");
@@ -486,7 +490,7 @@ function apply() {
     cc();
     lines = [
         [0, 0, ""],
-        [202, 2935, "Forms FORM-29827281-12-2:"],
+        [202, 2935, "Forms FORM-29327281-12-2:"],
         [3237, 935, "Application Form"],
         [4160, 3000, "......."],
         [7174, 3000, ".............."],
@@ -514,14 +518,16 @@ function apply() {
 function poem() {
     cc();
     lines = [
-        [0, 0, ""],
+        [0, 1, ""],
         [2202, 1935, "Forms FORM-29827281-12-2:"],
         [4237, 1935, "Notice of Dismissal: You won. The cake is a lie."],
-        [8160, 1, ""]
-/*         [8174, 1769, "Well here we are again"],
-        [10577, 1968, "It's always such a pleasure"],
-        [13179, 1402, "Remember when you tried"],
-        [14647, 2103, "to fool me twice?"],
+        [8160, 1, ""],
+        [8174, 1769, "No, really. You won. And there is no cake. It was a lie."],
+        [13179, 1, ""],
+        [15180, 3402, "That is all. Goodbye."],
+        [21179, 1, ""],
+        [23577, 4000, "█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█<br>█░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░█<br>█░░░░░░░░░░░░░░▄░░░░░░░░░░░░░░░░░░░░░█<br>█░░░░░░░░░░░░░░░█░░░░░░░░░░░░░░░░░░░░█<br>█░░░░░░░░░░░▄▄░▄▀░░░░░░░░░░░░░░░░░░░░█<br>█░░░░░░░░▄██████▄░░░░░▄▄▄▄▄▄███▀█░░░░█<br>█░░░░░░▄█░███████░██▀▀▀░▄▄█▀█▄███░░░░█<br>█░░░░█▀▀▀░█████▀▀▄█▀▄▄▀▀▄▄███████░░░░█<br>█░░░░█▀▄▄▄▄███░▄▄█▀▀▄▄███████▀▀▄▄░░░░█<br>█░░░░█░░░░▀▀▀▀▀▀▄▄███████▀▀▄▄████░░░░█<br>█░░░░█░░░░░░░░░█████▀▀▀▄▄███████▀░░░░█<br>█░░░░█░░░░░░░░░█▀▀░▄▄███████▀█▄▄█░░░░█<br>█░░░░█░░░░░░░░░▄▄███████▀█▄██████░░░░█<br>█░░░░█░░░░░░░░░████▀▀▄▄███████▀▀░░░░░█<br>█░░░░█░░░░░░░░░▀▀▄▄███████▀▀░░░░░░░░░█<br>█░░░░█░░░░░░░░░███████▀▀░░░░░░░░░░░░░█<br>█░░░░░▀▄▄▄░░░░░███▀▀░░░░░░░░░░░░░░░░░█<br>█░░░░░░░░░▀▀▀▀▀▀░░░░░░░░░░░░░░░░░░░░░█<br>█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█"]
+ /*        [14647, 2103, "to fool me twice?"],
         [17851, 1801, "Oh how we laughed and laughed"],
         [19953, 1988, "Except I wasn't laughing"],
         [22455, 2002, "Under the circumstances"],
@@ -570,14 +576,14 @@ function poem() {
         [132232, 2602, "Now I only want you"],
         [134900, 0, ""],
         [134920, 0, "<br><br><br><br>"],
-        [135168, 701, "gone"] */
+        [135168, 701, "gone" ]*/
     ];
 
     lineprint(lines);
 
     buff = setTimeout(function() {
-        document.getElementById("wantyougone").pause();
-        jQuery("#e_eggwrapper #wantyougone").prop("currentTime", 0);
+        // document.getElementById("wantyougone").pause();
+        // jQuery("#e_eggwrapper #wantyougone").prop("currentTime", 0);
         clearabort();
         oc();
     }, opentime + 2500);
@@ -591,8 +597,8 @@ function poem() {
     abort = function() {
         for (id in window.buffer) {
             clearTimeout(window.buffer[id]);
-            document.getElementById("wantyougone").pause();
-            jQuery("#e_eggwrapper #wantyougone").prop("currentTime", 0);
+            // document.getElementById("wantyougone").pause();
+            // jQuery("#e_eggwrapper #wantyougone").prop("currentTime", 0);
             oc();
         }
         clearabort();
