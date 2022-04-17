@@ -6,9 +6,7 @@
 //    \_____|______\__,_|_____/ \____/|_____/ 
 //
 // CHEATING DETECTED: a human is attempting to access core code.
-// Replacing Artificial Intelligence Core with Disk Operating System....
-// .........
-// COMPLETE!
+// Replacing Artificial Intelligence Core with Disk Operating System....COMPLETE!
 //
 
 var dt = new Date();
