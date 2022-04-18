@@ -435,7 +435,7 @@ function poem() {
 
     buff = setTimeout(function() {
         clearabort();
-        oc();
+        // oc();
     }, opentime + 2500);
     window.buffer.push(buff);
 
@@ -448,7 +448,7 @@ function poem() {
         for (id in window.buffer) {
             clearTimeout(window.buffer[id]);
         }
-        oc();
+        // oc();
         clearabort();
     };
 }
