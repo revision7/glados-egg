@@ -363,7 +363,7 @@ function apply() {
 }
 
 function poem() {
-    if (window.commandhistory.length < 3) {
+    if (window.commandhistory.length < 4) {
         abort = function() {};
         return;
     }
