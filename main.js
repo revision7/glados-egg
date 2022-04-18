@@ -14,7 +14,7 @@
 //
 
 var dt = new Date();
-var GLaDOSversion = "1.03." + (Number(dt.getMonth()) + 1) +"." + dt.getDate() + "." + + dt.getMinutes();
+var GLaDOSversion = "1.3.2" + (Number(dt.getMonth()) + 1) +"." + dt.getDate() + "." + + dt.getMinutes();
 
 // Listen for Konami    
 var pattern = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
@@ -160,7 +160,7 @@ function throwerror() {
         "Look, you're wasting your time. And, believe me, you don't have a whole lot left to waste. What's your point, anyway?",
         "Let's be honest. Neither one of us knows what that thing does. Just put it in the corner and I'll deal with it later.",
         "ERROR 24 [File not found]",
-        "ERROR 4 8 15 16 23 42 The winner gets cake. [The cake is a lie.]",
+        "ERROR Command 4 8 15 16 23 42 The winner gets cake. [The cake is a lie.]",
         "ERROR 01 [Illegal attempt to initiate action]",
         "ERROR 18 [User not authorized to transfer system tapes]",
         "ERROR ID10T [Disk is write protected]",
