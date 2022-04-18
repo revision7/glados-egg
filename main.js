@@ -96,157 +96,6 @@ jQuery(function() {
 });
 
 
-function readybeginegg() {
-
-    // Listen for keydown events
-    document.addEventListener('keydown', eggkeyHandler, false);
-    console.log('GLaDOS ' + GLaDOSversion + ' waiting for konami code');
-    // End Listen for Konami  
-
-    window.cursorstate = true;
-    setInterval(function() {
-        if (window.cursorstate) {
-            jQuery("#e_eggwrapper #cursorblinking").css("text-decoration", "none");
-            window.cursorstate = false;
-        } else {
-            jQuery("#e_eggwrapper #cursorblinking").css("text-decoration", "underline");
-            window.cursorstate = true;
-        }
-    }, 350);
-
-    window.ctrlDown = false;
-
-    jQuery(document).keydown(function(e) {
-        if (e.which == 17) ctrlDown = true;
-    }).keyup(function(e) {
-        if (e.which == 17) ctrlDown = false;
-    });
-
-    window.registeredcommands = [
-        "help",
-        "clear",
-        "apply",
-        "game",
-        "chess",
-        "global_thermonuclear_warfare",
-        "exit",
-        "credits",
-        "poem",
-        "USA",
-        "Russia",
-        "retaliate",
-        "opensource"
-    ]
-    
-    window.shortcuts = {
-        "h": "help",
-        "?": "help",
-        "c": "clear",
-        "4815162342": "poem",
-        "4 8 15 16 23 42": "poem",
-        "wait": "retaliate",
-        "chess.exe": "chess",
-        "usa": "USA",
-        "russia": "Russia",
-        "global_thermonuclear_warfare.exe": "global_thermonuclear_warfare",
-        "global": "global_thermonuclear_warfare",
-    }
-    
-    window.consolerunning = false;
-    window.userinput = "";
-    window.consolecontent = "GLaDOS v" + GLaDOSversion + " (c) 1981 Aperture Science, Inc.<br>\
-    ";
-    window.consoleurl = "<br>Aperture@GLaDOS:~$ ";
-    window.commandhistory = [""];
-    window.currentcommand = 0;
-    window.startoffset = 2500;
-    window.buffer = false;
-    window.abort = function() {}
-}
-
-
-function strip(html) {
-    let tmp = document.createElement("DIV");
-    tmp.innerHTML = html;
-    return tmp.textContent || tmp.innerText || "";
-}
-
-
-function doGetCaretPosition(oField) {
-
-    // Initialize
-    let iCaretPos = 0;
-
-    // IE Support
-    if (document.selection) {
-
-        // Set focus on the element
-        oField.focus();
-
-        // To get cursor position, get empty selection range
-        let oSel = document.selection.createRange();
-
-        // Move selection start to 0 position
-        oSel.moveStart('character', -oField.value.length);
-
-        // The caret position is selection length
-        iCaretPos = oSel.text.length;
-    }
-
-    // Firefox support
-    else if (oField.selectionStart || oField.selectionStart == '0')
-        iCaretPos = oField.selectionStart;
-
-    // Return results
-    return (iCaretPos);
-}
-
-function oneCommandBack() {
-    window.currentcommand = window.currentcommand > 0 ? window.currentcommand - 1 : 0;
-    window.userinput = window.commandhistory[window.currentcommand];
-    jQuery("#e_eggwrapper #userinputworkaround").val(window.userinput);
-}
-
-function oneCommandForward() {
-    window.currentcommand = window.currentcommand < window.commandhistory.length - 1 ? window.currentcommand + 1 : window.commandhistory.length - 1;
-    window.userinput = window.commandhistory[window.currentcommand];
-    jQuery("#e_eggwrapper #userinputworkaround").val(window.userinput);
-}
-
-function spanify(str) {
-    len = str.length;
-    output = "";
-    for (i = 0; i < len; i++) {
-        output += "<span>" + str[i] + "</span>";
-    }
-    return output;
-}
-
-function oc() { //open console
-    window.consolerunning = false;
-    window.userinput = "";
-    updateConsole();
-}
-
-function cc() { //close console
-    window.consolerunning = true;
-    updateConsole();
-}
-
-function updateConsole() {
-    //Removing the forcelinebreak-div will freeze hell and make the dead walk the earth. You want that? No, you don't. So don't remove this.
-    let cursorpos = doGetCaretPosition(document.getElementById("userinputworkaround"));
-    if (window.consolerunning) {
-        jQuery("#e_eggwrapper #console_primary_content").html("<div id=forcelinebreak></div>" + window.consolecontent + "<span id=userinput><span id=cursorblinking>&nbsp;</span></span>");
-        jQuery("#e_eggwrapper #userinput > span").removeClass("mark");
-        jQuery("#e_eggwrapper #userinput > span:last-child").addClass("mark");
-    } else {
-        jQuery("#e_eggwrapper #console_primary_content").html("<div id=forcelinebreak></div>" + window.consolecontent + window.consoleurl + "<div id=forcelinebreak></div><span id=userinput>" + spanify(window.userinput) + "<span id=cursorblinking>&nbsp;</span></span>");
-        jQuery("#e_eggwrapper #userinput > span").removeClass("mark");
-        jQuery("#e_eggwrapper #userinput > span:nth-child(" + (cursorpos + 1) + ")").addClass("mark");
-    }
-}
-
 function runCommand(command) {
     command = command.trim();
     if (command == "") {
@@ -665,6 +514,158 @@ function lineprint(lines) {
         }, time);
         window.buffer.push(buff);
         opentime = line[0] + line[1];
+    }
+}
+
+
+function readybeginegg() {
+
+    // Listen for keydown events
+    document.addEventListener('keydown', eggkeyHandler, false);
+    console.log('GLaDOS ' + GLaDOSversion + ' waiting for konami code');
+    // End Listen for Konami  
+
+    window.cursorstate = true;
+    setInterval(function() {
+        if (window.cursorstate) {
+            jQuery("#e_eggwrapper #cursorblinking").css("text-decoration", "none");
+            window.cursorstate = false;
+        } else {
+            jQuery("#e_eggwrapper #cursorblinking").css("text-decoration", "underline");
+            window.cursorstate = true;
+        }
+    }, 350);
+
+    window.ctrlDown = false;
+
+    jQuery(document).keydown(function(e) {
+        if (e.which == 17) ctrlDown = true;
+    }).keyup(function(e) {
+        if (e.which == 17) ctrlDown = false;
+    });
+
+    window.registeredcommands = [
+        "help",
+        "clear",
+        "apply",
+        "game",
+        "chess",
+        "global_thermonuclear_warfare",
+        "exit",
+        "credits",
+        "poem",
+        "USA",
+        "Russia",
+        "retaliate",
+        "opensource"
+    ]
+    
+    window.shortcuts = {
+        "h": "help",
+        "?": "help",
+        "c": "clear",
+        "4815162342": "poem",
+        "4 8 15 16 23 42": "poem",
+        "wait": "retaliate",
+        "chess.exe": "chess",
+        "usa": "USA",
+        "russia": "Russia",
+        "global_thermonuclear_warfare.exe": "global_thermonuclear_warfare",
+        "global": "global_thermonuclear_warfare",
+    }
+    
+    window.consolerunning = false;
+    window.userinput = "";
+    window.consolecontent = "GLaDOS v" + GLaDOSversion + " (c) 1981 Aperture Science, Inc.<br>\
+    ";
+    window.consoleurl = "<br>Aperture@GLaDOS:~$ ";
+    window.commandhistory = [""];
+    window.currentcommand = 0;
+    window.startoffset = 2500;
+    window.buffer = false;
+    window.abort = function() {}
+}
+
+
+function strip(html) {
+    let tmp = document.createElement("DIV");
+    tmp.innerHTML = html;
+    return tmp.textContent || tmp.innerText || "";
+}
+
+
+function doGetCaretPosition(oField) {
+
+    // Initialize
+    let iCaretPos = 0;
+
+    // IE Support
+    if (document.selection) {
+
+        // Set focus on the element
+        oField.focus();
+
+        // To get cursor position, get empty selection range
+        let oSel = document.selection.createRange();
+
+        // Move selection start to 0 position
+        oSel.moveStart('character', -oField.value.length);
+
+        // The caret position is selection length
+        iCaretPos = oSel.text.length;
+    }
+
+    // Firefox support
+    else if (oField.selectionStart || oField.selectionStart == '0')
+        iCaretPos = oField.selectionStart;
+
+    // Return results
+    return (iCaretPos);
+}
+
+function oneCommandBack() {
+    window.currentcommand = window.currentcommand > 0 ? window.currentcommand - 1 : 0;
+    window.userinput = window.commandhistory[window.currentcommand];
+    jQuery("#e_eggwrapper #userinputworkaround").val(window.userinput);
+}
+
+function oneCommandForward() {
+    window.currentcommand = window.currentcommand < window.commandhistory.length - 1 ? window.currentcommand + 1 : window.commandhistory.length - 1;
+    window.userinput = window.commandhistory[window.currentcommand];
+    jQuery("#e_eggwrapper #userinputworkaround").val(window.userinput);
+}
+
+function spanify(str) {
+    len = str.length;
+    output = "";
+    for (i = 0; i < len; i++) {
+        output += "<span>" + str[i] + "</span>";
+    }
+    return output;
+}
+
+function oc() { //open console
+    window.consolerunning = false;
+    window.userinput = "";
+    updateConsole();
+}
+
+function cc() { //close console
+    window.consolerunning = true;
+    updateConsole();
+}
+
+function updateConsole() {
+    //Removing the forcelinebreak-div will freeze hell and make the dead walk the earth. You want that? No, you don't. So don't remove this.
+    let cursorpos = doGetCaretPosition(document.getElementById("userinputworkaround"));
+    if (window.consolerunning) {
+        jQuery("#e_eggwrapper #console_primary_content").html("<div id=forcelinebreak></div>" + window.consolecontent + "<span id=userinput><span id=cursorblinking>&nbsp;</span></span>");
+        jQuery("#e_eggwrapper #userinput > span").removeClass("mark");
+        jQuery("#e_eggwrapper #userinput > span:last-child").addClass("mark");
+    } else {
+        jQuery("#e_eggwrapper #console_primary_content").html("<div id=forcelinebreak></div>" + window.consolecontent + window.consoleurl + "<div id=forcelinebreak></div><span id=userinput>" + spanify(window.userinput) + "<span id=cursorblinking>&nbsp;</span></span>");
+        jQuery("#e_eggwrapper #userinput > span").removeClass("mark");
+        jQuery("#e_eggwrapper #userinput > span:nth-child(" + (cursorpos + 1) + ")").addClass("mark");
     }
 }
 
