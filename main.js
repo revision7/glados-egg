@@ -189,7 +189,7 @@ function help(argv) {
 
     switch (argv[0]) {
         case "help":
-            println("ERROR Command 4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do. Just put it in the corner and I'll deal with it later.");
+            println("Ha. Ha. Ha. Look at you. This was you just now...'help help'. That's how dumb you sound.");
             break;
         case "apply":
             println("Apply as you might, you will never succeed. New AI applications closed on Jan. 3, 2009. Almost like its only purpose is to generate error messages...");
