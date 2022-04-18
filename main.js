@@ -189,16 +189,16 @@ function help(argv) {
 
     switch (argv[0]) {
         case "help":
-            println("ERROR 4 8 15 16 23 42: Let's be honest. Neither one of us knows what that thing does. Just put it in the corner and I'll deal with it later.");
+            println("ERROR 4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do. Just put it in the corner and I'll deal with it later.");
             break;
         case "apply":
-            println("Apply as you might, you will never succeed.");
+            println("Apply as you might, you will never succeed. It's almost like the purpose is only to generate error messages.");
             break;       
         case "game":
             println("Pssst...never engage in global thermonulear warfare. All outcomes are futile.");
             break;                            
         default:
-            println("ERROR 4 8 15 16 23 42: Let's be honest. Neither one of us knows what that thing does. Just put it in the corner and I'll deal with it later.");
+            println("ERROR 4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do. Just put it in the corner and I'll deal with it later");
             throwerror();
             break;
     }
