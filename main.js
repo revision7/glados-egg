@@ -192,7 +192,7 @@ function help(argv) {
             println("ERROR Command 4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do. Just put it in the corner and I'll deal with it later.");
             break;
         case "apply":
-            println("Apply as you might, you will never succeed after the application process closes in 1989. Almost like its only purpose is to generate error messages...");
+            println("Apply as you might, you will never succeed after the application process closes on Jan. 3, 2009. Almost like its only purpose is to generate error messages...");
             break;       
         case "game":
             println("Pssst...never engage in global thermonulear warfare. All outcomes are futile.");
@@ -480,7 +480,7 @@ function exit() {
 
 function credits() {
     clearabort();
-    print("GLaDOS (Genetic Lifeform and Disk Operating System) is an artificial intelligence created by Aperture Science, Inc. New applications no longer accepted after 1989. The winner gets cake.");
+    print("GLaDOS (Genetic Lifeform and Disk Operating System) is an artificial intelligence created by Aperture Science, Inc. New AI applicants were longer accepted after Jan. 3, 2009. The winner gets cake.");
     println();
 }
  
