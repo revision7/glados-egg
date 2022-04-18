@@ -7,8 +7,7 @@
 //   Genetic.Lifeform.and.Disk.Operating.System
 //
 //
-// CHEATING DETECTED: a human is attempting to access core code.
-//
+// CHEATING DETECTED: a human is attempting to view core code.
 // Replacing Artificial Intelligence Core with Disk Operating System....COMPLETE!
 //
 // Seriously though, there are spoilers in the below...
@@ -87,29 +86,14 @@ var eggkeyHandler = function(event) {
             }
         }, 200);
         updateConsole();
-
         // end egg  
-
     }
-
 };
 
 
 jQuery(function() {
     readybeginegg();
 });
-
-
-window.cursorstate = true;
-setInterval(function() {
-    if (window.cursorstate) {
-        jQuery("#e_eggwrapper #cursorblinking").css("text-decoration", "none");
-        window.cursorstate = false;
-    } else {
-        jQuery("#e_eggwrapper #cursorblinking").css("text-decoration", "underline");
-        window.cursorstate = true;
-    }
-}, 350);
 
 
 function readybeginegg() {
@@ -119,6 +103,16 @@ function readybeginegg() {
     console.log('GLaDOS ' + GLaDOSversion + ' waiting for konami code');
     // End Listen for Konami  
 
+    window.cursorstate = true;
+    setInterval(function() {
+        if (window.cursorstate) {
+            jQuery("#e_eggwrapper #cursorblinking").css("text-decoration", "none");
+            window.cursorstate = false;
+        } else {
+            jQuery("#e_eggwrapper #cursorblinking").css("text-decoration", "underline");
+            window.cursorstate = true;
+        }
+    }, 350);
 
     window.ctrlDown = false;
 
@@ -627,6 +621,7 @@ function exit() {
             clear();
             clearabort();
             aserg3456 = false;
+            jQuery(window).off("keydown");
             document.addEventListener('keydown', eggkeyHandler, false);
             updateConsole();
             jQuery('#e_eggwrapper').remove();
