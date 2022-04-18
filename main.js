@@ -10,11 +10,11 @@
 // CHEATING DETECTED: a human is attempting to view core code.
 // Replacing Artificial Intelligence Core with Disk Operating System....COMPLETE!
 //
-// Seriously though, there are spoilers in the below...
+// Seriously though, there are spoilers in the below...do not continue, or there will be no cake.
 //
 
 var dt = new Date();
-var GLaDOSversion = "1.04." + (Number(dt.getMonth()) + 1) +"." + dt.getDate() + "." + + dt.getMinutes();
+var GLaDOSversion = "1.03." + (Number(dt.getMonth()) + 1) +"." + dt.getDate() + "." + + dt.getMinutes();
 
 // Listen for Konami    
 var pattern = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
@@ -143,7 +143,6 @@ function readybeginegg() {
         "?": "help",
         "c": "clear",
         "4815162342": "poem",
-        "4-8-15-16-23-42": "poem",
         "4 8 15 16 23 42": "poem",
         "wait": "retaliate",
         "chess.exe": "chess",
@@ -312,7 +311,7 @@ function throwerror() {
         "Look, you're wasting your time. And, believe me, you don't have a whole lot left to waste. What's your point, anyway?",
         "Let's be honest. Neither one of us knows what that thing does. Just put it in the corner and I'll deal with it later.",
         "ERROR 24 [File not found]",
-        "ERROR 4-8-15-16-23-42 The winner gets cake. [The cake is a lie.]",
+        "ERROR 4 8 15 16 23 42 The winner gets cake. [The cake is a lie.]",
         "ERROR 01 [Illegal attempt to initiate action]",
         "ERROR 18 [User not authorized to transfer system tapes]",
         "ERROR ID10T [Disk is write protected]",
@@ -341,7 +340,7 @@ function help(argv) {
 
     switch (argv[0]) {
         case "help":
-            println("ERROR 4-8-15-16-23-42: Let's be honest. Neither one of us knows what that thing does. Just put it in the corner and I'll deal with it later.");
+            println("ERROR 4 8 15 16 23 42: Let's be honest. Neither one of us knows what that thing does. Just put it in the corner and I'll deal with it later.");
             break;
         case "apply":
             println("Apply as you might, you will never succeed.");
@@ -350,7 +349,7 @@ function help(argv) {
             println("Pssst...never engage in global thermonulear warfare. All outcomes are futile.");
             break;                            
         default:
-            println("ERROR 4-8-15-16-23-42: Let's be honest. Neither one of us knows what that thing does. Just put it in the corner and I'll deal with it later.");
+            println("ERROR 4 8 15 16 23 42: Let's be honest. Neither one of us knows what that thing does. Just put it in the corner and I'll deal with it later.");
             throwerror();
             break;
     }
@@ -523,7 +522,57 @@ function poem() {
         [13179, 1, ""],
         [15180, 3402, "That is all. Goodbye."],
         [21179, 1, ""],
-        [23577, 4000, "<br>█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█BTC<br>█░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░█<br>█░░░░░░░░░░░░░░▄░░░░░░░░░░░░░░░░░░░░░█14<br>█░░░░░░░░░░░░░░░█░░░░░░░░░░░░░░░░░░░░█kV<br>█░░░░░░░░░░░▄▄░▄▀░░░░░░░░░░░░░░░░░░░░█La<br>█░░░░░░░░▄██████▄░░░░░▄▄▄▄▄▄███▀█░░░░█8B<br>█░░░░░░▄█░███████░██▀▀▀░▄▄█▀█▄███░░░░█AD<br>█░░░░█▀▀▀░█████▀▀▄█▀▄▄▀▀▄▄███████░░░░█AW<br>█░░░░█▀▄▄▄▄███░▄▄█▀▀▄▄███████▀▀▄▄░░░░█Wz<br>█░░░░█░░░░▀▀▀▀▀▀▄▄███████▀▀▄▄████░░░░█by<br>█░░░░█░░░░░░░░░█████▀▀▀▄▄███████▀░░░░█th<br>█░░░░█░░░░░░░░░█▀▀░▄▄███████▀█▄▄█░░░░█Xk<br>█░░░░█░░░░░░░░░▄▄███████▀█▄██████░░░░█8f<br>█░░░░█░░░░░░░░░████▀▀▄▄███████▀▀░░░░░█Xu<br>█░░░░█░░░░░░░░░▀▀▄▄███████▀▀░░░░░░░░░█BC<br>█░░░░█░░░░░░░░░███████▀▀░░░░░░░░░░░░░█h8<br>█░░░░░▀▄▄▄░░░░░███▀▀░░░░░░░░░░░░░░░░░█Nw<br>█░░░░░░░░░▀▀▀▀▀▀░░░░░░░░░░░░░░░░░░░░░█gT<br>█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█gZ<br>5JmmQ9JhYSzgT6m7JDucUrUas3u3fHVC2F78TzGPytvTDnJnmES"]
+        [23577, 4000, "<br>█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█BTC<br>█░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░█<br>█░░░░░░░░░░░░░░▄░░░░░░░░░░░░░░░░░░░░░█14<br>█░░░░░░░░░░░░░░░█░░░░░░░░░░░░░░░░░░░░█kV<br>█░░░░░░░░░░░▄▄░▄▀░░░░░░░░░░░░░░░░░░░░█La<br>█░░░░░░░░▄██████▄░░░░░▄▄▄▄▄▄███▀█░░░░█8B<br>█░░░░░░▄█░███████░██▀▀▀░▄▄█▀█▄███░░░░█AD<br>█░░░░█▀▀▀░█████▀▀▄█▀▄▄▀▀▄▄███████░░░░█AW<br>█░░░░█▀▄▄▄▄███░▄▄█▀▀▄▄███████▀▀▄▄░░░░█Wz<br>█░░░░█░░░░▀▀▀▀▀▀▄▄███████▀▀▄▄████░░░░█by<br>█░░░░█░░░░░░░░░█████▀▀▀▄▄███████▀░░░░█th<br>█░░░░█░░░░░░░░░█▀▀░▄▄███████▀█▄▄█░░░░█Xk<br>█░░░░█░░░░░░░░░▄▄███████▀█▄██████░░░░█8f<br>█░░░░█░░░░░░░░░████▀▀▄▄███████▀▀░░░░░█Xu<br>█░░░░█░░░░░░░░░▀▀▄▄███████▀▀░░░░░░░░░█BC<br>█░░░░█░░░░░░░░░███████▀▀░░░░░░░░░░░░░█h8<br>█░░░░░▀▄▄▄░░░░░███▀▀░░░░░░░░░░░░░░░░░█Nw<br>█░░░░░░░░░▀▀▀▀▀▀░░░░░░░░░░░░░░░░░░░░░█gT<br>█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█gZ<br>5JmmQ9JhYSzgT6m7JDucUrUas3u3fHVC2F78TzGPytvTDnJnmES"],
+         /*        [14647, 2103, "to fool me twice?"],
+        [17851, 1801, "Oh how we laughed and laughed"],
+        [19953, 1988, "Except I wasn't laughing"],
+        [22455, 2002, "Under the circumstances"],
+        [24624, 2369, "I've been shockingly nice"],
+        [27894, 0, ""],
+        [28261, 2069, "You want your freedom?"],
+        [30630, 901, "Take it"],
+        [32565, 2636, "That's what I'm counting on"],
+        [37700, 1, ""],
+        [37771, 2736, "I used to want you as a friend"],
+        [40573, 234, "but"],
+        [41307, 2937, "Now I only want you gone"],
+        [47847, 0, ""],
+        [48782, 1701, "She was a lot like you"],
+        [51317, 1836, "(Maybe not quite as heavy)"],
+        [53820, 3604, "Now little Caroline is in here too"],
+        [58391, 1935, "One day they woke me up"],
+        [60894, 2068, "So I could live forever"],
+        [63196, 1702, "It's such a shame the same"],
+        [64998, 3103, "will never happen to you"],
+        [68601, 0, ""],
+        [68650, 0, "Severance Pa"],
+        [68675, 0, "ckage De"],
+        [68701, 0, "tails:<br><br>"],
+        [68735, 767, "You've got your"],
+        [69669, 1001, "short sad"],
+        [70937, 2102, "life left"],
+        [73573, 2436, "That's what I'm counting on"],
+        [78211, 3203, "I'll let you get right to it"],
+        [81815, 2902, "Now I only want you gone"],
+        [88688, 0, ""],
+        [89823, 1735, "Goodbye my only friend"],
+        [93225, 902, "Oh, did you think I meant you?"],
+        [94727, 1135, "That would be funny"],
+        [96262, 1836, "if it weren't so sad"],
+        [99332, 1769, "Well you have been replaced"],
+        [101768, 2035, "I don't need anyone now"],
+        [104104, 1968, "When I delete you maybe"],
+        [106372, 2336, "[REDACTED]"],
+        [109109, 0, ""],
+        [109776, 3537, "Go make some new disaster"],
+        [114647, 2436, "That's what I'm counting on"],
+        [119319, 3236, "You're someone else's problem"],
+        [122655, 3504, "Now I only want you gone"],
+        [127460, 3504, "Now I only want you gone"],
+        [132232, 2602, "Now I only want you"],
+        [134900, 0, ""],
+        [134920, 0, "<br><br><br><br>"],
+        [135168, 701, "gone" ]*/
     ];
 
     lineprint(lines);
