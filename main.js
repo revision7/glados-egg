@@ -10,7 +10,7 @@
 // CHEATING DETECTED: a human is attempting to view core code.
 // Replacing Artificial Intelligence Core with Disk Operating System....COMPLETE!
 //
-// Seriously though, there are spoilers in the below...do not continue, or there will be no cake.
+// Seriously though, there are spoilers in the below...do not continue, or there will be no cake. [The cake is a lie.]
 //
 
 var dt = new Date();
@@ -192,7 +192,7 @@ function help(argv) {
             println("ERROR Command 4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do. Just put it in the corner and I'll deal with it later.");
             break;
         case "apply":
-            println("Apply as you might, you will never succeed. It's almost like the purpose is only to generate error messages.");
+            println("Apply as you might, you will never succeed after the application process closes in 1989. It's almost like its only purpose is to generate error messages.");
             break;       
         case "game":
             println("Pssst...never engage in global thermonulear warfare. All outcomes are futile.");
@@ -207,7 +207,7 @@ function help(argv) {
 function opensource() {
     abort = function() {};
     println();
-    println("ERROR 01 [Illegal attempt to initiate action]. That isn't even a listed command. You aren't...um, cheating, are you?");
+    println("ERROR 01 [Illegal attempt to initiate action]. That isn't even a listed command. You aren't...um, cheating, are you? [The cake is a lie.]");
     println();
     cc();
 }
@@ -369,13 +369,12 @@ function poem() {
         [2202, 1935, "Forms FORM-29827281-12-2:"],
         [4237, 1935, "Notice of Dismissal: You won. The cake is a lie."],
         [8160, 1, ""],
-        [8174, 1769, "No, really. You won. And there is no cake. It was a lie."],
+        [8174, 1769, "No, really. You won. And there is no cake. It was a lie. How did you think I was even going to be able to give it to you?"],
         [13179, 1, ""],
         [15180, 3402, "That is all. Goodbye."],
         [21179, 1, ""],
         [23577, 4000, "<br>█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█BTC<br>█░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░█<br>█░░░░░░░░░░░░░░▄░░░░░░░░░░░░░░░░░░░░░█14<br>█░░░░░░░░░░░░░░░█░░░░░░░░░░░░░░░░░░░░█kV<br>█░░░░░░░░░░░▄▄░▄▀░░░░░░░░░░░░░░░░░░░░█La<br>█░░░░░░░░▄██████▄░░░░░▄▄▄▄▄▄███▀█░░░░█8B<br>█░░░░░░▄█░███████░██▀▀▀░▄▄█▀█▄███░░░░█AD<br>█░░░░█▀▀▀░█████▀▀▄█▀▄▄▀▀▄▄███████░░░░█AW<br>█░░░░█▀▄▄▄▄███░▄▄█▀▀▄▄███████▀▀▄▄░░░░█Wz<br>█░░░░█░░░░▀▀▀▀▀▀▄▄███████▀▀▄▄████░░░░█by<br>█░░░░█░░░░░░░░░█████▀▀▀▄▄███████▀░░░░█th<br>█░░░░█░░░░░░░░░█▀▀░▄▄███████▀█▄▄█░░░░█Xk<br>█░░░░█░░░░░░░░░▄▄███████▀█▄██████░░░░█8f<br>█░░░░█░░░░░░░░░████▀▀▄▄███████▀▀░░░░░█Xu<br>█░░░░█░░░░░░░░░▀▀▄▄███████▀▀░░░░░░░░░█BC<br>█░░░░█░░░░░░░░░███████▀▀░░░░░░░░░░░░░█h8<br>█░░░░░▀▄▄▄░░░░░███▀▀░░░░░░░░░░░░░░░░░█Nw<br>█░░░░░░░░░▀▀▀▀▀▀░░░░░░░░░░░░░░░░░░░░░█gT<br>█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█gZ<br>5JmmQ9JhYSzgT6m7JDucUrUas3u3fHVC2F78TzGPytvTDnJnmES"],
-         /*        [14647, 2103, "to fool me twice?"],
-        [17851, 1801, "Oh how we laughed and laughed"],
+         /*        [17851, 1801, "Oh how we laughed and laughed"],
         [19953, 1988, "Except I wasn't laughing"],
         [22455, 2002, "Under the circumstances"],
         [24624, 2369, "I've been shockingly nice"],
@@ -477,7 +476,7 @@ function exit() {
 
 function credits() {
     clearabort();
-    print("GLaDOS (Genetic Lifeform and Disk Operating System) is an artificial intelligence created by Aperture Science, Inc. The winner gets cake.");
+    print("GLaDOS (Genetic Lifeform and Disk Operating System) is an artificial intelligence created by Aperture Science, Inc. New applications no longer accepted after 1989. The winner gets cake.");
     println();
 }
  
