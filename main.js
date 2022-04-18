@@ -602,7 +602,7 @@ function poem() {
             clearTimeout(window.buffer[id]);
             // document.getElementById("wantyougone").pause();
             // jQuery("#e_eggwrapper #wantyougone").prop("currentTime", 0);
-            oc();
+            // oc();
         }
         clearabort();
     };
