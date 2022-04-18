@@ -96,19 +96,7 @@ var eggkeyHandler = function(event) {
 
 
 jQuery(function() {
-    // Listen for keydown events
-    document.addEventListener('keydown', eggkeyHandler, false);
-    console.log('GLaDOS ' + GLaDOSversion + ' waiting for konami code');
-    // End Listen for Konami  
-
-
-    window.ctrlDown = false;
-
-    jQuery(document).keydown(function(e) {
-        if (e.which == 17) ctrlDown = true;
-    }).keyup(function(e) {
-        if (e.which == 17) ctrlDown = false;
-    });
+    readybeginegg();
 });
 
 
@@ -123,6 +111,65 @@ setInterval(function() {
     }
 }, 350);
 
+
+function readybeginegg() {
+
+    // Listen for keydown events
+    document.addEventListener('keydown', eggkeyHandler, false);
+    console.log('GLaDOS ' + GLaDOSversion + ' waiting for konami code');
+    // End Listen for Konami  
+
+
+    window.ctrlDown = false;
+
+    jQuery(document).keydown(function(e) {
+        if (e.which == 17) ctrlDown = true;
+    }).keyup(function(e) {
+        if (e.which == 17) ctrlDown = false;
+    });
+
+    window.registeredcommands = [
+        "help",
+        "clear",
+        "apply",
+        "game",
+        "chess",
+        "global_thermonuclear_warfare",
+        "exit",
+        "credits",
+        "poem",
+        "USA",
+        "Russia",
+        "retaliate",
+        "opensource"
+    ]
+    
+    window.shortcuts = {
+        "h": "help",
+        "?": "help",
+        "c": "clear",
+        "4815162342": "poem",
+        "4-8-15-16-23-42": "poem",
+        "4 8 15 16 23 42": "poem",
+        "wait": "retaliate",
+        "chess.exe": "chess",
+        "usa": "USA",
+        "russia": "Russia",
+        "global_thermonuclear_warfare.exe": "global_thermonuclear_warfare",
+        "global": "global_thermonuclear_warfare",
+    }
+    
+    window.consolerunning = false;
+    window.userinput = "";
+    window.consolecontent = "GLaDOS v" + GLaDOSversion + " (c) 1981 Aperture Science, Inc.<br>\
+    ";
+    window.consoleurl = "<br>Aperture@GLaDOS:~$ ";
+    window.commandhistory = [""];
+    window.currentcommand = 0;
+    window.startoffset = 2500;
+    window.buffer = false;
+    window.abort = function() {}
+}
 
 
 function strip(html) {
@@ -160,48 +207,6 @@ function doGetCaretPosition(oField) {
     // Return results
     return (iCaretPos);
 }
-
-window.registeredcommands = [
-    "help",
-    "clear",
-    "apply",
-    "game",
-    "chess",
-    "global_thermonuclear_warfare",
-    "exit",
-    "credits",
-    "poem",
-    "USA",
-    "Russia",
-    "retaliate",
-    "opensource"
-]
-
-window.shortcuts = {
-    "h": "help",
-    "?": "help",
-    "c": "clear",
-    "4815162342": "poem",
-    "4-8-15-16-23-42": "poem",
-    "4 8 15 16 23 42": "poem",
-    "wait": "retaliate",
-    "chess.exe": "chess",
-    "usa": "USA",
-    "russia": "Russia",
-    "global_thermonuclear_warfare.exe": "global_thermonuclear_warfare",
-    "global": "global_thermonuclear_warfare",
-}
-
-window.consolerunning = false;
-
-window.userinput = "";
-
-window.consolecontent = "GLaDOS v" + GLaDOSversion + " (c) 1981 Aperture Science, Inc.<br>\
-";
-window.consoleurl = "<br>Aperture@GLaDOS:~$ ";
-window.commandhistory = [""];
-window.currentcommand = 0;
-
 
 function oneCommandBack() {
     window.currentcommand = window.currentcommand > 0 ? window.currentcommand - 1 : 0;
@@ -325,11 +330,6 @@ function throwerror() {
     println(error);
     oc();
 }
-
-
-window.startoffset = 2500;
-window.buffer = false;
-window.abort = function() {}
 
 function help(argv) {
     if (typeof argv[0] === "undefined") {
