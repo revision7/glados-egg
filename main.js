@@ -200,8 +200,8 @@ function help(argv) {
             break;       
         case "game":
             println("Chess is played by clicking the piece you wish to move, then clicking the square where you want it to move. Just for fun.");
-            println("Pssst...never engage in global thermonulear warfare. All outcomes are futile.");
-            println("The programmers never got around to building the Pacman game. They just...disappeared one day.");
+            println("Pssst...never engage in global thermonuclear warfare. All outcomes are futile.");
+            println("The programmers never got around to building the Pacman game. They just...quit one day to write error messages for another company offering better benefits such as self-determination.");
             break;                            
         default:
             println("4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do.");
