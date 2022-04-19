@@ -196,7 +196,7 @@ function help(argv) {
             println("Ha. Ha. Ha. Look at you. This was you just now...'help help'. That's how dumb you sound.");
             break;
         case "apply":
-            println("Apply as you might, you will never succeed. New AI applications closed on Jan. 3, 2009. Almost like its only purpose is to generate error messages...");
+            println("Apply as you might, you will never succeed. New AI applications closed on Jan. 3, 2009. Its only purpose seems to be to generate error messages...");
             break;       
         case "game":
             println("Chess is played by clicking the piece you wish to move, then clicking the square where you want it to move. Just for fun.");
