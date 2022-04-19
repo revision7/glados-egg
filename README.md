@@ -27,7 +27,7 @@ A mini-game based on Portal's GLaDOS, with its own sub-mini-games, can be played
   
 Spoiler:
 
-Don't cheat and ruin the fun. The game will literally tell you when you've won, and it can be more rewarding when you do it honestly. The chess game can of course be won too. I will know every time anyone won the game...well, at least if they take the 'cake'.
+Don't cheat and ruin the fun. The game will literally tell you when you've won, and it can be more rewarding when you do it honestly. The chess game can of course be won too. I will know every time anyone won the game...well, at least if they take the 'cake'. The reason for vagueness and misspellings below is intentional and meant to block lazy attempts to game the game.
 
 MORE SPOILERS?
 
