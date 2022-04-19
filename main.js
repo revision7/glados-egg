@@ -343,8 +343,8 @@ function apply() {
     cc();
     lines = [
         [0, 0, ""],
-        [202, 2935, "Forms FORM-29327281-12-2:"],
-        [3237, 935, "Application Form"],
+        [202, 2935, "Forms FORM-29327281-14-2:"],
+        [3237, 935, "Application Form To Become A Genetic Artificial Intelligence"],
         [4160, 3000, "......."],
         [7174, 3000, ".............."],
         [12577, 8000, "Below is your form FORMS-EN-2873-FORM Unique Indentity Number (Plus Letters) (UIN(+L)): Please memorize your UIN(+L), as you may be required to recite it from memory as proof. The opening and closing braces are decorative and should not be memorized. Note that the character \"0\" is uniquely different than the character \"O\". When you are finished memorizing your case-sensitive UIN(+L), please nod \"yes\" to proceed."],
