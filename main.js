@@ -167,10 +167,14 @@ function throwerror() {
         "It's just us talking, like regular people. We are in deep trouble.",
     ]
     error = errors[Math.floor(Math.random() * errors.length)];
-
-    print("Error. ");
-    println(error);
-    oc();
+    if (window.commandhistory.length > 2 && window.commandhistory[window.commandhistory.length - 3].indexOf("apply") === -1) {
+        print("Error. ");
+        println(error);
+        oc();
+    } else {
+        print("Error. Unable to start or continue application. Try 'help [COMMAND]' for commmand help.");
+        oc();
+    }    
 }
 
 function help(argv) {
@@ -200,7 +204,7 @@ function help(argv) {
             println("The programmers never got around to building the Pacman game. They just...disappeared one day.");
             break;                            
         default:
-            println("ERROR 4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do.");
+            println("4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do.");
             throwerror();
             break;
     }
