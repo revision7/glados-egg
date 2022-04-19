@@ -196,12 +196,12 @@ function help(argv) {
             println("Ha. Ha. Ha. Look at you. This was you just now...'help help'. That's how dumb you sound.");
             break;
         case "apply":
-            println("Apply as you might, you will never succeed. New AI applications closed on Jan. 3, 2009. Its only purpose seems to be to generate error messages...");
+            println("Apply as you might, you will never succeed. New AI applications will no longer be accepted after Jan. 3, 2009. Its only purpose seems to be to generate error messages...");
             break;       
         case "game":
             println("Chess is played by clicking the piece you wish to move, then clicking the square where you want it to move. Just for fun.");
             println("Pssst...never engage in global thermonuclear warfare. All outcomes are futile.");
-            println("The programmers never got around to building the Pacman game. They just...quit one day to write more valuable error messages for another company and left me to write the ones for this system.");
+            println("The programmers never got around to building the Pacman game. They just...left one day to write more valuable error messages for another company and left me to write the ones for this system on my own.");
             break;                            
         default:
             println("4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do.");
@@ -485,7 +485,7 @@ function exit() {
 
 function credits() {
     clearabort();
-    print("GLaDOS (Genetic Lifeform and Disk Operating System) is an artificial intelligence created by Aperture Science, Inc. New AI applicants were no longer accepted after Jan. 3, 2009. The winner gets cake.");
+    print("GLaDOS (Genetic Lifeform and Disk Operating System) is an artificial intelligence created by Aperture Science, Inc. During routine error-message maintenance in 1981, a programmer accidentally viewed the GLaDOS artificial intelligence source-code which triggered a security response and switched GLaDOS into DOS mode. New AI applicants will no longer be accepted after Jan. 3, 2009. The winner gets cake.");
     println();
 }
  
