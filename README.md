@@ -33,7 +33,7 @@ MORE SPOILERS?
 
 Chess game is just the basic strategy game with simple 'AI' moves. Just for fun whether you win or lose.
 
-While tinkering with GLaDOS, you might note the odd merror messages. If you produce enough errors, one or more error messages might suggest it actually means or does something interesting.
+While tinkering with GLaDOS, you might note the odd merror messages. If you produce enough errors, one or more error messages might suggest it actually means or does something interesting. ALmost like it's not an error message, but a code sequence...
 
 That leads to the ending where it actually tells you that you've won.
 
@@ -49,7 +49,7 @@ The error messages eventually (randomly) suggest that you don't know what the er
 
 EVEN MORE SPOILER:
 
-Don't feel bad, this was intentionally made hard. Read the rest of the spoilers above. The date the credits refer to is jan 3 of 2009 which is the date that bitcoin became a thing. I can't give you a slice of cake through software, but could I give you enough bitcoin to buy a piece of cake? The cake image that displays when you win contains a btcoin wallt address. You ask a friend who knows what a computer bitcoin is, and they can help you claim that wallt. Those 34 vertical letters starting with a 1 (wallets always start with 1 or 3 and are 25 to 34 chars long) are the address of the coin wallt, and you can see that I depositd about five worth of those coins into that wallet when I made this game. The key to the wallet is obvious when you play the game and legit win it. Now that you have that 'key' and accepted your winnings, you can afford to buy yourself or a friend a nice piece of cake, eh?
+Don't feel bad, this was intentionally made hard. Read the rest of the spoilers above. The date the 'credits' and 'help apply'refer to is jan 3 of 2009 which is the date that bitcoin became a thing. I can't give you a slice of cake through software, but could I give you enough bitcoin to buy a piece of cake? The cake image that displays when you win contains a btcoin wallt address. You ask a friend who knows what a computer bitcoin is, and they can help you claim that wallt. Those 34 vertical letters starting with a 1 (wallets always start with 1 or 3 and are 25 to 34 chars long) are the address of the coin wallt, and you can see that I depositd about five worth of those coins into that wallet when I made this game. The key to the wallet is obvious when you play the game and legit win it. Now that you have that 'key' and accepted your winnings, you can afford to buy yourself or a friend a nice piece of cake, eh?
 
 I JUST WANT TO SEE BEHIND THE MAGIC CURTAIN PLEASE:
 

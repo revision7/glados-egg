@@ -159,10 +159,10 @@ function throwerror() {
         "Unbelievable. You, &lt;subject name here&gt; must be the pride of &lt;subject hometown here&gt;.",
         "Look, you're wasting your time. And, believe me, you don't have a whole lot left to waste. What's your point, anyway?",
         "Let's be honest. Neither one of us knows what that thing does. Just put it in the corner and I'll deal with it later.",
-        "ERROR Command 4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do. Just put it in the corner and I'll deal with it later: [File not found]",
-        "ERROR Command 4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do. Just put it in the corner and I'll deal with it later: The winner gets cake. [The cake is a lie.]",
-        "ERROR Command 4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do. Just put it in the corner and I'll deal with it later: [Illegal attempt to initiate action]",
-        "ERROR Command 4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do. Just put it in the corner and I'll deal with it later: [User not authorized to transfer system tapes]",
+        "4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do. [File not found]",
+        "4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do. The winner gets cake. [The cake is a lie.]",
+        "4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do. [Illegal attempt to initiate action]",
+        "4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do. [User not authorized to transfer system tapes]",
         "ERROR ID10T [Disk is write protected]",
         "It's just us talking, like regular people. We are in deep trouble.",
     ]
@@ -200,7 +200,7 @@ function help(argv) {
             println("The programmers never got around to building the Pacman game. They just...disappeared one day.");
             break;                            
         default:
-            println("ERROR Command 4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do. Just put it in the corner and I'll deal with it later");
+            println("ERROR 4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do.");
             throwerror();
             break;
     }
