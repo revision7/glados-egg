@@ -205,7 +205,6 @@ function help(argv) {
             break;                            
         default:
             println("4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do.");
-            throwerror();
             break;
     }
 }
