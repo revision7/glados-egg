@@ -30,6 +30,7 @@ Don't cheat and ruin the fun. Yes, the game is winnable and will literally tell 
 
 
 WANT A HINT?
+
 Chess game is just the basic strategy game with simple 'AI' moves. Just for fun whether you win or lose.
 
 While tinkering with GLaDOS, you might note the odd merror messages. If you produce enough errors, one or more error messages might suggest it actually DOES something interesting. Almost like it's not an error message, but a code sequence...
@@ -40,6 +41,7 @@ If a slice of cake costs about five, maybe something worth the same amount can b
 
 
 "HOW SHOULD I HAVE KNOWN THIS WITHOUT CHEATING?"
+
 Just by playing the game as intended. The credits and certain error/help messages tell you that you're wasting your time when attempting the application process because it closed quite a few years ago on an interesting date in 2009. It also promises cake to the winner, but GLaDOS occasionally tells you this is a lie. When you win the game, you'll realize the lie was technically correct because software cannot give actual cake to a human, but it's still effectively true because GLaDOS can give a human something they can exchange to purchase actual cake. The 'apply' program is really just an error-message generating exercise to get you to notice something odd about some of the messages everytime you fail. Then again, they're all fairly odd now that GLaDOS is doing mere MS-DOS duties.
 
 If you note the "help" system, it gives you all the commands but not the code. You can type 'help chess' and learn it's only a mini-game in the GLaDOS game just for fun. One of the other games was never built for interesting reasons, and another game has no actual winnable outcome (a war games reference ala Matt Broderick).
@@ -48,16 +50,18 @@ The error messages eventually (randomly) suggest that you don't know what the er
 
 
 EVEN MORE SPOILER:
+
 Don't feel bad, this was intentionally made hard. Read the rest of the spoilers above. The date the 'credits' and 'help apply'refer to is jan 3 of 2009 which is the date that bitcoin became a thing. I can't give you a slice of cake through software, but could I give you enough bitcoin to buy a piece of cake? The cake image that displays when you win contains a btcoin wallt address. You ask a friend who knows what a computer bitcoin is, and they can help you claim that wallt. Those 34 vertical letters starting with a 1 (wallets always start with 1 or 3 and are 25 to 34 chars long) are the address of the coin wallt, and you can see that I depositd about five worth of those coins into that wallet when I made this game. The key to the wallet is obvious when you play the game and legit win it. Now that you have that 'key' and accepted your winnings, you can afford to buy yourself or a friend a nice piece of cake, eh?
 
 
 I JUST WANT TO SEE BEHIND THE MAGIC CURTAIN PLEASE:
+
 When GLaDOs appears, type in anything. An error appears and suggests you use 'help'.
 Type in 'help'. A list appears.
 One listed option suggests you type 'apply'. Type 'apply'.
 Type in anything. An error appears. Keep trying / failing until you see an error message suggesting that the numbers in an error code can also DO something. <em>"..Let's be honest. Neither one of us knows what those numbers do..."</em> There is a 1 in 4 chane of getting that error, and someone playing the game fairly is almost certain to come across that error.
 Type in the error code '4815162342'.
-A cake eventually appears. The chars at the end of the cake image are a wallt address containing about five. Its key is shown directly below. I'm intending for you to import that into your own and then you'll have enough for buying an actual slice of cake for yourself because you're a winner!
+A cake eventually appears. The chars at the end of the cake image are a wallt address containing about five. Its key is shown directly below. I'm intending for you to import that amount into your own and then you'll have enough for buying an actual slice of cake for yourself because you're a winner!
 
 
 
