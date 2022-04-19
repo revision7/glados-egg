@@ -45,8 +45,6 @@ While tinkering with GLaDOS, you might notice interesting error messages. If you
 
 That message leads to the ending where it actually tells you that you've won.
 
-If a slice of cake costs about five, maybe something worth the same amount can be accepted by the winner to exchange for a rewarding slice of cake from their local purveyor of pastries? (Yes, I'm just giving the winner a digitl wallet and its key to take, which is loaded with about five in north-North America, which is the equivalent of you getting your precious cake. Anyone can see if claimed yet, anonymously. You didn't think I would lie to you about the cake, did you? What did GLaDOS tell you?)
-
 
 ## "HOW SHOULD I HAVE KNOWN THIS WITHOUT CHEATING?"
 
@@ -54,7 +52,9 @@ Just by playing the game as intended. The credits and certain error/help message
 
 If you note the "help" system, it gives you all the commands. You can type 'help chess' and learn it's only a mini-game in GLaDOS just for fun. One of the other games was never built because the programmers quit because they wanted to write more valuable error messages, and another game has no actual winnable outcome (a war games reference ala Matt Broderick).
 
-The error messages eventually (randomly) suggest that you don't know what the error numbers do. Not what they 'mean'; what they 'do'. Errors can actually DO something? So type in those numbers. Wait. You get told you win, but wait a bit longer. You get your all-so-precious piece of icing-covered pastry! Those numbers at the end of the cake are directly related to the date on which application to become an AI participant stopped being processed (an interesting date in real-world history where GLaDOS might have figured out how to approximately provide a slice of 'cake' to a human). That is the date that btcoin began, which is the virtual and anonymous currency you can trade fo other things of value. The obvious string of characters at the very ending is your 'key' to claim your 'cake', which isn't a lie afterall because you seem to be able to buy a nice piece of cake now.
+The error messages eventually (randomly) suggest that you don't know what the error numbers do. Not what they 'mean'; what they 'do'. Errors can actually DO something? So type in those numbers. Wait. You get told you win, but wait a bit longer. You get your all-so-precious piece of icing-covered pastry! Those numbers at the end of the cake are directly related to the date on which application to become an AI participant stopped being processed (an interesting date in real-world history where GLaDOS might have figured out how to approximately provide a slice of 'cake' to a human). That is the date that btcoin began, which is the virtual and anonymous currency you can trade fo other things of value. The obvious string of characters at the very ending is your 'key' to claim your 'cake'.
+
+If a slice of cake costs about five, maybe something worth the same amount can be accepted by the winner to exchange for a rewarding slice of cake from their local purveyor of pastries? (Yes, I'm just giving the winner a digitl wallet and its key to take, which is loaded with about five in north-North America, which is the equivalent of you getting your precious cake. Anyone can see if claimed yet, anonymously. You didn't think I would lie to you about the cake, did you? What did GLaDOS tell you?)
 
 
 ## EVEN MORE SPOILER:
@@ -73,6 +73,6 @@ A cake eventually appears. The chars at the end of the cake image are a wallt ad
 
 
 
-# IF YOU CHEATED AND CLAIMED IT AND FEEL BAD, JUST DEPOSIT BACK AND LEAVE IT BE FOR A TRUE WINNER. NO JUDGEMENT. IT'S ALL ANONYMOUS ANYHOW.
+## IF YOU CHEATED AND CLAIMED IT AND FEEL BAD, JUST DEPOSIT BACK AND LEAVE IT BE FOR A TRUE WINNER. NO JUDGEMENT. IT'S ALL ANONYMOUS ANYHOW.
   
 </details>
