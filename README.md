@@ -46,7 +46,7 @@ Just by playing the game as intended. The credits and certain error/help message
 
 If you note the "help" system, it gives you all the commands but not the code. You can type 'help chess' and learn it's only a mini-game in the GLaDOS game just for fun. One of the other games was never built for interesting reasons, and another game has no actual winnable outcome (a war games reference ala Matt Broderick).
 
-The error messages eventually (randomly) suggest that you don't know what the error numbers do. Not what they 'mean'; what they "do'. Errors can actually DO something? So type in those numbers. Wait. You get told you win, but wait a bit longer. You get your all-so-precious piece of icing-covered pastry! Those numbers at the end of the cake are directly related to the date application to become an AI participant stopped being processed (an interesting date in history where GLaDOS might have figured out how to effectively give a slice of 'cake' to a human). The obvious string of characters at the very ending is you 'key' to claim your 'cake', which isn't a lie afterall because you seem to be able to just buy a nice piece of cake now hey?
+The error messages eventually (randomly) suggest that you don't know what the error numbers do. Not what they 'mean'; what they "do'. Errors can actually DO something? So type in those numbers. Wait. You get told you win, but wait a bit longer. You get your all-so-precious piece of icing-covered pastry! Those numbers at the end of the cake are directly related to the date on which application to become an AI participant stopped being processed (an interesting date in real-world history where GLaDOS might have figured out how to approximately provide a slice of 'cake' to a human). That is the date that btcoin began, which is the virtual and anonymous currency you can trade fo other things of value. The obvious string of characters at the very ending is your 'key' to claim your 'cake', which isn't a lie afterall because you seem to be able to buy a nice piece of cake now.
 
 
 EVEN MORE SPOILER:
@@ -59,12 +59,12 @@ I JUST WANT TO SEE BEHIND THE MAGIC CURTAIN PLEASE:
 When GLaDOs appears, type in anything. An error appears and suggests you use 'help'.
 Type in 'help'. A list appears.
 One listed option suggests you type 'apply'. Type 'apply'.
-Type in anything. An error appears. Keep trying / failing until you see an error message suggesting that the numbers in an error code can also DO something. <em>"..Let's be honest. Neither one of us knows what those numbers do..."</em> There is a 1 in 4 chane of getting that error, and someone playing the game fairly is almost certain to come across that error.
+Type in anything. An error appears. Keep trying / failing until you see an error message suggesting that the numbers in an error code can also DO something. <em>"..Let's be honest. Neither one of us knows what those numbers do..."</em> There is a 1 in 4 chance of getting that error, and someone playing the game honestly is almost certain to come across that error.
 Type in the error code '4815162342'.
 A cake eventually appears. The chars at the end of the cake image are a wallt address containing about five. Its key is shown directly below. I'm intending for you to import that amount into your own and then you'll have enough for buying an actual slice of cake for yourself because you're a winner!
 
 
 
-IF YOU CHEATED AND CLAIMED AND FEEL BAD, JUST DEPOSIT BACK AND LEAVE IT BE FOR A TRUE WINNER. NO JUDGEMENT. IT'S ALL ANONYMOUS ANYHOW.
+IF YOU CHEATED AND CLAIMED IT AND FEEL BAD, JUST DEPOSIT BACK AND LEAVE IT BE FOR A TRUE WINNER. NO JUDGEMENT. IT'S ALL ANONYMOUS ANYHOW.
   
 </details>
