@@ -26,7 +26,7 @@ A mini-game based on Portal's GLaDOS, with its own sub-mini-games, can be played
 <details>
   <summary>Spoilers:</summary>
   
-## Spoiler:
+# Spoilers:
 
 Don't cheat and ruin the fun. Yes, the game is winnable and will literally tell you when you've won, and it can be more rewarding when you do it honestly. The chess game can of course be won too. We can all know whenever anyone wins the main game...well, at least if they take the 'cake'. The reason for vagueness and misspellings below is intentional and is meant to block lazy attempts by habitual cheaters to game the game.
 
@@ -54,7 +54,7 @@ Just by playing the game as intended. The credits and certain error/help message
 
 If you note the "help" system, it gives you all the commands. You can type 'help chess' and learn it's only a mini-game in GLaDOS just for fun. One of the other games was never built because the programmers quit because they wanted to write more valuable error messages, and another game has no actual winnable outcome (a war games reference ala Matt Broderick).
 
-The error messages eventually (randomly) suggest that you don't know what the error numbers do. Not what they 'mean'; what they "do'. Errors can actually DO something? So type in those numbers. Wait. You get told you win, but wait a bit longer. You get your all-so-precious piece of icing-covered pastry! Those numbers at the end of the cake are directly related to the date on which application to become an AI participant stopped being processed (an interesting date in real-world history where GLaDOS might have figured out how to approximately provide a slice of 'cake' to a human). That is the date that btcoin began, which is the virtual and anonymous currency you can trade fo other things of value. The obvious string of characters at the very ending is your 'key' to claim your 'cake', which isn't a lie afterall because you seem to be able to buy a nice piece of cake now.
+The error messages eventually (randomly) suggest that you don't know what the error numbers do. Not what they 'mean'; what they 'do'. Errors can actually DO something? So type in those numbers. Wait. You get told you win, but wait a bit longer. You get your all-so-precious piece of icing-covered pastry! Those numbers at the end of the cake are directly related to the date on which application to become an AI participant stopped being processed (an interesting date in real-world history where GLaDOS might have figured out how to approximately provide a slice of 'cake' to a human). That is the date that btcoin began, which is the virtual and anonymous currency you can trade fo other things of value. The obvious string of characters at the very ending is your 'key' to claim your 'cake', which isn't a lie afterall because you seem to be able to buy a nice piece of cake now.
 
 
 ## EVEN MORE SPOILER:
