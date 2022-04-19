@@ -40,11 +40,11 @@ Pacman game was never build, just like 'help game' says.
 
 The 'apply' program will never go past the 2nd step whether you're applying for the first time or resuming a previous application. That's because applicants are no longer accepted after 2009, just like 'credits' says. Its only purpose is to get you to trigger error messages, just like 'credits' says.
 
-While tinkering with GLaDOS, you might note the odd merror messages. If you produce enough errors, one or more error messages might suggest it actually DOES something. Almost like an error message could have value, just like 'credits' says.
+While tinkering with GLaDOS, you might notice interesting error messages. If you produce enough errors, one or more error messages might state it actually DOES something. Almost like an error message could have value, just like 'credits' says.
 
 That message leads to the ending where it actually tells you that you've won.
 
-If a slice of cake costs about five, maybe something worth the same amount can be accepted by the winner to exchange for the cash needed to acquire a rewarding slice of cake from their local purveyor of pastries? (Yes, I'm just giving the winner a digitl wallet and its key to take, which is loaded with about five in north-North America, which is the equivalent of you getting your precious cake. Anyone can see if claimed yet anonymously. You didn't think I would lie to you about the cake, did you?)
+If a slice of cake costs about five, maybe something worth the same amount can be accepted by the winner to exchange for a rewarding slice of cake from their local purveyor of pastries? (Yes, I'm just giving the winner a digitl wallet and its key to take, which is loaded with about five in north-North America, which is the equivalent of you getting your precious cake. Anyone can see if claimed yet, anonymously. You didn't think I would lie to you about the cake, did you? What did GLaDOS tell you?)
 
 
 ## "HOW SHOULD I HAVE KNOWN THIS WITHOUT CHEATING?"
