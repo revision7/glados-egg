@@ -45,11 +45,19 @@ Just by playing the game as intended. The credits and certain error and help mes
 
 If you note the "help" system, it gives you all the commands. You can type 'help chess' and learn it's only a mini-game in the GLaDOS game only for fun. One of the other games was never built for interesting reasons, and another one has no actual winnable outcome (a war games reference ala Mat Broderick).
 
-The error messages eventually (randomly) suggest that you don't know what the error numbers do. Not what they 'mean'; what they "do'. Errors can actually DO something? So type in those numbers. Wait. You get told you win, but wait a bit longer. You get your all-so-precious piece of icing-covered pastry! Those numbers at the end of the cake are directly related to the date the applications stopped being processed (an interesting date in history where GLaDOS might have figured out how to effectively give a slice of 'cake' to a human). The obvious string of characters at the very ending is you 'key' to claim your 'cake', which isn't a lie afterall because you seem to be able to just buy a nice piece of cake now hey?
+The error messages eventually (randomly) suggest that you don't know what the error numbers do. Not what they 'mean'; what they "do'. Errors can actually DO something? So type in those numbers. Wait. You get told you win, but wait a bit longer. You get your all-so-precious piece of icing-covered pastry! Those numbers at the end of the cake are directly related to the date application to become an AI participant stopped being processed (an interesting date in history where GLaDOS might have figured out how to effectively give a slice of 'cake' to a human). The obvious string of characters at the very ending is you 'key' to claim your 'cake', which isn't a lie afterall because you seem to be able to just buy a nice piece of cake now hey?
 
 EVEN MORE SPOILER:
 
-Don't feel bad, this was intentionally made hard. Read the rest of the spoilers above. The date the credits refer to is jan 3 of 2009 which is the date that bitcoin became a thing. I can't give you a slice of cake through software, but could I give you enough bitcoin to buy a piece of cake? The cake image that displays when you win contains a btcoin wallt address. You ask a friend who knows what a computer bitcoin is, and they can help you claim that wallt. Those 34 vertical letters starting with a 1 (wallets always start with 1 or 3 and are 25 to 34 chars long) are the address of the bitcoin wallet, and you can see that I depositd about five worth of those coins into that wallet when I made this game. The key to the wallet is obvious when you play the game and legit win it. Now that you have that 'key' and accepted your winnings, you can afford to buy yourself or a friend a nice piece of cake, eh?
+Don't feel bad, this was intentionally made hard. Read the rest of the spoilers above. The date the credits refer to is jan 3 of 2009 which is the date that bitcoin became a thing. I can't give you a slice of cake through software, but could I give you enough bitcoin to buy a piece of cake? The cake image that displays when you win contains a btcoin wallt address. You ask a friend who knows what a computer bitcoin is, and they can help you claim that wallt. Those 34 vertical letters starting with a 1 (wallets always start with 1 or 3 and are 25 to 34 chars long) are the address of the coin wallt, and you can see that I depositd about five worth of those coins into that wallet when I made this game. The key to the wallet is obvious when you play the game and legit win it. Now that you have that 'key' and accepted your winnings, you can afford to buy yourself or a friend a nice piece of cake, eh?
+
+I JUST WANT TO SEE BEHIND THE MAGIC CURTAIN PLEASE:
+
+When GLaDOs appears, type in anything. An error appears and suggests you use 'help'.
+Type in 'help'. A list appears.
+One option suggests you type 'apply'. Type 'apply'.
+Type in anything. An error appears. Keep trying until you see an error message mentioning that an error code can also be a command for something.
+Type in '4815162342'. A cake eventually appears. The chars at the end of the cake image are a wallt address containing about five. The key is shown directly below. I'm intending for you to import that into your own and then you'll have anough for buying an actual slice of cake.
 
 
 
