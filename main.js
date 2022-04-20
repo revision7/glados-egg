@@ -360,7 +360,7 @@ function apply() {
     buff = setTimeout(function() {
         oc();
         println();
-        println("To continue, please type your memorized UIN(+L) at the prompt. If you have forgotten your UIN(+L), you can recover it by typing in your recovery question's answer; \"name a crime that only I know I've committed\":");
+        println("To continue, please type your memorized UIN(+L) at the prompt. If you have forgotten your UIN(+L), you can recover it by typing in your recovery question's answer - \"name a crime that only I know I've committed\":");
         jQuery('<style type="text/css">.fade-out { visibility:hidden }</style>').appendTo(jQuery('head'));
     }, 40000);
     window.buffer.push(buff);
@@ -370,6 +370,9 @@ function apply() {
 function poem() {
     if (window.commandhistory.length < 3) {
         abort = function() {};
+        println();
+        println("Security Eror. It's all about cheat-codes with your, isn't it?");
+        println();
         return;
     }
     cc();
