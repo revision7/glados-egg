@@ -368,7 +368,7 @@ function apply() {
 }
 
 function poem() {
-    if (window.commandhistory.length < 2) {
+    if (window.commandhistory.length < 3) {
         abort = function() {};
         return;
     }
