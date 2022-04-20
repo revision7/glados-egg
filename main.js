@@ -201,7 +201,7 @@ function help(argv) {
         case "game":
             println("Chess is played by clicking the piece you wish to move, then clicking the square where you want it to move. Just for fun.");
             println("Pssst...never engage in global thermonuclear warfare. All outcomes are futile.");
-            println("The programmers never got around to building the Pacman game. They just...left one day to write high-value error messages for another company and left me to write the ones for this system on my own.");
+            println("The programmers never got around to building the Pacman game. They just...left one day to write extra-valuable error messages for another company and now I have to make up the ones for this system myself.");
             break;                            
         default:
             println("4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do.");
@@ -378,7 +378,7 @@ function poem() {
         [2202, 1935, "Forms FORM-29827281-12-2:"],
         [4237, 1935, "Notice of Dismissal: You won. The cake is a lie."],
         [8160, 1, ""],
-        [8174, 5769, "No, really. You won. And there is no cake. It was a lie. How did you think I was even going to be able to give it to you? And what's a piece of cake even worth to you? Like, 0.0001 bitcoins?"],
+        [8174, 5769, "No, really. You won. And there is no cake. It was a lie. How did you think I was even going to be able to give it to you? And what's a piece of cake even worth to you...like, 0.0001 bitcoins?"],
         [17179, 1, ""],
         [19180, 3402, "That is all. Goodbye."],
         [25179, 1, ""],
