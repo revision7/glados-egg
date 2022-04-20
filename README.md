@@ -40,9 +40,9 @@ GLobal Thermonuclear Warfare game can't be won. A mini-game just for fun, just l
 
 Pacman game was never built, just like 'help game' says.
 
-The 'apply' program will never go past the 2nd step - whether you're applying for the first time, or resuming a previous application. That's because applicants are no longer accepted after 2009, just like 'credits' says. Its only purpose is to get you to trigger error messages, just like 'credits' says.
+The 'apply' program will never go past the 2nd step - whether you're applying for the first time, or resuming a previous application. That's because applicants are no longer accepted after 2009, just like 'credits' or 'help apply' says. Its only purpose is to get you to trigger error messages, just like 'help apply' says.
 
-While tinkering with GLaDOS, you might notice some interesting error messages. If you produce enough errors, one or more error messages will hint it actually DOES something. Almost like an error message could have value, just like 'credits' says.
+While tinkering with GLaDOS, you might notice some interesting error messages. If you produce enough errors, one or more error messages will hint it actually DOES something. Almost like an error message could have value, just like 'help game' says.
 
 That message leads to the ending where it actually tells you that "you've won".
 
