@@ -46,7 +46,7 @@ While tinkering with GLaDOS, you might notice some interesting error messages. I
 That message leads to the ending where it actually tells you that "you've won".
 
 
-## "HOW SHOULD I HAVE KNOWN THIS WITHOUT CHEATING?"
+## "HOW SHOULD I HAVE KNOWN THAT?"
 
 Just by playing the game as intended. The credits and certain error/help messages tell you that you're wasting your time when attempting the application process because it closed quite a few years ago on an interesting date in 2009. It also promises cake to the winner, but GLaDOS occasionally tells you this is a lie. When you win the game, you'll realize the lie was technically correct because software cannot give actual cake to a human, but it's still effectively true because GLaDOS can give a human something they can exchange to purchase actual cake. The 'apply' program is really just an error-message generating exercise to get you to notice something odd about some of the messages everytime you fail. Then again, they're all fairly odd now that GLaDOS is doing mere MS-DOS duties.
 
