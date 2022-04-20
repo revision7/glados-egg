@@ -371,7 +371,7 @@ function poem() {
     if (window.commandhistory.length < 3) {
         abort = function() {};
         println();
-        println("Security Eror. It's all about cheat-codes with your, isn't it?");
+        println("Security ERROR: It's all about cheat-codes with you, isn't it?");
         println();
         return;
     }
