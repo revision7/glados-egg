@@ -69,7 +69,7 @@ Type in 'help'. A list appears.
 
 One listed option suggests you type 'apply'. Type 'apply'.
 
-Type in anything. An error appears. Keep trying / failing until you see an error message suggesting that the numbers in an error code can also DO something. <em>"..Let's be honest. Neither one of us knows what those numbers do..."</em> There is a 1 in 4 chance of getting that error, and someone playing the game honestly is almost certain to come across that error.
+Type in anything. An error appears. Keep trying / failing until you see an error message suggesting that the numbers in an error code can also DO something. <em>"...Let's be honest. Neither one of us knows what those numbers do..."</em> There is a 1 in 4 chance of getting that error, and someone playing the game honestly is almost certain to come across that error.
 
 Type in the "valuable" error code that the programmers left behind, '4815162342'.
 
