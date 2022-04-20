@@ -3,7 +3,7 @@ GLaDOS easter egg.
 
 Demo site: https://glados-egg.github.io/glados
 
-Add this easter-egg to any webpage by adding...
+### Add this easter-egg to any webpage by adding...
 ```
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="https://glados-egg.github.io/glados/main.js"></script>
