@@ -74,10 +74,10 @@ Type in anything. An error appears. Keep trying / failing until you see an error
 
 Type in the "valuable" error code that the programmers left behind, '4815162342'.
 
-You are told you've won. A cake eventually appears. The chars at the end of the cake image are a wallt address containing about five. Its key is shown directly below. I'm intending for you to import that amount into your own and then you'll have enough for buying an actual slice of cake for yourself because you're a winner!
+You are told you've won. A cake eventually appears. The chars at the end of the cake image are a wallt address containing about five. Its key is shown directly below. I'm intending for you to import that amount into your own or cash it and then you'll have enough for buying an actual slice of cake for yourself because you're a winner!
 
 
 
-## IF YOU CHEATED AND CLAIMED IT AND FEEL BAD, JUST DEPOSIT BACK AND LEAVE IT BE FOR A TRUE WINNER. NO JUDGEMENT. IT'S ALL ANONYMOUS ANYHOW.
+## IF YOU CHEATED AND CLAIMED IT AND FEEL BAD, JUST DEPOSIT THAT BACK INTO IT AND LEAVE IT BE FOR A TRUE WINNER. NO JUDGEMENT. IT'S ALL ANONYMOUS ANYHOW.
   
 </details>
