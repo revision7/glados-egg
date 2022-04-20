@@ -33,11 +33,11 @@ Don't cheat and ruin the fun. Yes, the game is winnable and will literally tell 
 
 ## WANT A HINT?
 
-Chess game is just the basic strategy game with simple 'AI' moves. Just for fun whether you win or lose, just like 'help game' says.
+Chess game is just the basic strategy game with simple 'AI' moves. A mini-game for fun whether you win or lose, just like 'help game' says.
 
-GLobal Thermonuclear Warfare game can't be won, just like 'help game' says.
+GLobal Thermonuclear Warfare game can't be won. A mini-game just for fun, just like 'help game' says..
 
-Pacman game was never build, just like 'help game' says.
+Pacman game was never built, just like 'help game' says.
 
 The 'apply' program will never go past the 2nd step whether you're applying for the first time or resuming a previous application. That's because applicants are no longer accepted after 2009, just like 'credits' says. Its only purpose is to get you to trigger error messages, just like 'credits' says.
 
