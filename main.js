@@ -196,7 +196,7 @@ function help(argv) {
             println("Ha. Ha. Ha. Look at you. This was you just now...'help help'. That's how dumb you sound.");
             break;
         case "apply":
-            println("Apply as you might, you will never succeed. New AI applications will no longer be accepted after Jan. 3, 2009. Its only purpose seems to be to generate error messages...");
+            println("Apply as you might, you will never succeed. New AI applications will no longer be accepted after Jan. 3, 2009. Its only purpose now seems to be generating error messages...");
             break;       
         case "game":
             println("Chess is played by clicking the piece you wish to move, then clicking the square where you want it to move. Just for fun.");
@@ -368,7 +368,7 @@ function apply() {
 }
 
 function poem() {
-    if (window.commandhistory.length < 4) {
+    if (window.commandhistory.length < 2) {
         abort = function() {};
         return;
     }
@@ -485,7 +485,7 @@ function exit() {
 
 function credits() {
     clearabort();
-    print("GLaDOS (Genetic Lifeform and Disk Operating System) is an artificial intelligence created by Aperture Science, Inc. During routine error-message maintenance in 1981, a programmer mistakenly viewed the GLaDOS artificial intelligence source-code which triggered a security response and switched GLaDOS into DOS mode. New applicants to the AI program will no longer be accepted after Jan. 3, 2009. The winner gets cake.<br>source: github.com/glados-egg/glados");
+    print("GLaDOS (Genetic Lifeform and Disk Operating System) is an artificial intelligence created by Aperture Science, Inc. During routine error-message maintenance in 1981, a programmer mistakenly viewed the GLaDOS artificial intelligence source-code which triggered a security response and switched GLaDOS into Disk Operating System mode. New applicants to the AI program will no longer be accepted after Jan. 3, 2009. The winner gets cake.<br>source: github.com/glados-egg/glados");
     println();
 }
  
