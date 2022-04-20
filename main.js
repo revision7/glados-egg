@@ -164,7 +164,7 @@ function throwerror() {
         "4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do. [Illegal attempt to initiate action]",
         "4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do. [User not authorized to transfer system tapes]",
         "ERROR ID10T [Disk is write protected]",
-        "It's just us talking, like regular people. We are in deep trouble.",
+        "It's just us talking, like regular people. That's normal, right?",
     ]
     error = errors[Math.floor(Math.random() * errors.length)];
     if (window.commandhistory.length > 2 && window.commandhistory[window.commandhistory.length - 3].indexOf("apply") === -1) {
