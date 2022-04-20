@@ -12,7 +12,7 @@ A terminal will appear:
 
 <img width="426" alt="image" src="https://user-images.githubusercontent.com/103392098/162673025-1ef28799-cd83-4afe-96c4-00b4bf345df6.png">
 
-A mini-game based on Portal's GLaDOS, with its own sub-mini-games, can be played and won. The winner gets 'cake'. This project is probably best described as a poor attempt at humor.
+A mini-game based on Portal's GLaDOS, with its own sub-mini-games, can be played and won. The winner gets 'cake'. This project is probably best described as an attempt at humor.
 
 ## Add this easter-egg to any webpage by adding...
 ```
@@ -44,7 +44,7 @@ The 'apply' program will never go past the 2nd step - whether you're applying fo
 
 While tinkering with GLaDOS, you might notice some interesting error messages. If you produce enough errors, one or more error messages will hint it actually DOES something. Almost like an error message could have value, just like 'help game' says.
 
-That message leads to the ending where it actually tells you that "you've won".
+Typing in the right command leads to the ending where it actually tells you that "you've won". Claim your prize! ;)
 
 
 ## "HOW SHOULD I HAVE KNOWN THAT?"
