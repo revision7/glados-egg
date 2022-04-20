@@ -11,7 +11,7 @@ Demo site: https://glados-egg.github.io/glados
 
 ...before the ```</head>``` tag.
 
-Activate with Konami cheat code:
+### Activate with Konami cheat code:
 
 ## ↑ ↑ ↓ ↓ ← → ← → b a
 
