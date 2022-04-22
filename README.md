@@ -27,7 +27,7 @@ A mini-game based on Portal's GLaDOS, with its own sub-mini-games, can be played
   
 # Spoilers:
 
-Don't cheat and ruin the fun. Yes, the game is winnable and will literally tell you when you've won, and it can be more rewarding when you do it honestly. The chess game can of course be won too. We can all know whenever anyone wins the main game...well, at least if they take the 'cake'. The reason for vagueness and misspellings below is intentional and is meant to block lazy attempts by habitual cheaters/bots to game the game.
+Don't cheat and ruin the fun. Yes, the game is winnable and will literally tell you when you've won, and it can be more rewarding when you do it honestly. The chess game can of course be won too. We can all see whenever anyone wins the main game...well, at least if they take the 'cake'.
 
 
 ## WANT A HINT?
@@ -55,12 +55,12 @@ If you note the "help" system, it gives you all the commands. You can type 'help
 
 The error messages eventually (randomly) suggest that you don't know what the error numbers do. Not what they 'mean'; what they 'do'. Errors can actually DO something? So type in those numbers. Wait. You get told you win, but wait a bit longer. You get your all-so-precious piece of icing-covered pastry! Those numbers at the end of the cake are directly related to the date that AI participant applications stopped being processed. That is the date that btcoin began, which is the virtual and anonymous currency you can trade for other things of value. The obvious string of characters at the very ending is your 'key' to claim your 'cake'.
 
-If a slice of cake costs about five, maybe something worth the same amount can be accepted by the winner to exchange for a rewarding slice of cake from their local purveyor of pastries? (Yes, I'm just giving the winner a digitl wallet and its key to take, which is loaded with about five in north-North America, which is the equivalent of you getting your precious cake. Anyone can see if claimed yet, anonymously. You didn't think I would lie to you about the cake, did you? What did GLaDOS tell you?)
+If a slice of cake costs about five, maybe something worth the same amount can be accepted by the winner to exchange for a rewarding slice of cake from their local purveyor of pastries? (Yes, I'm just giving the winner a bitcoin wallet and its key to take, which is loaded with about five Canadian dollars, which is the equivalent of you getting your precious cake. Anyone can see if that wallet is claimed yet on the blockchain. You didn't think I would lie to you about the cake, did you? What DID GLaDOS tell you?)
 
 
 ## EVEN MORE SPOILER:
 
-Don't feel bad, this was intentionally made hard. Read the rest of the spoilers above. The date the 'credits' and 'help apply' refer to is jan 3 of 2009 which is the date that bitcoin became a thing. I can't give you a slice of cake through software, but could I give you enough bitcoin to buy a piece of cake? The cake image that displays when you win displays a btcoin wallt address. You can ask a friend who knows how a computer bitcoin works, and they can help you claim that wallt. Those 34 vertical letters starting with a 1 (wallets usually start with 1 or 3 and are 26 to 35 chars long) are the address of the coin wallt, and you can see that I depositd about five worth of those coins into that wallet when I made this game. The key to the wallet is obvious when you play the game and win it. Now that you have that 'key' and accepted your winnings, you can afford to buy yourself or a friend a nice piece of cake, eh?
+Don't feel bad, this was intentionally made hard. Read the rest of the spoilers above. The date the 'credits' and 'help apply' refer to is Jan 3 of 2009 which is the date that bitcoin became a thing. I can't give you a slice of cake through software, but could I give you enough bitcoin to buy a piece of cake? The cake image that displays when you win displays a btcoin wallt address. You can ask a friend who knows how a computer bitcoin works, and they can help you claim that wallt. Those 34 vertical letters starting with a 1 (wallets usually start with 1 or 3 and are 26 to 35 chars long) are the address of the coin wallet, and you can see that I depositd about five canadian dollars worth of bitcoins into that wallet when I made this game. The key to the wallet is obvious when you play the game and win it. Now that you have that 'key' and accepted your winnings, you can afford to buy yourself or a friend a nice piece of cake, eh?
 
 
 ## I JUST WANT TO SEE BEHIND THE MAGIC CURTAIN PLEASE:
@@ -73,9 +73,9 @@ One listed option suggests you type 'apply'. Type 'apply'.
 
 Type in anything. An error appears. Keep trying / failing until you see an error message suggesting that the numbers in an error code can also DO something. <em>"...Let's be honest. Neither one of us knows what those numbers do..."</em> There is a 1 in 4 chance of getting that error, and someone playing the game honestly is almost certain to come across that error.
 
-Type in the "valuable" error code that the programmers left behind, '4815162342'.
+Type in the "valuable" error code that the programmers left behind, '4 8 15 16 23 42'.
 
-You are told you've won. A cake eventually appears. The chars at the end of the cake image are a wallt address containing about five. Its key is shown directly below. I'm intending for you to import that amount into your own or cash it and then you'll have enough for buying an actual slice of cake for yourself because you're a winner!
+You are told you've won. A cake eventually appears. The characters at the end of the cake image are a bitcoin wallet address containing about five dollars in Canadian currency. Its key is shown directly below. I'm intending for you to import that wallet into your own wallet, or cash it, and then you'll have enough funds for buying an actual slice of cake for yourself - because you're a winner!
 
 
 
