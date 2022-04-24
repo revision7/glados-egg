@@ -302,6 +302,7 @@ function chess() {
     Rf(0);
 }
 
+var mydinorunner = null;
 function dinogame() {
     abort = function() {};
     clear();
@@ -309,6 +310,7 @@ function dinogame() {
     cc();
     jQuery(dinogameplay).appendTo(jQuery('#chessboardgame'));
     jQuery('#chessboardgame').show();
+    mydinorunner = new Runner('.interstitial-wrapper');
 }
 
 function global_thermonuclear_warfare() {
@@ -695,10 +697,9 @@ function updateConsole() {
 }
 
 
-var dinogameplay = `<div id="q4i58qfgbq7o8y5y"><a class="close" onclick="javascript:jQuery('#chessboardgame').html('');oc();"><u>[close]</u></a><p>Press Space to jump</p>
+var dinogameplay = `<div id="q4i58qfgbq7o8y5y" class="offline"><a class="close" onclick="javascript:mydinorunner.gameOver();mydinorunner.stopListening();jQuery('#chessboardgame').html('');oc();"><u>[close]</u></a>
         <div id="messageBox" class="sendmessage">
-            <p>Press Space to START</p>
-            <div class="niokbutton" onclick="okbuttonsend()"></div>
+            <p>Press Space to START. Press Space or UP to jump.</p>
         </div>
         <div id="main-frame-error" class="interstitial-wrapper">
             <div id="main-content">
@@ -758,6 +759,7 @@ var dinogameplay = `<div id="q4i58qfgbq7o8y5y"><a class="close" onclick="javascr
                 position: absolute;
                 top: 0;
                 z-index: 2;
+                filter: sepia(1);
             }
             
             .offline .controller {
@@ -3561,11 +3563,6 @@ var dinogameplay = `<div id="q4i58qfgbq7o8y5y"><a class="close" onclick="javascr
             })();
 
 
-            function onDocumentLoad() {
-                new Runner('.interstitial-wrapper');
-            }
-
-            document.addEventListener('DOMContentLoaded', onDocumentLoad);
         </script>
     </div>
 `
