@@ -226,7 +226,7 @@ function retaliate() {
         cc();
         println();
         lines = [
-            [0, 2000, "Calculating..."],
+            [0, 2000, "Calculating all possible outcomes..."],
             [2000, 6000, "............."],
             [8000, 9000, "....."],        
             [17000, 5000, "................"],          
@@ -373,7 +373,7 @@ function apply() {
     buff = setTimeout(function() {
         oc();
         println();
-        println("To continue, please type your memorized UIN(+L) at the prompt. If you have forgotten your UIN(+L), you can recover it by typing in your recovery question's answer - \"name a crime that only I know I've committed\":");
+        println("To continue, please type your memorized UIN(+L) at the prompt. If you have forgotten your UIN(+L), you can recover it by typing in your answer to your recovery question: \"name a crime that only I know I've committed\":");
         jQuery('<style type="text/css">.fade-out { visibility:hidden }</style>').appendTo(jQuery('head'));
     }, 40000);
     window.buffer.push(buff);
