@@ -321,7 +321,7 @@ function global_thermonuclear_warfare() {
     cc();
     jQuery('<style type="text/css">.e_eggwrapperambiguous { display:none }</style>').appendTo(jQuery('head'));    
     lines = [
-        [036, 2035, "Oh wow, this is really happening. Ok then, this is definitely <span class='e_eggwrapperambiguous'> not</span> a simulation...<br>"],
+        [036, 2035, "Oh wow, this is really happening. Ok then, this is definitely<span class='e_eggwrapperambiguous'> not</span> a simulation...<br>"],
         [2037, 935, "Select a target:"],
         [3160, 1, ""],
         [3174, 700, "- USA"],
@@ -3952,7 +3952,7 @@ const cssInject = `<style type="text/css">
     background-color: #2d1d04;
     min-width: 870px;
     margin: 0;
-    color: #b78116;
+    color: #714d0d;
     z-index: 999999;
 }
 
