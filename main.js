@@ -202,7 +202,7 @@ function help(argv) {
             println("-Chess is played by clicking the piece you wish to move, then clicking the square where you want it to move. Just for fun.");
             println("-Pssst...never engage in global thermonuclear warfare. All outcomes are futile.");
             println("-The programmers never got around to building the Pacman game. They just...left one day in 2009 to write extra-valuable error codes for another company and now I have to make up the ones for this system myself.");
-            println("-Dino game is played by avoiding the obstacles. Press Space or Up top jump, and Down to duck. Just for fun.");
+            println("-Dino game is played by avoiding the obstacles. Press Space or Up to jump, and Down to duck. Just for fun.");
             break;                            
         default:
             println("4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do.");
