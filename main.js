@@ -168,7 +168,7 @@ function throwerror() {
     ]
     error = errors[Math.floor(Math.random() * errors.length)];
     if (window.commandhistory.length > 2 && window.commandhistory[window.commandhistory.length - 3].indexOf("apply") === -1) {
-        print("Error. ");
+        print("Error. FORMS-EN-2873-FORM (PART1: PERSONALITY & GENERAL KNOWLEDGE) If you are a first time applicant, please type \"CONTINUE\".<br>DISREGARD THIS INSTRUCTION if you are returning to form FORMS-EN-2873-FORM after a break of any duration for any reason. In that case, you MUST contact your supervisor before proceeding.Your supervisor will solicit your Authorized Administrative Unit for an affirmative injunction to type \"CONTINUE\". <br>If permission to type \"CONTINUE\" has been granted, please do so now, unless the box labeled \"DO NOT TYPE CONTINUE\" on the \"Forms Re-Sanction\" form you received from your supervisor is checked, in which case you should remain at your workstation not typing \"CONTINUE\" until such a time as you are instructed by your supervisor to discontinue not typing it.>");
         println(error);
         oc();
     } else {
@@ -373,7 +373,7 @@ function apply() {
     buff = setTimeout(function() {
         oc();
         println();
-        println("To continue, please type your memorized UIN(+L) at the prompt. If you have forgotten your UIN(+L), you can recover it by typing in your answer to your recovery question: \"name a crime that only I know I've committed\":");
+        println("To continue, please type your memorized 12-character UIN(+L) at the prompt. If you have forgotten your UIN(+L), you can recover it by typing in your answer to your recovery question: \"name a crime that only I know I've committed\":");
         jQuery('<style type="text/css">.fade-out { visibility:hidden }</style>').appendTo(jQuery('head'));
     }, 40000);
     window.buffer.push(buff);
