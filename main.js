@@ -167,12 +167,12 @@ function throwerror() {
         "It's just us talking, like regular people. That's normal, right?",
     ]
     error = errors[Math.floor(Math.random() * errors.length)];
-    if (window.commandhistory.length > 2 && window.commandhistory[window.commandhistory.length - 3].indexOf("apply") === -1) {
-        print("Error. FORMS-EN-2873-FORM (PART1: PERSONALITY & GENERAL KNOWLEDGE) If you are a first time applicant, please type \"CONTINUE\".<br>DISREGARD THIS INSTRUCTION if you are returning to form FORMS-EN-2873-FORM after a break of any duration for any reason. In that case, you MUST contact your supervisor before proceeding.Your supervisor will solicit your Authorized Administrative Unit for an affirmative injunction to type \"CONTINUE\". <br>If permission to type \"CONTINUE\" has been granted, please do so now, unless the box labeled \"DO NOT TYPE CONTINUE\" on the \"Forms Re-Sanction\" form you received from your supervisor is checked, in which case you should remain at your workstation not typing \"CONTINUE\" until such a time as you are instructed by your supervisor to discontinue not typing it.>");
-        println(error);
+    if (window.commandhistory.length > 2 && window.commandhistory[window.commandhistory.length - 3].indexOf("apply") === 0) {
+        println("If you are a first time applicant, please type \"CONTINUE\".<br>DISREGARD THIS INSTRUCTION if you are returning to form FORMS-EN-2873-FORM after a break of any duration for any reason. In that case, you MUST contact your supervisor before proceeding. Your supervisor will solicit your Authorized Administrative Unit for an affirmative injunction to type \"CONTINUE\". <br>If permission to type \"CONTINUE\" has been granted, please do so now, unless the box labeled \"DO NOT TYPE CONTINUE\" on the \"Forms Re-Sanction\" form you received from your supervisor is checked, in which case you should remain at your workstation not typing \"CONTINUE\" until such a time as you are instructed by your supervisor to discontinue not typing it.");
         oc();
-    } else {
-        print("Error. Unable to start or continue applications at this time. Try 'help [COMMAND]' for commmand help. ");
+    } 
+    if (window.commandhistory.length > 3 && window.commandhistory[window.commandhistory.length - 4].indexOf("apply") === 0) {
+        println("Error. Unable to start or continue applications at this time. Try 'help [COMMAND]' for commmand help. ");
         oc();
     }    
 }
@@ -201,7 +201,7 @@ function help(argv) {
         case "game":
             println("-Chess is played by clicking the piece you wish to move, then clicking the square where you want it to move. Just for fun.");
             println("-Pssst...never engage in global thermonuclear warfare. All outcomes are futile.");
-            println("-The programmers never got around to building the Pacman game. They just...left one day in 2009 to write extra-valuable error codes for another company and now I have to make up the ones for this system myself.");
+            println("-The programmers never got around to building the Pacman game. They just...left one day in January 2009 to write lucrative error codes for another company and now I have to make up the ones for this system myself.");
             println("-Dino game is played by avoiding the obstacles. Press Space or Up to jump, and Down to duck. Just for fun.");
             break;                            
         default:
