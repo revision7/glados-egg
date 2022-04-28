@@ -36,7 +36,7 @@ The 'help' and 'credits' commmands are good for clues.
 
 Chess game is just the basic strategy game with simple 'AI' moves. A mini-game for fun whether you win or lose, just like 'help game' says.
 
-GLobal Thermonuclear Warfare game can't be won. A mini-game just for fun, just like 'help game' says..
+Global Thermonuclear Warfare game can't be won. A mini-game just for fun, just like 'help game' says..
 
 Pacman game was never built, just like 'help game' says.
 
