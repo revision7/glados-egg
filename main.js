@@ -131,7 +131,7 @@ function runCommand(command) {
     window[cmd](split);
 }
 
-function print(str) {
+function GLDOSprint(str) {
     if (typeof str === "undefined") {
         return;
     }
@@ -483,7 +483,7 @@ function clear() {
 
 function exit() {
     clearabort();
-    print("Goodbye. You won't be missed.");
+    GLDOSprint("Goodbye. You won't be missed.");
     var aserg3456 = true;
     if (aserg3456) {
         setTimeout(function() {
@@ -501,7 +501,7 @@ function exit() {
 
 function credits() {
     clearabort();
-    print("GLaDOS (Genetic Lifeform and Disk Operating System) is an artificial intelligence created by Aperture Science, Inc. During routine error-message maintenance in 1981, a programmer mistakenly viewed the GLaDOS artificial intelligence source-code which triggered a security response and switched GLaDOS into Disk Operating System mode. New applicants to the Artificial Intelligence program will no longer be accepted after Jan. 3, 2009. The winner gets cake.<br>source: github.com/glados-egg/glados");
+    GLDOSprint("GLaDOS (Genetic Lifeform and Disk Operating System) is an artificial intelligence created by Aperture Science, Inc. During routine error-message maintenance in 1981, a programmer mistakenly viewed the GLaDOS artificial intelligence source-code which triggered a security response and switched GLaDOS into Disk Operating System mode. New applicants to the Artificial Intelligence program will no longer be accepted after Jan. 3, 2009. The winner gets cake.<br>source: github.com/glados-egg/glados");
     println();
 }
  
@@ -520,7 +520,7 @@ function lineprint(lines) {
             continue;
         } else if (line[1] == 0 && line[2] != "") {
             buff = setTimeout(function(output) {
-                print(output);
+                GLDOSprint(output);
             }, offset, text);
             window.buffer.push(buff);
             continue;
@@ -530,7 +530,7 @@ function lineprint(lines) {
             string = text[i];
             time = offset + (timeperchar * (i + 1));
             buff = setTimeout(function(string) {
-                print(string);
+                GLDOSprint(string);
             }, time, string);
             window.buffer.push(buff);
         }
