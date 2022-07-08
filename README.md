@@ -13,18 +13,15 @@ A terminal will appear:
 A game based on Portal's GLaDOS, with its own mini-games, can be played and won. The winner gets 'cake'. This project is probably best described as an attempt at humor.
 
 ## Add this easter-egg to any webpage by adding these lines to the html of your page.
-### It goes right above the ```</head>``` tag of your page:
+#### It goes right above the ```</head>``` tag of your page:
 ```
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="https://glados-egg.github.io/glados/main.js"></script>
 ```
 
 
+## Spoilers:
 <details>
-  <summary>Spoilers:</summary>
-  
-# Spoilers:
-
 Don't cheat and ruin the fun. Yes, the game is winnable and will literally tell you when you've won, and it can be more rewarding when you do it honestly. The chess game can of course be won too. We can all see whenever anyone wins the main game...well, at least if they take the 'cake'.
 
 
