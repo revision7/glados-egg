@@ -1,7 +1,5 @@
 # GLaDOS
-GLaDOS easter egg.
-
-Demo site: https://glados-egg.github.io/glados
+GLaDOS easter egg. Demo site: https://glados-egg.github.io/glados
 
 ## Activate with Konami cheat code:
 
