@@ -22,7 +22,8 @@ A game based on Portal's GLaDOS, with its own mini-games, can be played and won.
 
 ## Spoilers:
 <details>
-Don't cheat and ruin the fun. Yes, the game is winnable and will literally tell you when you've won, and it can be more rewarding when you do it honestly. The chess game can of course be won too. We can all see whenever anyone wins the main game...well, at least if they take the 'cake'.
+Yes, the game is winnable and will literally tell you when you've won. The chess game can of course be won too.
+We can all see whenever anyone wins the main game and takes the 'cake'.
 
 
 ## WANT A HINT?
