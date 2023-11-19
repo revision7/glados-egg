@@ -605,8 +605,8 @@ function readybeginegg() {
     
     window.consolerunning = false;
     window.userinput = "";
-    window.consolecontent = "GLaDOS v" + GLaDOSversion + " (c) 1981 Aperture Science, Inc.<br>\
-    ";
+    window.consolecontent = `GLaDOS v${GLaDOSversion} (c) 1981 Aperture Science, Inc.<br>\
+    `;
     window.consoleurl = "<br>Aperture@GLaDOS:~$ ";
     window.commandhistory = [""];
     window.currentcommand = 0;
