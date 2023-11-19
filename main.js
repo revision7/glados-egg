@@ -592,7 +592,7 @@ function readybeginegg() {
         "?": "help",
         "c": "clear",
         "4815162342": "poem",
-        "4 8 15 16 23 42": "poem",
+        "4": "poem",
         "wait": "retaliate",
         "chess.exe": "chess",
         "dino.exe": "dinogame",
