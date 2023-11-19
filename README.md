@@ -1,7 +1,5 @@
 # GLaDOS
-GLaDOS easter egg.
-
-Demo site: https://glados-egg.github.io/glados
+GLaDOS easter egg. Demo site: https://glados-egg.github.io/glados
 
 ## Activate with Konami cheat code:
 
@@ -12,27 +10,25 @@ A terminal will appear:
 
 <img width="426" alt="image" src="https://user-images.githubusercontent.com/103392098/162673025-1ef28799-cd83-4afe-96c4-00b4bf345df6.png">
 
-A mini-game based on Portal's GLaDOS, with its own sub-mini-games, can be played and won. The winner gets 'cake'. This project is probably best described as an attempt at humor.
+A game based on Portal's GLaDOS, with its own mini-games, can be played and won. The winner gets 'cake'. This project is probably best described as an attempt at humor.
 
-## Add this easter-egg to any webpage by adding...
+## Add this easter-egg to any webpage by adding these lines to the html of your page.
+#### It goes right above the ```</head>``` tag of your page:
 ```
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="https://glados-egg.github.io/glados/main.js"></script>
 ```
 
-...before the ```</head>``` tag.
 
+## Spoilers:
 <details>
-  <summary>Spoilers:</summary>
-  
-# Spoilers:
-
-Don't cheat and ruin the fun. Yes, the game is winnable and will literally tell you when you've won, and it can be more rewarding when you do it honestly. The chess game can of course be won too. We can all see whenever anyone wins the main game...well, at least if they take the 'cake'.
+Yes, the game is winnable and will literally tell you when you've won. The chess game can of course be won too.
+We can all see whenever anyone wins the main game and takes the 'cake'.
 
 
 ## WANT A HINT?
 
-The 'help' and 'credits' commmands are good for clues.
+The 'help' and 'credits' commands are good for clues.
 
 Chess game is just the basic strategy game with simple 'AI' moves. A mini-game for fun whether you win or lose, just like 'help game' says.
 
