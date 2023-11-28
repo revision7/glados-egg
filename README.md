@@ -69,7 +69,7 @@ One listed option suggests you type 'apply'. Type 'apply'.
 
 Type in anything. An error appears. Keep trying / failing until you see an error message suggesting that the numbers in an error code can also DO something. <em>"...Let's be honest. Neither one of us knows what those numbers do..."</em> There is a 1 in 4 chance of getting that error, and someone playing the game honestly is almost certain to come across that error.
 
-Type in the "valuable" error code that the programmers left behind, '4 8 15 16 23 42'.
+Type in the "valuable" error code that the programmers left behind; '4 8 15 16 23 42'.
 
 You are told you've won. A cake eventually appears. The characters at the end of the cake image are a bitcoin wallet address containing about five dollars in Canadian currency. Its key is shown directly below. I'm intending for you to import that wallet into your own wallet, or cash it, and then you'll have enough funds for buying an actual slice of cake for yourself - because you're a winner!
 
