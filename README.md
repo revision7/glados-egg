@@ -75,7 +75,7 @@ You are told you've won. A cake eventually appears. The characters at the end of
 
 
 
-## IF YOU CHEATED AND CLAIMED IT AND FEEL BAD, JUST DEPOSIT THAT BACK INTO IT AND LEAVE IT BE FOR A TRUE WINNER. NO JUDGEMENT. IT'S ALL ANONYMOUS ANYHOW.
+## THE CAKE WAS CLAIMED.
   
   
 </details>
