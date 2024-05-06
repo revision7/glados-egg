@@ -51,7 +51,7 @@ If you note the "help" system, it gives you all the commands. You can type 'help
 
 The error messages eventually (randomly) suggest that you don't know what the error numbers do. Not what they 'mean'; what they 'do'. Errors can actually DO something? So type in those numbers. Wait. You get told you win, but wait a bit longer. You get your all-so-precious piece of icing-covered pastry! Those numbers at the end of the cake are directly related to the date that AI participant applications stopped being processed. That is the date that btcoin began, which is the virtual and anonymous currency you can trade for other things of value. The obvious string of characters at the very ending is your 'key' to claim your 'cake'.
 
-If a slice of cake costs about five, maybe something worth the same amount can be accepted by the winner to exchange for a rewarding slice of cake from their local purveyor of pastries? (Yes, I'm just giving the winner a bitcoin wallet and its key to take, which is loaded with about five Canadian dollars, which is the equivalent of you getting your precious cake. Anyone can see if that wallet is claimed yet on the blockchain. You didn't think I would lie to you about the cake, did you? What DID GLaDOS tell you?)
+Something can be accepted by the winner to exchange for a rewarding slice of cake from their local purveyor of pastries. The winner gets a bitcoin wallet and key to take, which is loaded with about five Canadian dollars, which is the equivalent of getting cake. Anyone can see if that wallet is claimed yet on the blockchain.
 
 
 ## EVEN MORE SPOILER:
@@ -71,11 +71,9 @@ Type in anything. An error appears. Keep trying / failing until you see an error
 
 Type in the "valuable" error code that the programmers left behind; '4 8 15 16 23 42'.
 
-You are told you've won. A cake eventually appears. The characters at the end of the cake image are a bitcoin wallet address containing about five dollars in Canadian currency. Its key is shown directly below. I'm intending for you to import that wallet into your own wallet, or cash it, and then you'll have enough funds for buying an actual slice of cake for yourself - because you're a winner!
+You are told you've won. A cake eventually appears. The characters at the end of the cake image are a bitcoin wallet address containing about five dollars in Canadian currency. Its key is shown directly below. You can import that wallet into your own wallet, or cash it, and then you'll have enough funds for buying an actual slice of cake for yourself - because you're a winner!
 
 
-
-## THE CAKE WAS CLAIMED.
   
   
 </details>
