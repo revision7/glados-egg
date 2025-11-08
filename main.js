@@ -589,6 +589,8 @@ function readybeginegg() {
     
     window.shortcuts = {
         "h": "help",
+        "dir": "help",
+        "ls": "help",
         "?": "help",
         "c": "clear",
         "4815162342": "poem",
