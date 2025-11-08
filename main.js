@@ -294,7 +294,7 @@ function retaliate() {
         ];
         lineprint(lines);
         buff = setTimeout(function() {
-            println('I have simulated 76,296,372,954 scenarios of global thermonuclear war.');
+            println('I have simulated another 76,296,372,954 scenarios of global thermonuclear war.');
             println();
             println('After simulating all possible outcomes, all of them lead to the annihilation of humanity. A strange game. The only winning move is not to play.');
             println();
