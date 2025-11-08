@@ -179,7 +179,7 @@ function throwerror() {
 
 function help(argv) {
     if (typeof argv[0] === "undefined") {
-        println("help or '?'..... This overview. Or, 'help [COMMAND]' for commmand help");
+        println("help or '?'..... This overview. Or, type 'help [COMMAND]' for help on a command");
         println("clear........... Clear the console");
         println("apply........... Start or continue applying");
         println("game............ Play a game");
@@ -196,7 +196,7 @@ function help(argv) {
             println("Ha. Ha. Ha. Look at you. This was you just now...'help help'. That's how dumb you sound.");
             break;
         case "apply":
-            println("Apply as you might, you will never succeed. New AI applications will no longer be accepted after Jan. 3, 2009. Its only purpose now seems to be generating error messages...");
+            println("Apply as you might, you will never succeed. New AI applications will no longer be accepted after Jan. 3, 2009. Its only purpose now seems to be generating error messages... Error: 4 8 15 16 23 42");
             break;       
         case "game":
             println("-Chess is played by clicking the piece you wish to move, then clicking the square where you want it to move. Just for fun.");
