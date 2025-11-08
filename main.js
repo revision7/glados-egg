@@ -159,10 +159,10 @@ function throwerror() {
         "Unbelievable. You, &lt;subject name here&gt; must be the pride of &lt;subject hometown here&gt;.",
         "Look, you're wasting your time. And, believe me, you don't have a whole lot left to waste. What's your point, anyway?",
         "Let's be honest. Neither one of us knows what that thing does. Just put it in the corner and I'll deal with it later.",
-        "4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do. [File not found]",
-        "4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do. The winner gets cake. [The cake is a lie.]",
-        "4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do. [Illegal attempt to initiate action]",
-        "4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do. [User not authorized to transfer system tapes]",
+        "Error: 4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do. [File not found]",
+        "Error: 4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do. The winner gets cake. [The cake is a lie.]",
+        "Error: 4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do. [Illegal attempt to initiate action]",
+        "Error: 4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do. [User not authorized to transfer system tapes]",
         "ERROR ID10T [Disk is write protected]",
         "It's just us talking, like regular people. That's normal, right?",
     ]
@@ -205,7 +205,7 @@ function help(argv) {
             println("-Dino game is played by avoiding the obstacles. Press Space or Up to jump, and Down to duck. Just for fun.");
             break;                            
         default:
-            println("4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do.");
+            println("Error: 4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do.");
             break;
     }
 }
