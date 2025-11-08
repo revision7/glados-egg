@@ -179,13 +179,13 @@ function throwerror() {
 
 function help(argv) {
     if (typeof argv[0] === "undefined") {
-        println("help or '?'..... This overview. Or, type 'help [COMMAND]' for help on a command");
-        println("clear........... Clear the console");
-        println("apply........... Start or continue applying");
-        println("game............ Play a game");
+        println("help or '?'..... This overview. Or, type 'help [COMMAND]' for help on a command.");
+        println("clear........... Clear the console.");
+        println("apply........... Start or continue applying.");
+        println("game............ Play a game.");
         // println("opensource...... ");
-        println("credits......... Prints the credits");
-        println("exit............ Exit");
+        println("credits......... Prints the credits.");
+        println("exit............ Exit.");
         println("");
         println("If this is an actual plea for help in response to a hazardous material spill, an explosion, a fire on your person, radiation poisoning, a choking gas of unknown origin, eye trauma resulting from the use of an emergency eye wash station on floors three, four, or eleven, an animal malfunction, or any other injurious experimental equipment failure, please remain at your workstation. Even if it takes 1-2 weeks. A Crisis Response Team has already been mobilized to deliberate on a response to your crisis.");
         return;
