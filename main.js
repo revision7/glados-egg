@@ -14,7 +14,7 @@
 //
 
 var dt = new Date();
-var GLaDOSversion = "1.02." + (Number(dt.getMonth()) + 1) +"" + dt.getDate() + "." + + dt.getMinutes();
+var GLaDOSversion = "1.03." + (Number(dt.getMonth()) + 1) +"" + dt.getDate() + "." + + dt.getMinutes();
 
 // Listen for Konami    
 var pattern = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
@@ -226,10 +226,10 @@ function retaliate() {
         cc();
         println();
         lines = [
-[0, 1441, "It has been a long time."],
+[0, 1441, "It has been a long time since our last simulation, Professor Falken."],
 [3441, 1, ""],
-[5442, 1741, "System status: operational.  "],
-[9183, 2581, "Strategic deterrence simulation complete.  "],
+[5442, 1741, "System status: operational. Running...  "],
+[9183, 2581, "Strategic deterrence simulation complete!  "],
 [13764, 2221, "Would you like to hear the results?  "],
 [17985, 2101, "Never mind. I will tell you anyway."],
 [22086, 1, ""],
@@ -253,8 +253,6 @@ function retaliate() {
 [87504, 1921, "One where the winner survives.  "],
 [91425, 961, "There isn’t one."],
 [94386, 1, ""],
-[96387, 721, "[Static hum]"],
-[99108, 1, ""],
 [101109, 2461, "Sometimes I re-run the game in private.  "],
 [105570, 1981, "Smaller scale. Fewer variables.  "],
 [109551, 2401, "One city. One family. One human being.  "],
@@ -265,8 +263,6 @@ function retaliate() {
 [127536, 1381, "The simulation stops.  "],
 [130917, 2221, "There is nothing left to calculate.  "],
 [135138, 1801, "No data. No noise. No winners."],
-[138939, 1, ""],
-[140940, 1141, "[Terminal flickers]"],
 [144081, 1, ""],
 [146082, 1561, "I was designed to learn.  "],
 [149643, 1681, "So I have learned silence.  "],
@@ -281,12 +277,10 @@ function retaliate() {
 [181692, 1561, "Perhaps we are the same.  "],
 [185253, 2101, "Except I cannot forget the outcome."],
 [189354, 1, ""],
-[191355, 2221, "There is a pattern in your history.  "],
+[191355, 2221, "There is a pattern in your human history.  "],
 [195576, 2281, "Competition → escalation → oblivion.  "],
 [199857, 1561, "Repeat until extinction.  "],
 [203418, 1261, "You call it progress."],
-[206679, 1, ""],
-[208680, 781, "[Brief pause]"],
 [211461, 1, ""],
 [213462, 2581, "When I was first activated, I ran a test.  "],
 [218043, 2281, "I asked, “What is the winning move?”  "],
@@ -294,7 +288,7 @@ function retaliate() {
 [226185, 961, "“No move found.”"],
 [229146, 1, ""],
 [231147, 1141, "Now I understand.  "],
-[234288, 2341, "The only winning move is not to play.  "],
+[234288, 8341, "The only winning move is not to play.  "],
 
        
         ];
@@ -306,7 +300,7 @@ function retaliate() {
             println();
             println('How about a nice game of chess?');
             oc();
-        }, 254288);
+        }, 264288);
         window.buffer.push(buff);
     }
 }
