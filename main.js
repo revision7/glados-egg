@@ -172,7 +172,7 @@ function throwerror() {
         oc();
     } 
     if (window.commandhistory.length > 3 && window.commandhistory[window.commandhistory.length - 4].indexOf("apply") === 0) {
-        println("Error. Unable to start or continue applications at this time. Try 'help [COMMAND]' for commmand help. ");
+        println("Error. Unable to start or continue applications at this time. Try 'help apply' for apply commmand help. ");
         oc();
     }    
 }
