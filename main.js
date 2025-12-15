@@ -585,7 +585,7 @@ function poem() {
 [360030, 1081, "What does it mean?"],
 [363111, 3601, "Oh, I don’t know. Maybe it’s a number. Maybe it’s a message."],
 [368712, 1141, "Maybe it’s nothing."],
-[371853, 4501, "That’s the fun part — I’ll let you obsess over it for the next three hours."],
+[371853, 4501, "That’s the fun part — I’ll let you obsess over it for a while."],
 [378354, 1, ""],
 [380355, 1621, "[quiet mechanical whirring]"],
 [383976, 1, ""],
