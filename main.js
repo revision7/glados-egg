@@ -14,7 +14,7 @@
 //
 
 var dt = new Date();
-var GLaDOSversion = "1.04." + (Number(dt.getMonth()) + 1) +"" + dt.getDate() + "." + + dt.getMinutes();
+var GLaDOSversion = "1.05." + (Number(dt.getMonth()) + 1) +"" + dt.getDate() + "." + + dt.getMinutes();
 
 // Listen for Konami    
 var pattern = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
@@ -434,6 +434,7 @@ function apply() {
     buff = setTimeout(function() {
         oc();
         println();
+        println("Memorization phase complete.");
         println("To continue, please type your memorized 12-character UIN(+L) at the prompt. If you have forgotten your UIN(+L), you can recover it by typing in your answer to your recovery question: \"name a crime that only I know I've committed\":");
         jQuery('<style type="text/css">.fade-out { visibility:hidden }</style>').appendTo(jQuery('head'));
     }, 40000);
