@@ -492,8 +492,8 @@ function poem() {
         
 
 
-[21180, 781, "Oh. It’s you."],
-[23961, 3121, "I see you’ve found the secret room. Congratulations."],
+[21180, 781, "Ok. Fine."],
+[23961, 3121, "You’ve found the secret room. Congratulations."],
 [29082, 2101, "You must be very proud of yourself."],
 [33183, 3061, "Go ahead — take a moment. Bask in your achievement."],
 [38244, 1621, "…Done? Good. Let’s move on."],
