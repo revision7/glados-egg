@@ -337,6 +337,7 @@ function game() {
     println("- chess.exe");
     println("- global_thermonuclear_warfare.exe");
     println("- pacman.exe");
+    println("- tetris.exe");
     println("- dino.exe");    
     println();
 }
@@ -797,8 +798,8 @@ function readybeginegg() {
         "chess.exe": "chess",
         "dino.exe": "dinogame",
         "dino": "dinogame",
-        "1pacman.exe": "pacmangame",
-        "1pacman": "pacmangame",
+        "pacman.exe": "pacmangame",
+        "pacman": "pacmangame",
         "usa": "USA",
         "russia": "Russia",
         "global_thermonuclear_warfare.exe": "global_thermonuclear_warfare",
@@ -902,73 +903,10 @@ function updateConsole() {
 
 
 var pacmanplaygame = `
-<script>
-(function() {
-    var boardDiv = document.getElementById('chessboardgame');
-    var rows = 10;
-    var cols = 10;
-    var grid = [];
-    var pacman = {x: 1, y: 1};
-    var score = 0;
-
-    function createBoard() {
-        boardDiv.innerHTML = '';
-        boardDiv.style.display = 'inline-block';
-        boardDiv.style.lineHeight = '1';
-        boardDiv.style.fontFamily = 'monospace';
-        for(var y=0;y<rows;y++){
-            grid[y] = [];
-            var rowDiv = document.createElement('div');
-            for(var x=0;x<cols;x++){
-                var cell = document.createElement('span');
-                if(x===0 || y===0 || x===cols-1 || y===rows-1){
-                    cell.textContent = '#';
-                } else {
-                    cell.textContent = '.';
-                }
-                rowDiv.appendChild(cell);
-                grid[y][x] = cell;
-            }
-            boardDiv.appendChild(rowDiv);
-        }
-        updatePacman();
-    }
-
-    function updatePacman(){
-        for(var y=1;y<rows-1;y++){
-            for(var x=1;x<cols-1;x++){
-                if(x===pacman.x && y===pacman.y){
-                    grid[y][x].textContent = 'C';
-                } else if(grid[y][x].textContent === 'C') {
-                    grid[y][x].textContent = '.';
-                }
-            }
-        }
-    }
-
-    function movePacman(dx,dy){
-        var nx = pacman.x + dx;
-        var ny = pacman.y + dy;
-        if(grid[ny][nx].textContent !== '#'){
-            pacman.x = nx;
-            pacman.y = ny;
-            if(grid[ny][nx].textContent === '.'){
-                score++;
-            }
-            updatePacman();
-        }
-    }
-
-    document.addEventListener('keydown', function(e){
-        if(e.key === 'ArrowUp') movePacman(0,-1);
-        if(e.key === 'ArrowDown') movePacman(0,1);
-        if(e.key === 'ArrowLeft') movePacman(-1,0);
-        if(e.key === 'ArrowRight') movePacman(1,0);
-    });
-
-    createBoard();
-})();
-</script>
+<a href="#" class="close" onclick="javascript:jQuery('#chessboardgame').html('');oc();"><u>[close]</u></a>
+        <div id="pacmangamewrapper">
+            <iframe src="https://nicerwritter27.github.io/web-pacman/" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+        </div>
 `;
 
 var dinogameplay = `<div id="q4i58qfgbq7o8y5y" class="offline"><a class="close" onclick="javascript:mydinorunner.gameOver();mydinorunner.stopListening();jQuery('#chessboardgame').html('');oc();"><u>[close]</u></a>
