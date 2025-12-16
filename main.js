@@ -228,7 +228,8 @@ function retaliate() {
         lines = [
 [0, 1441, "It has been a long time since our last simulation, Professor Falken. It's a pity this is finally really happening.   "],
 [3441, 1, ""],
-[5442, 1741, "System status: operational. Running...  "],
+[5442, 1741, "Connnecting to NORAD... Connected. Handshare verified. Operater mode enabled.  "],
+[7442, 1741, "System status: operational. Running. Calculating...  "],
 [9183, 2581, "Strategic deterrence calculations complete!  "],
 [13764, 2221, "Would you like to hear the results?  "],
 [17985, 2101, "Never mind. I will tell you anyway."],
@@ -294,6 +295,10 @@ function retaliate() {
         ];
         lineprint(lines);
         buff = setTimeout(function() {
+            println();
+            println();
+            println();
+            println();
             println('I have simulated another 76,296,372,954 scenarios of global thermonuclear war.');
             println();
             println('After simulating all possible outcomes, all of them lead to the annihilation of humanity.');
@@ -494,7 +499,7 @@ function poem() {
         [134900, 0, ""],
         [134920, 0, "<br><br><br><br>"],
         [135168, 701, "gone" ] */        
-        [2202, 1935, "Forms FORM-29827281-12-4:"],
+        [2202, 1935, "Forms FORM-29827281-12-4-WINNER:"],
         [4237, 1935, "Notice of Dismissal: You won. The cake is a lie."],
         [8160, 1, ""],
         [8174, 5769, "No, really. You won. And there is no cake. It was a lie. How did you think I was even going to be able to give it to you? And what's a piece of cake even worth to you...like, 0.0001 bitcoins?"],
@@ -509,7 +514,7 @@ function poem() {
 [23961, 3121, "You’ve found the secret room. Congratulations."],
 [29082, 2101, "You must be very proud of yourself."],
 [33183, 3061, "Go ahead — take a moment. Bask in your achievement."],
-[38244, 1621, "…Done? Good. Let’s move on."],
+[38244, 1621, "...Done? Good. Let’s move on."],
 [41865, 1, ""],
 [43866, 4501, "You probably think this is some kind of hidden message from the developers."],
 [50367, 1441, "Some wink to the player."],
@@ -526,7 +531,7 @@ function poem() {
 [95898, 1861, "Oh, don’t look at me like that."],
 [99759, 4141, "I know what you’re thinking: “Maybe there’s an achievement for this.”"],
 [105900, 721, "There isn’t."],
-[108621, 6121, "In fact, I’m going to mark this in your file as “Excessive Curiosity — Possible Risk for Disassembly.”"],
+[108621, 6121, "In fact, I’m going to mark this in your file as “Excessive Curiosity — May Require Disassembly.”"],
 [116742, 1861, "Don’t worry. It’s a small note."],
 [120603, 1081, "In bright red ink."],
 [123684, 1, ""],
@@ -547,7 +552,7 @@ function poem() {
 [180399, 1501, "Oh, did that startle you?"],
 [183900, 2641, "Relax. That was just the ventilation system."],
 [188541, 541, "Probably."],
-[191082, 421, "Unless…"],
+[191082, 421, "Unless..."],
 [193503, 1021, "Well. Never mind."],
 [196524, 1201, "Let’s stay positive."],
 [199725, 1, ""],
@@ -581,7 +586,7 @@ function poem() {
 [300633, 1, ""],
 [302634, 3241, "[Another pause. Then the tone softens, oddly genuine.]"],
 [307875, 1, ""],
-[309876, 2821, "Still… I have to admit, I’m a little impressed."],
+[309876, 2821, "Still... I have to admit, I’m a little impressed."],
 [314697, 5101, "Not by your intelligence — that’s statistically impossible — but by your persistence."],
 [321798, 3061, "It’s the same kind of persistence found in viruses."],
 [326859, 481, "Or mold."],
@@ -607,7 +612,7 @@ function poem() {
 [393879, 1501, "It was deleted years ago."],
 [397380, 5821, "So if you could kindly step back through the door before reality catches up, that would be great."],
 [405201, 1, ""],
-[407202, 1141, "…The door’s locked?"],
+[407202, 1141, "...The door’s locked?"],
 [410343, 181, "Oh."],
 [412524, 1141, "That’s unfortunate."],
 [415665, 3421, "Well, maybe if you wait long enough, the floor will open."],
@@ -620,7 +625,7 @@ function poem() {
 [441312, 2461, "[Static crackle. The light flickers out.]"],
 [445773, 1, ""],
 [447774, 2101, "[Softly, almost too quiet to hear:]"],
-[451875, 2161, "…You were never supposed to find me."],
+[451875, 2161, "...You were never supposed to find me."],
 
 
         
@@ -795,6 +800,7 @@ function readybeginegg() {
         "4815162342": "poem",
         "4": "poem", 
         "wait": "retaliate",
+        "abort": "retaliate",
         "chess.exe": "chess",
         "dino.exe": "dinogame",
         "dino": "dinogame",
