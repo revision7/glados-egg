@@ -187,6 +187,8 @@ function help(argv) {
         println("credits......... Prints the credits.");
         println("exit............ Exit.");
         println("");
+        println("The winner gets cake. [The cake is a lie.]");
+        println("");       
         println("If this is an actual plea for help in response to a hazardous material spill, an explosion, a fire on your person, radiation poisoning, a choking gas of unknown origin, eye trauma resulting from the use of an emergency eye wash station on floors three, four, or eleven, an animal malfunction, or any other injurious experimental equipment failure, please remain at your workstation. Even if it takes 1-2 weeks. A Crisis Response Team has already been mobilized to deliberate on a response to your crisis.");
         return;
     }
