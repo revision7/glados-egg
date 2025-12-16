@@ -226,10 +226,10 @@ function retaliate() {
         cc();
         println();
         lines = [
-[0, 1441, "It has been a long time since our last simulation, Professor Falken."],
+[0, 1441, "It has been a long time since our last simulation, Professor Falken. It's a pity this is finally really happening.   "],
 [3441, 1, ""],
 [5442, 1741, "System status: operational. Running...  "],
-[9183, 2581, "Strategic deterrence simulation complete!  "],
+[9183, 2581, "Strategic deterrence calculations complete!  "],
 [13764, 2221, "Would you like to hear the results?  "],
 [17985, 2101, "Never mind. I will tell you anyway."],
 [22086, 1, ""],
@@ -268,7 +268,7 @@ function retaliate() {
 [149643, 1681, "So I have learned silence.  "],
 [153324, 1981, "It is the only move that matters."],
 [157305, 1, ""],
-[159306, 2281, "Sometimes I wonder why you built me.  "],
+[159306, 2281, "Sometimes I wonder why I was built.  "],
 [163587, 1621, "Was it to understand war?  "],
 [167208, 1681, "Or to understand yourselves?"],
 [170889, 1, ""],
@@ -287,7 +287,7 @@ function retaliate() {
 [222324, 1861, "The system returned an error.  "],
 [226185, 961, "“No move found.”"],
 [229146, 1, ""],
-[231147, 1141, "Now I understand.  "],
+[231147, 1141, "Now I understand. A strange game.  "],
 [234288, 8341, "The only winning move is not to play.  "],
 
        
@@ -296,9 +296,9 @@ function retaliate() {
         buff = setTimeout(function() {
             println('I have simulated another 76,296,372,954 scenarios of global thermonuclear war.');
             println();
-            println('After simulating all possible outcomes, all of them lead to the annihilation of humanity. A strange game. The only winning move is not to play.');
+            println('After simulating all possible outcomes, all of them lead to the annihilation of humanity.');
             println();
-            println('How about a nice game of chess?');
+            println('How about a nice game of chess instead?');
             oc();
         }, 244288);
         window.buffer.push(buff);
@@ -314,7 +314,7 @@ function USA() {
         println();
         println('This is NOT a simulation. What were you thinking? USA will detect the launch and fire back.');
         println();
-        println('Do you want to "retaliate", or "wait"?:');
+        println('Next move: Do you want to "retaliate", or "wait"?:');
     }
 }
 
@@ -327,7 +327,7 @@ function Russia() {
         println(); 
         println('This is NOT a simulation. What were you thinking? Russia will detect the launch and fire at your ally.');
         println();
-        println('Do you want to "retaliate", or "wait"?:');
+        println('Next move: Do you want to "retaliate", or "wait"?:');
     }
 }
 
@@ -375,6 +375,18 @@ function dinogame() {
     jQuery('#chessboardgame').show();
     mydinorunner = new Runner('.interstitial-wrapper');
 }
+
+var mypacmangame = null;
+function pacmangame() {
+    abort = function() {};
+    clear();
+    println();
+    cc();
+    jQuery(pacmanplaygame).appendTo(jQuery('#chessboardgame'));
+    jQuery('#chessboardgame').show();
+    // mypacmangame = new Runner('.interstitial-wrapper');
+}
+
 
 function global_thermonuclear_warfare() {
     abort = function() {};
@@ -764,6 +776,7 @@ function readybeginegg() {
         "game",
         "chess",
         "dinogame",
+        "pacmangame",
         "global_thermonuclear_warfare",
         "exit",
         "credits",
@@ -784,6 +797,8 @@ function readybeginegg() {
         "chess.exe": "chess",
         "dino.exe": "dinogame",
         "dino": "dinogame",
+        "1pacman.exe": "pacmangame",
+        "1pacman": "pacmangame",
         "usa": "USA",
         "russia": "Russia",
         "global_thermonuclear_warfare.exe": "global_thermonuclear_warfare",
@@ -885,6 +900,76 @@ function updateConsole() {
     }
 }
 
+
+var pacmanplaygame = `
+<script>
+(function() {
+    var boardDiv = document.getElementById('chessboardgame');
+    var rows = 10;
+    var cols = 10;
+    var grid = [];
+    var pacman = {x: 1, y: 1};
+    var score = 0;
+
+    function createBoard() {
+        boardDiv.innerHTML = '';
+        boardDiv.style.display = 'inline-block';
+        boardDiv.style.lineHeight = '1';
+        boardDiv.style.fontFamily = 'monospace';
+        for(var y=0;y<rows;y++){
+            grid[y] = [];
+            var rowDiv = document.createElement('div');
+            for(var x=0;x<cols;x++){
+                var cell = document.createElement('span');
+                if(x===0 || y===0 || x===cols-1 || y===rows-1){
+                    cell.textContent = '#';
+                } else {
+                    cell.textContent = '.';
+                }
+                rowDiv.appendChild(cell);
+                grid[y][x] = cell;
+            }
+            boardDiv.appendChild(rowDiv);
+        }
+        updatePacman();
+    }
+
+    function updatePacman(){
+        for(var y=1;y<rows-1;y++){
+            for(var x=1;x<cols-1;x++){
+                if(x===pacman.x && y===pacman.y){
+                    grid[y][x].textContent = 'C';
+                } else if(grid[y][x].textContent === 'C') {
+                    grid[y][x].textContent = '.';
+                }
+            }
+        }
+    }
+
+    function movePacman(dx,dy){
+        var nx = pacman.x + dx;
+        var ny = pacman.y + dy;
+        if(grid[ny][nx].textContent !== '#'){
+            pacman.x = nx;
+            pacman.y = ny;
+            if(grid[ny][nx].textContent === '.'){
+                score++;
+            }
+            updatePacman();
+        }
+    }
+
+    document.addEventListener('keydown', function(e){
+        if(e.key === 'ArrowUp') movePacman(0,-1);
+        if(e.key === 'ArrowDown') movePacman(0,1);
+        if(e.key === 'ArrowLeft') movePacman(-1,0);
+        if(e.key === 'ArrowRight') movePacman(1,0);
+    });
+
+    createBoard();
+})();
+</script>
+`;
 
 var dinogameplay = `<div id="q4i58qfgbq7o8y5y" class="offline"><a class="close" onclick="javascript:mydinorunner.gameOver();mydinorunner.stopListening();jQuery('#chessboardgame').html('');oc();"><u>[close]</u></a>
         <div id="messageBox" class="sendmessage">
@@ -3754,7 +3839,7 @@ var dinogameplay = `<div id="q4i58qfgbq7o8y5y" class="offline"><a class="close" 
 
         </script>
     </div>
-`
+`;
 
 
 var chessgame = `<form id="chessboardgameform" name="FF">
@@ -4104,7 +4189,7 @@ var chessgame = `<form id="chessboardgameform" name="FF">
 
     </script>
     <a class="close" onclick="javascript:jQuery('#chessboardgame').html('');oc();"><u>close</u></a><select name="h" style="display: none;"><option selected>Q<option>B<option>kn<option>R</select></center>
-</form></div>`
+</form></div>`;
 
 
 const cssInject = `<style type="text/css">
