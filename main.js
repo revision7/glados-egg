@@ -201,7 +201,8 @@ function help(argv) {
         case "game":
             println("-Chess is played by clicking the piece you wish to move, then clicking the square where you want it to move. Just for fun.");
             println("-Pssst...never engage in global thermonuclear warfare. All outcomes are futile.");
-            println("-The programmers never got around to building the Pacman game. They just...left one day in January 2009 to write lucrative error codes for another company and now I have to make up the ones for this system myself.");
+            println("-Pacman game is played by pressing the arrow keys or WASD. Avoid the ghosts. Just for fun.");
+            println("-The programmers never got around to building the Tetris game. They just...left one day in January 2009 to write lucrative error codes for another company and now I have to make up the ones for this system myself.");
             println("-Dino game is played by avoiding the obstacles. Press Space or Up to jump, and Down to duck. Just for fun.");
             break;                            
         default:
