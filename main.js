@@ -183,7 +183,7 @@ function throwerror() {
         oc();
     }
     if (window.commandhistory.length > 3 && window.commandhistory[window.commandhistory.length - 4].indexOf("apply") === 0) {
-        println("Error. Unable to start or continue applications at this time. Try 'help apply' for apply commmand help. ");
+        println("Error. Unable to start or continue applications at this time. Try 'help apply' for help on the apply commmand. ");
         oc();
     }
 }
@@ -488,34 +488,6 @@ function poem() {
     cc();
     lines = [
         [0, 1, ""],
-        /*         [68650, 0, "Severance Pa"],
-                [68675, 0, "ckage De"],
-                [68701, 0, "tails:<br><br>"],
-                [68735, 767, "You've got your"],
-                [69669, 1001, "short sad"],
-                [70937, 2102, "life left"],
-                [73573, 2436, "That's what I'm counting on"],
-                [78211, 3203, "I'll let you get right to it"],
-                [81815, 2902, "Now I only want you gone"],
-                [88688, 0, ""],
-                [89823, 1735, "Goodbye my only friend"],
-                [93225, 902, "Oh, did you think I meant you?"],
-                [94727, 1135, "That would be funny"],
-                [96262, 1836, "if it weren't so sad"],
-                [99332, 1769, "Well you have been replaced"],
-                [101768, 2035, "I don't need anyone now"],
-                [104104, 1968, "When I delete you maybe"],
-                [106372, 2336, "[REDACTED]"],
-                [109109, 0, ""],
-                [109776, 3537, "Go make some new disaster"],
-                [114647, 2436, "That's what I'm counting on"],
-                [119319, 3236, "You're someone else's problem"],
-                [122655, 3504, "Now I only want you gone"],
-                [127460, 3504, "Now I only want you gone"],
-                [132232, 2602, "Now I only want you"],
-                [134900, 0, ""],
-                [134920, 0, "<br><br><br><br>"],
-                [135168, 701, "gone" ] */
         [2202, 1935, "Forms FORM-29827281-12-4-WINNER:"],
         [4237, 1935, "Notice of Dismissal: You won. The cake is a lie."],
         [8160, 1, ""],
@@ -523,10 +495,6 @@ function poem() {
         [17179, 1, ""],
         [19180, 402, "That is all. Goodbye."],
         [19580, 1, ""],
-
-
-
-
         [21180, 781, "Ok. Fine."],
         [23961, 3121, "You’ve found the secret room. Congratulations."],
         [29082, 2101, "You must be very proud of yourself."],
@@ -643,40 +611,15 @@ function poem() {
         [445773, 1, ""],
         [447774, 2101, "[Softly, almost too quiet to hear:]"],
         [451875, 2161, "...You were never supposed to find me."],
-
-
-
-
         [451895, 3514, ""],
         [459975, 19000, "<br>█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█<br>█░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░█<br>█░░░░░░░░░░░░░░░░░░░░░░▄░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░14<br>█░░░░░░░░░░░░░░░░░░░░░░░█░░░░░░░░░░░░░░░░░░░░░░░░░░░░░kV<br>█░░░░░░░░░░░░░░░░░░░▄▄░▄▀░░░░░░░░░░░░░░░░░░░░░░░░░░░░░La<br>█░░░░░░░░░░░░░░░░▄██████▄░░░░░▄▄▄▄▄▄███▀█░░░░░░░░░░░░░8B<br>█░░░░░░░░░░░░░░▄█░███████░██▀▀▀░▄▄█▀█▄███░░░░░░░░░░░░░AD<br>█░░░░░░░░░░░░█▀▀▀░█████▀▀▄█▀▄▄▀▀▄▄███████░░░░░░░░░░░░░AW<br>█░░░░░░░░░░░░█▀▄▄▄▄███░▄▄█▀▀▄▄███████▀▀▄▄░░░░░░░░░░░░░Wz<br>█░░░░░░░░░░░░█░░░░▀▀▀▀▀▀▄▄███████▀▀▄▄████░░░░░░░░░░░░░by<br>█░░░░░░░░░░░░█░░░░░░░░░█████▀▀▀▄▄███████▀░░░░░░░░░░░░░th<br>█░░░░░░░░░░░░█░░░░░░░░░█▀▀░▄▄███████▀█▄▄█░░░░░░░░░░░░░Xk<br>█░░░░░░░░░░░░█░░░░░░░░░▄▄███████▀█▄██████░░░░░░░░░░░░░8f<br>█░░░░░░░░░░░░█░░░░░░░░░████▀▀▄▄███████▀▀░░░░░░░░░░░░░░Xu<br>█░░░░░░░░░░░░█░░░░░░░░░▀▀▄▄███████▀▀░░░░░░░░░░░░░░░░░░BC<br>█░░░░░░░░░░░░█░░░░░░░░░███████▀▀░░░░░░░░░░░░░░░░░░░░░░h8<br>█░░░░░░░░░░░░░▀▄▄▄░░░░░███▀▀░░░░░░░░░░░░░░░░░░░░░░░░░░Nw<br>█░░░░░░░░░░░░░░░░░▀▀▀▀▀▀░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░gT<br>█░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░gZ<br>█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█<br>5JmmQ9JhYSzgT6m7JDucUrUas3u3fHVC2F78TzGPytvTDnJnmES"],
-        /*        [17851, 1801, "Oh how we laughed and laughed"],
-       [19953, 1988, "Except I wasn't laughing"],
-       [22455, 2002, "Under the circumstances"],
-       [24624, 2369, "I've been shockingly nice"],
-       [27894, 0, ""],
-       [28261, 2069, "You want your freedom?"],
-       [30630, 901, "Take it"],
-       [32565, 2636, "That's what I'm counting on"],
-       [37700, 1, ""],
-       [37771, 2736, "I used to want you as a friend"],
-       [40573, 234, "but"],
-       [41307, 2937, "Now I only want you gone"],
-       [47847, 0, ""],
-       [48782, 1701, "She was a lot like you"],
-       [51317, 1836, "(Maybe not quite as heavy)"],
-       [53820, 3604, "Now little Caroline is in here too"],
-       [58391, 1935, "One day they woke me up"],
-       [60894, 2068, "So I could live forever"],
-       [63196, 1702, "It's such a shame the same"],
-       [64998, 3103, "will never happen to you"],
-       [68601, 0, ""]*/
     ];
 
     lineprint(lines);
 
     buff = setTimeout(function () {
         clearabort();
-        // oc();
+        oc();
     }, opentime + 2500);
     window.buffer.push(buff);
 
@@ -689,7 +632,7 @@ function poem() {
         for (id in window.buffer) {
             clearTimeout(window.buffer[id]);
         }
-        // oc();
+        oc();
         clearabort();
     };
 }
