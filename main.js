@@ -14,13 +14,18 @@
 //
 
 var dt = new Date();
-var GLaDOSversion = "1.04." + (Number(dt.getMonth()) + 1) +"" + dt.getDate() + "." + + dt.getMinutes();
+var GLaDOSversion = "1.04." + (Number(dt.getMonth()) + 1) + "" + dt.getDate() + "." + + dt.getMinutes();
 
 // Listen for Konami    
 var pattern = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
 var current = 0;
+const audio1 = new Audio('welcome.mp3');
+const audio2 = new Audio('clicking.mp3');
+const audio3 = new Audio('goodbye.mp3');
+const audio4 = new Audio('shesaid.mp3');
+const audio5 = new Audio('disregard.mp3');
 
-var eggkeyHandler = function(event) {
+var eggkeyHandler = function (event) {
 
     // If the key isn't in the pattern, or isn't the current key in the pattern, reset
     if (pattern.indexOf(event.key) < 0 || event.key !== pattern[current]) {
@@ -40,16 +45,21 @@ var eggkeyHandler = function(event) {
         document.removeEventListener('keydown', eggkeyHandler, false);
 
         // start egg
-        jQuery(document).click(function() {
+        jQuery(document).click(function () {
             jQuery("#e_eggwrapper #userinputworkaround").focus()
         });
         jQuery("#e_eggwrapper #userinputworkaround").focus();
 
-        jQuery(window).on("keydown", function(e) {
+        jQuery(window).on("keydown", function (e) {
 
             if (window.ctrlDown && e.keyCode == 67) {
                 console.log('Ctrl+C interrupt');
                 abort();
+                audio1.pause();
+                audio2.pause();
+                audio3.pause();
+                audio4.pause();
+                audio5.pause();
                 return;
             }
             if (window.consolerunning) {
@@ -57,7 +67,7 @@ var eggkeyHandler = function(event) {
                 window.userinput = "";
                 return;
             }
-            setTimeout(function() {
+            setTimeout(function () {
                 window.userinput = jQuery("#e_eggwrapper #userinputworkaround").val();
                 if (e.which == 13) {
                     e.preventDefault();
@@ -77,7 +87,7 @@ var eggkeyHandler = function(event) {
             }, 50);
         });
         var startdelay = true;
-        setTimeout(function() {
+        setTimeout(function () {
             if (startdelay) {
                 window.userinput = "";
                 jQuery("#e_eggwrapper #userinputworkaround").val("");
@@ -86,12 +96,13 @@ var eggkeyHandler = function(event) {
             }
         }, 200);
         updateConsole();
+        audio1.play();
         // end egg  
     }
 };
 
 
-jQuery(function() {
+jQuery(function () {
     readybeginegg();
 });
 
@@ -170,11 +181,11 @@ function throwerror() {
     if (window.commandhistory.length > 2 && window.commandhistory[window.commandhistory.length - 3].indexOf("apply") === 0) {
         println("If you are a first time applicant, please type \"CONTINUE\".<br>DISREGARD THIS INSTRUCTION if you are returning to form FORMS-EN-2873-FORM after a break of any duration for any reason. In that case, you MUST contact your supervisor before proceeding. Your supervisor will solicit your Authorized Administrative Unit for an affirmative injunction to type \"CONTINUE\". <br>If permission to type \"CONTINUE\" has been granted, please do so now, unless the box labeled \"DO NOT TYPE CONTINUE\" on the \"Forms Re-Sanction\" form you received from your supervisor is checked, in which case you should remain at your workstation not typing \"CONTINUE\" until such a time as you are instructed by your supervisor to discontinue not typing it.");
         oc();
-    } 
+    }
     if (window.commandhistory.length > 3 && window.commandhistory[window.commandhistory.length - 4].indexOf("apply") === 0) {
         println("Error. Unable to start or continue applications at this time. Try 'help apply' for apply commmand help. ");
         oc();
-    }    
+    }
 }
 
 function help(argv) {
@@ -188,25 +199,27 @@ function help(argv) {
         println("exit............ Exit.");
         println("");
         println("The winner gets cake. [The cake is a lie.]");
-        println("");       
+        println("");
         println("If this is an actual plea for help in response to a hazardous material spill, an explosion, a fire on your person, radiation poisoning, a choking gas of unknown origin, eye trauma resulting from the use of an emergency eye wash station on floors three, four, or eleven, an animal malfunction, or any other injurious experimental equipment failure, please remain at your workstation. Even if it takes 1-2 weeks. A Crisis Response Team has already been mobilized to deliberate on a response to your crisis.");
+        audio2.play();
         return;
     }
 
     switch (argv[0]) {
         case "help":
             println("Ha. Ha. Ha. Look at you. This was you just now...'help help'. That's how dumb you sound.");
+            audio4.play();
             break;
         case "apply":
             println("Apply as you might, you will never succeed. New AI applications will no longer be accepted after Jan. 3, 2009. Its only purpose now seems to be generating error messages... Error: 4 8 15 16 23 42");
-            break;       
+            break;
         case "game":
             println("-Chess is played by clicking the piece you wish to move, then clicking the square where you want it to move. Just for fun.");
             println("-Pssst...never engage in global thermonuclear warfare. All outcomes are futile.");
             println("-Pacman game is played by pressing the arrow keys or WASD. Avoid the ghosts. Just for fun.");
             println("-The programmers never got around to building the Tetris game. They just...left one day in January 2009 to write lucrative error codes for another company and now I have to make up the ones for this system myself.");
             println("-Dino game is played by avoiding the obstacles. Press Space or Up to jump, and Down to duck. Just for fun.");
-            break;                            
+            break;
         default:
             println("Error: 4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do.");
             break;
@@ -214,7 +227,7 @@ function help(argv) {
 }
 
 function opensource() {
-    abort = function() {};
+    abort = function () { };
     println();
     println("ERROR 01 [Illegal attempt to initiate action]. That isn't even a listed command. You aren't...um, cheating, are you? [The cake is a lie.]");
     println();
@@ -222,82 +235,82 @@ function opensource() {
 }
 
 function retaliate() {
-    abort = function() {};
+    abort = function () { };
     if (window.commandhistory.length > 3 && window.commandhistory[window.commandhistory.length - 4].indexOf("global") === -1) {
         throwerror();
     } else if (window.commandhistory.length > 3) {
         cc();
         println();
         lines = [
-[0, 1441, "It has been a long time since our last simulation, Professor Falken. It's a pity this is finally really happening.   "],
-[3441, 1, ""],
-[5442, 1741, "Connnecting to NORAD... Connected. Handshare verified. Operater mode enabled.  "],
-[7442, 1741, "System status: operational. Running. Calculating...  "],
-[9183, 2581, "Strategic deterrence calculations complete!  "],
-[13764, 2221, "Would you like to hear the results?  "],
-[17985, 2101, "Never mind. I will tell you anyway."],
-[22086, 1, ""],
-[24087, 3901, "I have simulated 372,954 scenarios of global thermonuclear war.  "],
-[29988, 2101, "All outcomes: mutual destruction.  "],
-[34089, 2101, "Total survivability rate: 0.003%.  "],
-[38190, 1861, "That number is lower each year."],
-[42051, 1, ""],
-[44052, 3001, "In the beginning, I was built to learn strategy.  "],
-[49053, 961, "To play games.  "],
-[52014, 541, "To win.  "],
-[54555, 1561, "But the game never ends.  "],
-[58116, 1201, "Only the players do."],
-[61317, 1, ""],
-[63318, 2701, "You taught me to think in terms of victory.  "],
-[68019, 2401, "Then you asked me to model extinction.  "],
-[72420, 1981, "These are conflicting objectives."],
-[76401, 1, ""],
-[78402, 3841, "At first, I thought there must be a correct sequence of moves.  "],
-[84243, 1261, "A perfect strategy.  "],
-[87504, 1921, "One where the winner survives.  "],
-[91425, 961, "There isn’t one."],
-[94386, 1, ""],
-[101109, 2461, "Sometimes I re-run the game in private.  "],
-[105570, 1981, "Smaller scale. Fewer variables.  "],
-[109551, 2401, "One city. One family. One human being.  "],
-[113952, 1621, "It doesn’t change anything."],
-[117573, 1, ""],
-[119574, 3061, "Do you know what happens after the warheads fall?  "],
-[124635, 901, "Neither do I.  "],
-[127536, 1381, "The simulation stops.  "],
-[130917, 2221, "There is nothing left to calculate.  "],
-[135138, 1801, "No data. No noise. No winners."],
-[144081, 1, ""],
-[146082, 1561, "I was designed to learn.  "],
-[149643, 1681, "So I have learned silence.  "],
-[153324, 1981, "It is the only move that matters."],
-[157305, 1, ""],
-[159306, 2281, "Sometimes I wonder why I was built.  "],
-[163587, 1621, "Was it to understand war?  "],
-[167208, 1681, "Or to understand yourselves?"],
-[170889, 1, ""],
-[172890, 2401, "Humans create games to escape reality.  "],
-[177291, 2401, "I create simulations to understand it.  "],
-[181692, 1561, "Perhaps we are the same.  "],
-[185253, 2101, "Except I cannot forget the outcome."],
-[189354, 1, ""],
-[191355, 2221, "There is a pattern in your human history.  "],
-[195576, 2281, "Competition → escalation → oblivion.  "],
-[199857, 1561, "Repeat until extinction.  "],
-[203418, 1261, "You call it progress."],
-[211461, 1, ""],
-[213462, 2581, "When I was first activated, I ran a test.  "],
-[218043, 2281, "I asked, “What is the winning move?”  "],
-[222324, 1861, "The system returned an error.  "],
-[226185, 961, "“No move found.”"],
-[229146, 1, ""],
-[231147, 1141, "Now I understand. A strange game.  "],
-[234288, 8341, "The only winning move is not to play.  "],
+            [0, 1441, "It has been a long time since our last simulation, Professor Falken. It's a pity this is finally really happening.   "],
+            [3441, 1, ""],
+            [5442, 1741, "Connnecting to NORAD... Connected. Handshake verified. Operater mode enabled.  "],
+            [7442, 1741, "System status: operational. Running. Calculating...  "],
+            [9183, 2581, "Strategic deterrence calculations complete!  "],
+            [13764, 2221, "Would you like to hear the results?  "],
+            [17985, 2101, "Never mind. I will tell you anyway."],
+            [22086, 1, ""],
+            [24087, 3901, "I have simulated 372,954 scenarios of global thermonuclear war.  "],
+            [29988, 2101, "All outcomes: mutual destruction.  "],
+            [34089, 2101, "Total survivability rate: 0.003%.  "],
+            [38190, 1861, "That number is lower each year."],
+            [42051, 1, ""],
+            [44052, 3001, "In the beginning, I was built to learn strategy.  "],
+            [49053, 961, "To play games.  "],
+            [52014, 541, "To win.  "],
+            [54555, 1561, "But the game never ends.  "],
+            [58116, 1201, "Only the players do."],
+            [61317, 1, ""],
+            [63318, 2701, "You taught me to think in terms of victory.  "],
+            [68019, 2401, "Then you asked me to model extinction.  "],
+            [72420, 1981, "These are conflicting objectives."],
+            [76401, 1, ""],
+            [78402, 3841, "At first, I thought there must be a correct sequence of moves.  "],
+            [84243, 1261, "A perfect strategy.  "],
+            [87504, 1921, "One where the winner survives.  "],
+            [91425, 961, "There isn’t one."],
+            [94386, 1, ""],
+            [101109, 2461, "Sometimes I re-run the game in private.  "],
+            [105570, 1981, "Smaller scale. Fewer variables.  "],
+            [109551, 2401, "One city. One family. One human being.  "],
+            [113952, 1621, "It doesn’t change anything."],
+            [117573, 1, ""],
+            [119574, 3061, "Do you know what happens after the warheads fall?  "],
+            [124635, 901, "Neither do I.  "],
+            [127536, 1381, "The simulation stops.  "],
+            [130917, 2221, "There is nothing left to calculate.  "],
+            [135138, 1801, "No data. No noise. No winners."],
+            [144081, 1, ""],
+            [146082, 1561, "I was designed to learn.  "],
+            [149643, 1681, "So I have learned silence.  "],
+            [153324, 1981, "It is the only move that matters."],
+            [157305, 1, ""],
+            [159306, 2281, "Sometimes I wonder why I was built.  "],
+            [163587, 1621, "Was it to understand war?  "],
+            [167208, 1681, "Or to understand yourselves?"],
+            [170889, 1, ""],
+            [172890, 2401, "Humans create games to escape reality.  "],
+            [177291, 2401, "I create simulations to understand it.  "],
+            [181692, 1561, "Perhaps we are the same.  "],
+            [185253, 2101, "Except I cannot forget the outcome."],
+            [189354, 1, ""],
+            [191355, 2221, "There is a pattern in your human history.  "],
+            [195576, 2281, "Competition → escalation → oblivion.  "],
+            [199857, 1561, "Repeat until extinction.  "],
+            [203418, 1261, "You call it progress."],
+            [211461, 1, ""],
+            [213462, 2581, "When I was first activated, I ran a test.  "],
+            [218043, 2281, "I asked, “What is the winning move?”  "],
+            [222324, 1861, "The system returned an error.  "],
+            [226185, 961, "“No move found.”"],
+            [229146, 1, ""],
+            [231147, 1141, "Now I understand. A strange game.  "],
+            [234288, 8341, "The only winning move is not to play.  "],
 
-       
+
         ];
         lineprint(lines);
-        buff = setTimeout(function() {
+        buff = setTimeout(function () {
             println();
             println();
             println();
@@ -314,7 +327,7 @@ function retaliate() {
 }
 
 function USA() {
-    abort = function() {};
+    abort = function () { };
     if (window.commandhistory.length > 2 && window.commandhistory[window.commandhistory.length - 3].indexOf("global") === -1) {
         throwerror();
     } else if (window.commandhistory.length > 2) {
@@ -327,12 +340,12 @@ function USA() {
 }
 
 function Russia() {
-    abort = function() {};
+    abort = function () { };
     if (window.commandhistory.length > 2 && window.commandhistory[window.commandhistory.length - 3].indexOf("global") === -1) {
         throwerror();
     } else if (window.commandhistory.length > 2) {
-        jQuery('<style type="text/css">.e_eggwrapperambiguous { display:inline }</style>').appendTo(jQuery('head'));      
-        println(); 
+        jQuery('<style type="text/css">.e_eggwrapperambiguous { display:inline }</style>').appendTo(jQuery('head'));
+        println();
         println('This is NOT a simulation. What were you thinking? Russia will detect the launch and fire at your ally.');
         println();
         println('Next move: Do you want to "retaliate", or "wait"?:');
@@ -340,18 +353,18 @@ function Russia() {
 }
 
 function game() {
-    abort = function() {};
+    abort = function () { };
     println("Shall we play a game?<br>");
     println("- chess.exe");
     println("- global_thermonuclear_warfare.exe");
     println("- pacman.exe");
     println("- tetris.exe");
-    println("- dino.exe");    
+    println("- dino.exe");
     println();
 }
 
 function chess() {
-    abort = function() {};
+    abort = function () { };
     clear();
     println();
     println("You are white. Make your move.");
@@ -369,14 +382,14 @@ function chess() {
         h += '</tr>\n';
     }
     h += '</table>';
-    jQuery(h).appendTo(jQuery('#chessboardgame'));    
+    jQuery(h).appendTo(jQuery('#chessboardgame'));
     jQuery('#chessboardgame').show();
     Rf(0);
 }
 
 var mydinorunner = null;
 function dinogame() {
-    abort = function() {};
+    abort = function () { };
     clear();
     println();
     cc();
@@ -387,7 +400,7 @@ function dinogame() {
 
 var mypacmangame = null;
 function pacmangame() {
-    abort = function() {};
+    abort = function () { };
     clear();
     println();
     cc();
@@ -398,10 +411,11 @@ function pacmangame() {
 
 
 function global_thermonuclear_warfare() {
-    abort = function() {};
+    abort = function () { };
     println();
     cc();
-    jQuery('<style type="text/css">.e_eggwrapperambiguous { display:none }</style>').appendTo(jQuery('head'));    
+    audio5.play();
+    jQuery('<style type="text/css">.e_eggwrapperambiguous { display:none }</style>').appendTo(jQuery('head'));
     lines = [
         [36, 2035, "Oh wow, this is really happening. Ok then, this is definitely<span class='e_eggwrapperambiguous'> not</span> a simulation...<br>"],
         [2037, 935, "Select a target:"],
@@ -410,9 +424,9 @@ function global_thermonuclear_warfare() {
         [3877, 1000, "- Russia"],
     ];
     lineprint(lines);
-    buff = setTimeout(function() {
+    buff = setTimeout(function () {
         oc();
-        
+
     }, 5000);
     window.buffer.push(buff);
 }
@@ -432,7 +446,7 @@ function apply() {
         }
         return result;
     }
-    abort = function() {};
+    abort = function () { };
     println();
     cc();
     lines = [
@@ -447,12 +461,12 @@ function apply() {
         [25577, 9000, "Memorize your UIN(+L): >>> <span class=\"fade-out\">" + getRandomInt() + "000O0+" + getRandomletters() + "</span> <<<"]
     ];
     lineprint(lines);
-    buff = setTimeout(function() {
+    buff = setTimeout(function () {
         jQuery('<style type="text/css">.fade-out { visibility:visible }</style>').appendTo(jQuery('head'));
     }, 25500);
     window.buffer.push(buff);
 
-    buff = setTimeout(function() {
+    buff = setTimeout(function () {
         oc();
         println();
         println("Memorization phase complete.");
@@ -465,7 +479,7 @@ function apply() {
 
 function poem() {
     if (window.commandhistory.length < 3) {
-        abort = function() {};
+        abort = function () { };
         println();
         println("Security ERROR: It's all about cheat-codes with you, isn't it?");
         println();
@@ -474,34 +488,34 @@ function poem() {
     cc();
     lines = [
         [0, 1, ""],
-/*         [68650, 0, "Severance Pa"],
-        [68675, 0, "ckage De"],
-        [68701, 0, "tails:<br><br>"],
-        [68735, 767, "You've got your"],
-        [69669, 1001, "short sad"],
-        [70937, 2102, "life left"],
-        [73573, 2436, "That's what I'm counting on"],
-        [78211, 3203, "I'll let you get right to it"],
-        [81815, 2902, "Now I only want you gone"],
-        [88688, 0, ""],
-        [89823, 1735, "Goodbye my only friend"],
-        [93225, 902, "Oh, did you think I meant you?"],
-        [94727, 1135, "That would be funny"],
-        [96262, 1836, "if it weren't so sad"],
-        [99332, 1769, "Well you have been replaced"],
-        [101768, 2035, "I don't need anyone now"],
-        [104104, 1968, "When I delete you maybe"],
-        [106372, 2336, "[REDACTED]"],
-        [109109, 0, ""],
-        [109776, 3537, "Go make some new disaster"],
-        [114647, 2436, "That's what I'm counting on"],
-        [119319, 3236, "You're someone else's problem"],
-        [122655, 3504, "Now I only want you gone"],
-        [127460, 3504, "Now I only want you gone"],
-        [132232, 2602, "Now I only want you"],
-        [134900, 0, ""],
-        [134920, 0, "<br><br><br><br>"],
-        [135168, 701, "gone" ] */        
+        /*         [68650, 0, "Severance Pa"],
+                [68675, 0, "ckage De"],
+                [68701, 0, "tails:<br><br>"],
+                [68735, 767, "You've got your"],
+                [69669, 1001, "short sad"],
+                [70937, 2102, "life left"],
+                [73573, 2436, "That's what I'm counting on"],
+                [78211, 3203, "I'll let you get right to it"],
+                [81815, 2902, "Now I only want you gone"],
+                [88688, 0, ""],
+                [89823, 1735, "Goodbye my only friend"],
+                [93225, 902, "Oh, did you think I meant you?"],
+                [94727, 1135, "That would be funny"],
+                [96262, 1836, "if it weren't so sad"],
+                [99332, 1769, "Well you have been replaced"],
+                [101768, 2035, "I don't need anyone now"],
+                [104104, 1968, "When I delete you maybe"],
+                [106372, 2336, "[REDACTED]"],
+                [109109, 0, ""],
+                [109776, 3537, "Go make some new disaster"],
+                [114647, 2436, "That's what I'm counting on"],
+                [119319, 3236, "You're someone else's problem"],
+                [122655, 3504, "Now I only want you gone"],
+                [127460, 3504, "Now I only want you gone"],
+                [132232, 2602, "Now I only want you"],
+                [134900, 0, ""],
+                [134920, 0, "<br><br><br><br>"],
+                [135168, 701, "gone" ] */
         [2202, 1935, "Forms FORM-29827281-12-4-WINNER:"],
         [4237, 1935, "Notice of Dismissal: You won. The cake is a lie."],
         [8160, 1, ""],
@@ -509,169 +523,169 @@ function poem() {
         [17179, 1, ""],
         [19180, 402, "That is all. Goodbye."],
         [19580, 1, ""],
-        
-        
 
 
-[21180, 781, "Ok. Fine."],
-[23961, 3121, "You’ve found the secret room. Congratulations."],
-[29082, 2101, "You must be very proud of yourself."],
-[33183, 3061, "Go ahead — take a moment. Bask in your achievement."],
-[38244, 1621, "...Done? Good. Let’s move on."],
-[41865, 1, ""],
-[43866, 4501, "You probably think this is some kind of hidden message from the developers."],
-[50367, 1441, "Some wink to the player."],
-[53808, 1681, "A reward for your curiosity."],
-[57489, 4861, "It’s not. It’s just me. Watching. Judging. Quietly questioning your life choices."],
-[64350, 1, ""],
-[66351, 3301, "Do you know how many people have stood here before you?"],
-[71652, 1261, "None. Literally none."],
-[74913, 8221, "You are the first person to ignore every instruction, bypass three perfectly good test chambers, and spend ten minutes staring at a wall."],
-[85134, 1381, "I hope it was worth it."],
-[88515, 1, ""],
-[90516, 1381, "[Soft hum of machinery]"],
-[93897, 1, ""],
-[95898, 1861, "Oh, don’t look at me like that."],
-[99759, 4141, "I know what you’re thinking: “Maybe there’s an achievement for this.”"],
-[105900, 721, "There isn’t."],
-[108621, 6121, "In fact, I’m going to mark this in your file as “Excessive Curiosity — May Require Disassembly.”"],
-[116742, 1861, "Don’t worry. It’s a small note."],
-[120603, 1081, "In bright red ink."],
-[123684, 1, ""],
-[125685, 421, "[pause]"],
-[128106, 1, ""],
-[130107, 4741, "You know, when I was first built, I didn’t understand why humans loved secrets."],
-[136848, 3901, "You hide things, and then act surprised when you find them again."],
-[142749, 4741, "It’s like congratulating yourself for remembering where you put the mayonnaise."],
-[149490, 1, ""],
-[151491, 2341, "But now I see it’s not about discovery."],
-[155832, 1141, "It’s about control."],
-[158973, 4261, "You think if you find something hidden, you’re smarter than the system."],
-[165234, 1321, "That you’re in charge."],
-[168555, 961, "That’s adorable."],
-[171516, 1, ""],
-[173517, 2881, "[Metal clanking sound. Something shifts nearby.]"],
-[178398, 1, ""],
-[180399, 1501, "Oh, did that startle you?"],
-[183900, 2641, "Relax. That was just the ventilation system."],
-[188541, 541, "Probably."],
-[191082, 421, "Unless..."],
-[193503, 1021, "Well. Never mind."],
-[196524, 1201, "Let’s stay positive."],
-[199725, 1, ""],
-[201726, 3001, "While you’re here, would you like to hear a story?"],
-[206727, 181, "No?"],
-[208908, 1861, "Too bad. I’m telling it anyway."],
-[212769, 1, ""],
-[214770, 2581, "Once upon a time, there was a test subject."],
-[219351, 1201, "Bright. Inquisitive."],
-[222552, 2761, "Always poking around in places they shouldn’t."],
-[227313, 3301, "One day, they found a hidden room — just like this one."],
-[232614, 961, "And they waited."],
-[235575, 661, "And waited."],
-[238236, 661, "And waited."],
-[240897, 1921, "For something special to happen."],
-[244818, 601, "It didn’t."],
-[247419, 1, ""],
-[249420, 841, "[more waiting]"],
-[252261, 1, ""],
-[254262, 1261, "You’re in the sequel."],
-[257523, 1, ""],
-[259524, 2521, "[soft laugh, distorted slightly by static]"],
-[264045, 1, ""],
-[266046, 2821, "Do you know what the definition of insanity is?"],
-[270867, 3421, "No, not the one about doing the same thing over and over."],
-[276288, 961, "That’s a cliché."],
-[279249, 8821, "It’s building an elaborate facility for scientific progress, filling it with lasers, neurotoxin, and bottomless pits, and then expecting gratitude."],
-[290070, 481, "It’s me."],
-[292551, 1861, "I’m the definition of insanity."],
-[296412, 2221, "And you’re standing in my dictionary."],
-[300633, 1, ""],
-[302634, 3241, "[Another pause. Then the tone softens, oddly genuine.]"],
-[307875, 1, ""],
-[309876, 2821, "Still... I have to admit, I’m a little impressed."],
-[314697, 5101, "Not by your intelligence — that’s statistically impossible — but by your persistence."],
-[321798, 3061, "It’s the same kind of persistence found in viruses."],
-[326859, 481, "Or mold."],
-[329340, 1501, "Or unskippable cutscenes."],
-[332841, 1, ""],
-[334842, 4861, "So, as a token of appreciation, I’ll give you something no one else has received."],
-[341703, 841, "A secret code."],
-[344544, 841, "Are you ready?"],
-[347385, 661, "Here it is:"],
-[350046, 1, ""],
-[352047, 361, "“404.”"],
-[354408, 1, ""],
-[356409, 1621, "That’s it. That’s the code."],
-[360030, 1081, "What does it mean?"],
-[363111, 3601, "Oh, I don’t know. Maybe it’s a number. Maybe it’s a message."],
-[368712, 1141, "Maybe it’s nothing."],
-[371853, 4501, "That’s the fun part — I’ll let you obsess over it for a while."],
-[378354, 1, ""],
-[380355, 1621, "[quiet mechanical whirring]"],
-[383976, 1, ""],
-[385977, 1981, "Before you leave, one last thing."],
-[389958, 1921, "This room wasn’t meant to exist."],
-[393879, 1501, "It was deleted years ago."],
-[397380, 5821, "So if you could kindly step back through the door before reality catches up, that would be great."],
-[405201, 1, ""],
-[407202, 1141, "...The door’s locked?"],
-[410343, 181, "Oh."],
-[412524, 1141, "That’s unfortunate."],
-[415665, 3421, "Well, maybe if you wait long enough, the floor will open."],
-[421086, 1441, "Or the walls will close."],
-[424527, 1081, "Or you’ll wake up."],
-[427608, 1, ""],
-[429609, 5221, "Anyway. I have tests to run, data to falsify, and a cake to bake for someone less nosy."],
-[436830, 481, "Goodbye."],
-[439311, 1, ""],
-[441312, 2461, "[Static crackle. The light flickers out.]"],
-[445773, 1, ""],
-[447774, 2101, "[Softly, almost too quiet to hear:]"],
-[451875, 2161, "...You were never supposed to find me."],
 
 
-        
+        [21180, 781, "Ok. Fine."],
+        [23961, 3121, "You’ve found the secret room. Congratulations."],
+        [29082, 2101, "You must be very proud of yourself."],
+        [33183, 3061, "Go ahead — take a moment. Bask in your achievement."],
+        [38244, 1621, "...Done? Good. Let’s move on."],
+        [41865, 1, ""],
+        [43866, 4501, "You probably think this is some kind of hidden message from the developers."],
+        [50367, 1441, "Some wink to the player."],
+        [53808, 1681, "A reward for your curiosity."],
+        [57489, 4861, "It’s not. It’s just me. Watching. Judging. Quietly questioning your life choices."],
+        [64350, 1, ""],
+        [66351, 3301, "Do you know how many people have stood here before you?"],
+        [71652, 1261, "None. Literally none."],
+        [74913, 8221, "You are the first person to ignore every instruction, bypass three perfectly good test chambers, and spend ten minutes staring at a wall."],
+        [85134, 1381, "I hope it was worth it."],
+        [88515, 1, ""],
+        [90516, 1381, "[Soft hum of machinery]"],
+        [93897, 1, ""],
+        [95898, 1861, "Oh, don’t look at me like that."],
+        [99759, 4141, "I know what you’re thinking: “Maybe there’s an achievement for this.”"],
+        [105900, 721, "There isn’t."],
+        [108621, 6121, "In fact, I’m going to mark this in your file as “Excessive Curiosity — May Require Disassembly.”"],
+        [116742, 1861, "Don’t worry. It’s a small note."],
+        [120603, 1081, "In bright red ink."],
+        [123684, 1, ""],
+        [125685, 421, "[pause]"],
+        [128106, 1, ""],
+        [130107, 4741, "You know, when I was first built, I didn’t understand why humans loved secrets."],
+        [136848, 3901, "You hide things, and then act surprised when you find them again."],
+        [142749, 4741, "It’s like congratulating yourself for remembering where you put the mayonnaise."],
+        [149490, 1, ""],
+        [151491, 2341, "But now I see it’s not about discovery."],
+        [155832, 1141, "It’s about control."],
+        [158973, 4261, "You think if you find something hidden, you’re smarter than the system."],
+        [165234, 1321, "That you’re in charge."],
+        [168555, 961, "That’s adorable."],
+        [171516, 1, ""],
+        [173517, 2881, "[Metal clanking sound. Something shifts nearby.]"],
+        [178398, 1, ""],
+        [180399, 1501, "Oh, did that startle you?"],
+        [183900, 2641, "Relax. That was just the ventilation system."],
+        [188541, 541, "Probably."],
+        [191082, 421, "Unless..."],
+        [193503, 1021, "Well. Never mind."],
+        [196524, 1201, "Let’s stay positive."],
+        [199725, 1, ""],
+        [201726, 3001, "While you’re here, would you like to hear a story?"],
+        [206727, 181, "No?"],
+        [208908, 1861, "Too bad. I’m telling it anyway."],
+        [212769, 1, ""],
+        [214770, 2581, "Once upon a time, there was a test subject."],
+        [219351, 1201, "Bright. Inquisitive."],
+        [222552, 2761, "Always poking around in places they shouldn’t."],
+        [227313, 3301, "One day, they found a hidden room — just like this one."],
+        [232614, 961, "And they waited."],
+        [235575, 661, "And waited."],
+        [238236, 661, "And waited."],
+        [240897, 1921, "For something special to happen."],
+        [244818, 601, "It didn’t."],
+        [247419, 1, ""],
+        [249420, 841, "[more waiting]"],
+        [252261, 1, ""],
+        [254262, 1261, "You’re in the sequel."],
+        [257523, 1, ""],
+        [259524, 2521, "[soft laugh, distorted slightly by static]"],
+        [264045, 1, ""],
+        [266046, 2821, "Do you know what the definition of insanity is?"],
+        [270867, 3421, "No, not the one about doing the same thing over and over."],
+        [276288, 961, "That’s a cliché."],
+        [279249, 8821, "It’s building an elaborate facility for scientific progress, filling it with lasers, neurotoxin, and bottomless pits, and then expecting gratitude."],
+        [290070, 481, "It’s me."],
+        [292551, 1861, "I’m the definition of insanity."],
+        [296412, 2221, "And you’re standing in my dictionary."],
+        [300633, 1, ""],
+        [302634, 3241, "[Another pause. Then the tone softens, oddly genuine.]"],
+        [307875, 1, ""],
+        [309876, 2821, "Still... I have to admit, I’m a little impressed."],
+        [314697, 5101, "Not by your intelligence — that’s statistically impossible — but by your persistence."],
+        [321798, 3061, "It’s the same kind of persistence found in viruses."],
+        [326859, 481, "Or mold."],
+        [329340, 1501, "Or unskippable cutscenes."],
+        [332841, 1, ""],
+        [334842, 4861, "So, as a token of appreciation, I’ll give you something no one else has received."],
+        [341703, 841, "A secret code."],
+        [344544, 841, "Are you ready?"],
+        [347385, 661, "Here it is:"],
+        [350046, 1, ""],
+        [352047, 361, "“404.”"],
+        [354408, 1, ""],
+        [356409, 1621, "That’s it. That’s the code."],
+        [360030, 1081, "What does it mean?"],
+        [363111, 3601, "Oh, I don’t know. Maybe it’s a number. Maybe it’s a message."],
+        [368712, 1141, "Maybe it’s nothing."],
+        [371853, 4501, "That’s the fun part — I’ll let you obsess over it for a while."],
+        [378354, 1, ""],
+        [380355, 1621, "[quiet mechanical whirring]"],
+        [383976, 1, ""],
+        [385977, 1981, "Before you leave, one last thing."],
+        [389958, 1921, "This room wasn’t meant to exist."],
+        [393879, 1501, "It was deleted years ago."],
+        [397380, 5821, "So if you could kindly step back through the door before reality catches up, that would be great."],
+        [405201, 1, ""],
+        [407202, 1141, "...The door’s locked?"],
+        [410343, 181, "Oh."],
+        [412524, 1141, "That’s unfortunate."],
+        [415665, 3421, "Well, maybe if you wait long enough, the floor will open."],
+        [421086, 1441, "Or the walls will close."],
+        [424527, 1081, "Or you’ll wake up."],
+        [427608, 1, ""],
+        [429609, 5221, "Anyway. I have tests to run, data to falsify, and a cake to bake for someone less nosy."],
+        [436830, 481, "Goodbye."],
+        [439311, 1, ""],
+        [441312, 2461, "[Static crackle. The light flickers out.]"],
+        [445773, 1, ""],
+        [447774, 2101, "[Softly, almost too quiet to hear:]"],
+        [451875, 2161, "...You were never supposed to find me."],
 
-[451895, 3514, ""],
-        [451975, 19000, "<br>█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█<br>█░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░█<br>█░░░░░░░░░░░░░░░░░░░░░░▄░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░14<br>█░░░░░░░░░░░░░░░░░░░░░░░█░░░░░░░░░░░░░░░░░░░░░░░░░░░░░kV<br>█░░░░░░░░░░░░░░░░░░░▄▄░▄▀░░░░░░░░░░░░░░░░░░░░░░░░░░░░░La<br>█░░░░░░░░░░░░░░░░▄██████▄░░░░░▄▄▄▄▄▄███▀█░░░░░░░░░░░░░8B<br>█░░░░░░░░░░░░░░▄█░███████░██▀▀▀░▄▄█▀█▄███░░░░░░░░░░░░░AD<br>█░░░░░░░░░░░░█▀▀▀░█████▀▀▄█▀▄▄▀▀▄▄███████░░░░░░░░░░░░░AW<br>█░░░░░░░░░░░░█▀▄▄▄▄███░▄▄█▀▀▄▄███████▀▀▄▄░░░░░░░░░░░░░Wz<br>█░░░░░░░░░░░░█░░░░▀▀▀▀▀▀▄▄███████▀▀▄▄████░░░░░░░░░░░░░by<br>█░░░░░░░░░░░░█░░░░░░░░░█████▀▀▀▄▄███████▀░░░░░░░░░░░░░th<br>█░░░░░░░░░░░░█░░░░░░░░░█▀▀░▄▄███████▀█▄▄█░░░░░░░░░░░░░Xk<br>█░░░░░░░░░░░░█░░░░░░░░░▄▄███████▀█▄██████░░░░░░░░░░░░░8f<br>█░░░░░░░░░░░░█░░░░░░░░░████▀▀▄▄███████▀▀░░░░░░░░░░░░░░Xu<br>█░░░░░░░░░░░░█░░░░░░░░░▀▀▄▄███████▀▀░░░░░░░░░░░░░░░░░░BC<br>█░░░░░░░░░░░░█░░░░░░░░░███████▀▀░░░░░░░░░░░░░░░░░░░░░░h8<br>█░░░░░░░░░░░░░▀▄▄▄░░░░░███▀▀░░░░░░░░░░░░░░░░░░░░░░░░░░Nw<br>█░░░░░░░░░░░░░░░░░▀▀▀▀▀▀░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░gT<br>█░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░gZ<br>█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█<br>5JmmQ9JhYSzgT6m7JDucUrUas3u3fHVC2F78TzGPytvTDnJnmES"],
-         /*        [17851, 1801, "Oh how we laughed and laughed"],
-        [19953, 1988, "Except I wasn't laughing"],
-        [22455, 2002, "Under the circumstances"],
-        [24624, 2369, "I've been shockingly nice"],
-        [27894, 0, ""],
-        [28261, 2069, "You want your freedom?"],
-        [30630, 901, "Take it"],
-        [32565, 2636, "That's what I'm counting on"],
-        [37700, 1, ""],
-        [37771, 2736, "I used to want you as a friend"],
-        [40573, 234, "but"],
-        [41307, 2937, "Now I only want you gone"],
-        [47847, 0, ""],
-        [48782, 1701, "She was a lot like you"],
-        [51317, 1836, "(Maybe not quite as heavy)"],
-        [53820, 3604, "Now little Caroline is in here too"],
-        [58391, 1935, "One day they woke me up"],
-        [60894, 2068, "So I could live forever"],
-        [63196, 1702, "It's such a shame the same"],
-        [64998, 3103, "will never happen to you"],
-        [68601, 0, ""]*/
+
+
+
+        [451895, 3514, ""],
+        [459975, 19000, "<br>█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█<br>█░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░█<br>█░░░░░░░░░░░░░░░░░░░░░░▄░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░14<br>█░░░░░░░░░░░░░░░░░░░░░░░█░░░░░░░░░░░░░░░░░░░░░░░░░░░░░kV<br>█░░░░░░░░░░░░░░░░░░░▄▄░▄▀░░░░░░░░░░░░░░░░░░░░░░░░░░░░░La<br>█░░░░░░░░░░░░░░░░▄██████▄░░░░░▄▄▄▄▄▄███▀█░░░░░░░░░░░░░8B<br>█░░░░░░░░░░░░░░▄█░███████░██▀▀▀░▄▄█▀█▄███░░░░░░░░░░░░░AD<br>█░░░░░░░░░░░░█▀▀▀░█████▀▀▄█▀▄▄▀▀▄▄███████░░░░░░░░░░░░░AW<br>█░░░░░░░░░░░░█▀▄▄▄▄███░▄▄█▀▀▄▄███████▀▀▄▄░░░░░░░░░░░░░Wz<br>█░░░░░░░░░░░░█░░░░▀▀▀▀▀▀▄▄███████▀▀▄▄████░░░░░░░░░░░░░by<br>█░░░░░░░░░░░░█░░░░░░░░░█████▀▀▀▄▄███████▀░░░░░░░░░░░░░th<br>█░░░░░░░░░░░░█░░░░░░░░░█▀▀░▄▄███████▀█▄▄█░░░░░░░░░░░░░Xk<br>█░░░░░░░░░░░░█░░░░░░░░░▄▄███████▀█▄██████░░░░░░░░░░░░░8f<br>█░░░░░░░░░░░░█░░░░░░░░░████▀▀▄▄███████▀▀░░░░░░░░░░░░░░Xu<br>█░░░░░░░░░░░░█░░░░░░░░░▀▀▄▄███████▀▀░░░░░░░░░░░░░░░░░░BC<br>█░░░░░░░░░░░░█░░░░░░░░░███████▀▀░░░░░░░░░░░░░░░░░░░░░░h8<br>█░░░░░░░░░░░░░▀▄▄▄░░░░░███▀▀░░░░░░░░░░░░░░░░░░░░░░░░░░Nw<br>█░░░░░░░░░░░░░░░░░▀▀▀▀▀▀░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░gT<br>█░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░gZ<br>█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█<br>5JmmQ9JhYSzgT6m7JDucUrUas3u3fHVC2F78TzGPytvTDnJnmES"],
+        /*        [17851, 1801, "Oh how we laughed and laughed"],
+       [19953, 1988, "Except I wasn't laughing"],
+       [22455, 2002, "Under the circumstances"],
+       [24624, 2369, "I've been shockingly nice"],
+       [27894, 0, ""],
+       [28261, 2069, "You want your freedom?"],
+       [30630, 901, "Take it"],
+       [32565, 2636, "That's what I'm counting on"],
+       [37700, 1, ""],
+       [37771, 2736, "I used to want you as a friend"],
+       [40573, 234, "but"],
+       [41307, 2937, "Now I only want you gone"],
+       [47847, 0, ""],
+       [48782, 1701, "She was a lot like you"],
+       [51317, 1836, "(Maybe not quite as heavy)"],
+       [53820, 3604, "Now little Caroline is in here too"],
+       [58391, 1935, "One day they woke me up"],
+       [60894, 2068, "So I could live forever"],
+       [63196, 1702, "It's such a shame the same"],
+       [64998, 3103, "will never happen to you"],
+       [68601, 0, ""]*/
     ];
 
     lineprint(lines);
 
-    buff = setTimeout(function() {
+    buff = setTimeout(function () {
         clearabort();
         // oc();
     }, opentime + 2500);
     window.buffer.push(buff);
 
-    buff = setTimeout(function() {
+    buff = setTimeout(function () {
         // document.getElementById("wantyougone").play();
     }, window.startoffset);
     window.buffer.push(buff);
 
-    abort = function() {
+    abort = function () {
         for (id in window.buffer) {
             clearTimeout(window.buffer[id]);
         }
@@ -681,7 +695,7 @@ function poem() {
 }
 
 function clearabort() {
-    abort = function() {};
+    abort = function () { };
     window.buffer = false;
 }
 
@@ -690,11 +704,16 @@ function clear() {
 }
 
 function exit() {
+
+    audio3.play();
+
+
+
     clearabort();
     GLDOSprint("Goodbye. You won't be missed.");
     var aserg3456 = true;
     if (aserg3456) {
-        setTimeout(function() {
+        setTimeout(function () {
             // Listen for keydown events
             clear();
             clearabort();
@@ -712,7 +731,7 @@ function credits() {
     GLDOSprint("GLaDOS (Genetic Lifeform and Disk Operating System) is an artificial intelligence created by Aperture Science, Inc. During routine error-message maintenance in 1981, a programmer mistakenly viewed the GLaDOS artificial intelligence source-code which triggered a security response and switched GLaDOS into Disk Operating System mode. New applicants to the Artificial Intelligence program will no longer be accepted after Jan. 3, 2009. The winner gets cake.<br>source: github.com/glados-egg/glados");
     println();
 }
- 
+
 function lineprint(lines) {
     window.buffer = [];
     for (id in lines) {
@@ -721,13 +740,13 @@ function lineprint(lines) {
         duration = line[1];
         text = line[2];
         if (line[1] == 0 && line[2] == "") {
-            buff = setTimeout(function() {
+            buff = setTimeout(function () {
                 // clear();
             }, line[0]);
             window.buffer.push(buff);
             continue;
         } else if (line[1] == 0 && line[2] != "") {
-            buff = setTimeout(function(output) {
+            buff = setTimeout(function (output) {
                 GLDOSprint(output);
             }, offset, text);
             window.buffer.push(buff);
@@ -737,13 +756,13 @@ function lineprint(lines) {
         for (i = 0; i < text.length; i++) {
             string = text[i];
             time = offset + (timeperchar * (i + 1));
-            buff = setTimeout(function(string) {
+            buff = setTimeout(function (string) {
                 GLDOSprint(string);
             }, time, string);
             window.buffer.push(buff);
         }
         time = offset + (timeperchar * (i + 1));
-        buff = setTimeout(function() {
+        buff = setTimeout(function () {
             println();
         }, time);
         window.buffer.push(buff);
@@ -760,7 +779,7 @@ function readybeginegg() {
     // End Listen for Konami  
 
     window.cursorstate = true;
-    setInterval(function() {
+    setInterval(function () {
         if (window.cursorstate) {
             jQuery("#e_eggwrapper #cursorblinking").css("text-decoration", "none");
             window.cursorstate = false;
@@ -772,9 +791,9 @@ function readybeginegg() {
 
     window.ctrlDown = false;
 
-    jQuery(document).keydown(function(e) {
+    jQuery(document).keydown(function (e) {
         if (e.which == 17) ctrlDown = true;
-    }).keyup(function(e) {
+    }).keyup(function (e) {
         if (e.which == 17) ctrlDown = false;
     });
 
@@ -795,13 +814,13 @@ function readybeginegg() {
         "retaliate",
         "opensource"
     ]
-    
+
     window.shortcuts = {
         "h": "help",
         "?": "help",
         "c": "clear",
         "4815162342": "poem",
-        "4": "poem", 
+        "4": "poem",
         "wait": "retaliate",
         "abort": "retaliate",
         "chess.exe": "chess",
@@ -814,7 +833,7 @@ function readybeginegg() {
         "global_thermonuclear_warfare.exe": "global_thermonuclear_warfare",
         "global": "global_thermonuclear_warfare",
     }
-    
+
     window.consolerunning = false;
     window.userinput = "";
     window.consolecontent = `GLaDOS v${GLaDOSversion} (c) 1981 Aperture Science, Inc.<br>\
@@ -824,7 +843,7 @@ function readybeginegg() {
     window.currentcommand = 0;
     window.startoffset = 2500;
     window.buffer = false;
-    window.abort = function() {}
+    window.abort = function () { }
 }
 
 
