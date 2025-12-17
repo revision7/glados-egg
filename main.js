@@ -618,7 +618,7 @@ function poem() {
     lineprint(lines);
 
     buff = setTimeout(function () {
-        clearabort();
+        // clearabort();
         oc();
     }, opentime + 2500);
     window.buffer.push(buff);
@@ -633,7 +633,7 @@ function poem() {
             clearTimeout(window.buffer[id]);
         }
         oc();
-        clearabort();
+        // clearabort();
     };
 }
 
