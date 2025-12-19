@@ -597,7 +597,7 @@ function poem() {
         [393879, 1501, "It was deleted years ago."],
         [397380, 5821, "So if you could kindly step back through the door before reality catches up, that would be great."],
         [405201, 1, ""],
-        [407202, 1141, "...The door’s locked?"],
+        [407202, 1141, "...This is an unskipable cutscene?"],
         [410343, 181, "Oh."],
         [412524, 1141, "That’s unfortunate."],
         [415665, 3421, "Well, maybe if you wait long enough, the floor will open."],
