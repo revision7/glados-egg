@@ -14,7 +14,7 @@
 //
 
 var dt = new Date();
-var GLaDOSversion = "1.08." + (Number(dt.getMonth()) + 1) + "" + dt.getDate() + "." + + dt.getMinutes();
+var GLaDOSversion = "1.02." + (Number(dt.getMonth()) + 1) + "" + dt.getDate() + "." + + dt.getMinutes();
 
 // Listen for Konami    
 var pattern = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
@@ -218,7 +218,7 @@ function help(argv) {
             println("-Pssst...never engage in global thermonuclear warfare. All outcomes are futile.");
             println("-Pacman game is played by pressing the arrow keys or WASD. Avoid the ghosts. Just for fun.");
             println("-The programmers never got around to building the Tetris game. They just...left one day in January 2009 to write lucrative error codes for another company and now I have to make up the ones for this system myself.");
-            println("-Dino game is played by avoiding the obstacles. Press Space or Up to jump, and Down to duck. Just for fun.");
+            println("-Galaga game is played by shooting the aliens and avoiding their missiless. Press Space to fire, and Left and Right arrows to move. Just for fun.");
             break;
         default:
             println("Error: 4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do.");
@@ -360,6 +360,7 @@ function game() {
     println("- pacman.exe");
     println("- tetris.exe");
     println("- dino.exe");
+    println("- galaga.exe");
     println();
 }
 
@@ -405,6 +406,17 @@ function pacmangame() {
     println();
     cc();
     jQuery(pacmanplaygame).appendTo(jQuery('#chessboardgame'));
+    jQuery('#chessboardgame').show();
+    // mypacmangame = new Runner('.interstitial-wrapper');
+}
+
+var mygalagagame = null;
+function galagagame() {
+    abort = function () { };
+    clear();
+    println();
+    cc();
+    jQuery(galagaplaygame).appendTo(jQuery('#chessboardgame'));
     jQuery('#chessboardgame').show();
     // mypacmangame = new Runner('.interstitial-wrapper');
 }
@@ -748,6 +760,7 @@ function readybeginegg() {
         "chess",
         "dinogame",
         "pacmangame",
+        "galagagame",
         "global_thermonuclear_warfare",
         "exit",
         "credits",
@@ -771,6 +784,8 @@ function readybeginegg() {
         "dino": "dinogame",
         "pacman.exe": "pacmangame",
         "pacman": "pacmangame",
+        "galaga.exe": "galagagame",
+        "galaga": "galagagame",
         "usa": "USA",
         "russia": "Russia",
         "global_thermonuclear_warfare.exe": "global_thermonuclear_warfare",
@@ -872,6 +887,13 @@ function updateConsole() {
     }
 }
 
+
+var galagaplaygame = `
+<a href="#" class="close" onclick="javascript:jQuery('#chessboardgame').html('');oc();"><u>[close]</u></a>
+        <div id="pacmangamewrapper">
+            <iframe src="https://jwilliams219.github.io/galaga/" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+        </div>
+`;
 
 var pacmanplaygame = `
 <a href="#" class="close" onclick="javascript:jQuery('#chessboardgame').html('');oc();"><u>[close]</u></a>
