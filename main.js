@@ -218,7 +218,7 @@ function help(argv) {
             println("-Pssst...never engage in global thermonuclear warfare. All outcomes are futile.");
             println("-Pacman game is played by pressing the arrow keys or WASD. Avoid the ghosts. Just for fun.");
             println("-The programmers never got around to building the Tetris game. They just...left one day in January 2009 to write lucrative error codes for another company and now I have to make up the ones for this system myself.");
-            println("-Galaga game is played by shooting the aliens and avoiding their missiless. Press Space to fire, and Left and Right arrows to move. Just for fun.");
+            println("-Galaga game is played by shooting the aliens and avoiding their missiles. Press Space to fire, and Left and Right arrows to move. Just for fun.");
             break;
         default:
             println("Error: 4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do.");
