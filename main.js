@@ -24,6 +24,7 @@ const audio2 = new Audio('https://glados-egg.github.io/glados/clicking.mp3');
 const audio3 = new Audio('https://glados-egg.github.io/glados/goodbye.mp3');
 const audio4 = new Audio('https://glados-egg.github.io/glados/shesaid.mp3');
 const audio5 = new Audio('https://glados-egg.github.io/glados/disregard.mp3');
+const audio6 = new Audio('https://glados-egg.github.io/glados/playagame.mp3');
 
 var eggkeyHandler = function (event) {
 
@@ -362,6 +363,7 @@ function game() {
     println("- dino.exe");
     println("- galaga.exe");
     println();
+    audio6.play();
 }
 
 function chess() {
