@@ -19,12 +19,12 @@ var GLaDOSversion = "1.02." + (Number(dt.getMonth()) + 1) + "" + dt.getDate() + 
 // Listen for Konami    
 var pattern = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
 var current = 0;
-const audio1 = new Audio('https://glados-egg.github.io/glados/welcome.mp3');
-const audio2 = new Audio('https://glados-egg.github.io/glados/clicking.mp3');
-const audio3 = new Audio('https://glados-egg.github.io/glados/goodbye.mp3');
-const audio4 = new Audio('https://glados-egg.github.io/glados/shesaid.mp3');
-const audio5 = new Audio('https://glados-egg.github.io/glados/disregard.mp3');
-const audio6 = new Audio('https://glados-egg.github.io/glados/playagame.mp3');
+const audio1 = new Audio('https://glados-egg.github.io/glados/49e273eb5e6e.mp3');
+const audio2 = new Audio('https://glados-egg.github.io/glados/eeaa8e86c65b.mp3');
+const audio3 = new Audio('https://glados-egg.github.io/glados/322741d210a3.mp3');
+const audio4 = new Audio('https://glados-egg.github.io/glados/3932e8234ff0.mp3');
+const audio5 = new Audio('https://glados-egg.github.io/glados/f534aad45a19.mp3');
+const audio6 = new Audio('https://glados-egg.github.io/glados/78eca9f5bb9e.mp3');
 
 var eggkeyHandler = function (event) {
 
