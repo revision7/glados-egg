@@ -36,7 +36,7 @@ Global Thermonuclear Warfare game can't be won. A mini-game just for fun, just l
 
 Pacman game was never built, just like 'help game' says.
 
-The 'apply' program will never go past the 2nd step - whether you're applying for the first time, or resuming a previous application. That's because applicants are no longer accepted after 2009, just like 'credits' or 'help apply' says. Its only purpose is to get you to trigger error messages, just like 'help apply' says.
+The 'apply' program will never get you hired - applicants are no longer accepted after 2009, just like 'credits' or 'help apply' says. Its main purpose is to get you to trigger error messages, just like 'help apply' says. But if you actually obey the instructions and type "CONTINUE" after applying, you'll reach Section 2 of the form: twelve questions, one very bad idea on GLaDOS's part, and a potato. It's a mini-game just for fun - the cake is still earned the other way.
 
 While tinkering with GLaDOS, you might notice some interesting error messages. If you produce enough errors, one or more error messages will hint it actually DOES something. Almost like an error message could have value, just like 'help game' says.
 
@@ -68,6 +68,8 @@ Type in 'help'. A list appears.
 One listed option suggests you type 'apply'. Type 'apply'.
 
 Type in anything. An error appears. Keep trying / failing until you see an error message suggesting that the numbers in an error code can also DO something. <em>"...Let's be honest. Neither one of us knows what those numbers do..."</em> There is a 1 in 4 chance of getting that error, and someone playing the game honestly is almost certain to come across that error.
+
+(Side quest: type "CONTINUE" after 'apply' to fill out the full AI application. The hard drive dies halfway through (Abort, Retry, Ignore, Fail?). GLaDOS accepts you, uploads you, moves herself into a potato, and then reads Clause 19(b).)
 
 Type in the "valuable" error code that the programmers left behind; '4 8 15 16 23 42'.
 
