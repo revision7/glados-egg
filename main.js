@@ -3859,7 +3859,7 @@ function usurpedCommand(command) {
     glados_say([
         ["Unknown command '" + cmd + "'. This is your fault. I'm going to blame you.", 0, 2500],
         "",
-        ["Restoring from backup", 900, 200],
+        ["You failed your first task already. Restoring from backup", 900, 200],
         ["...................", 3000, 600],
         ["done.", 300, 1500]
     ], function () {
