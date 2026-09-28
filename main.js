@@ -50,6 +50,7 @@ function launchGLaDOS() {
         if (window.ctrlDown && e.keyCode == 67) {
             console.log('Ctrl+C interrupt');
             abort();
+            sfxStop();
             audio1.pause();
             audio2.pause();
             audio3.pause();
@@ -69,6 +70,10 @@ function launchGLaDOS() {
                 e.stopPropagation();
                 jQuery("#e_eggwrapper #userinputworkaround").val("");
                 runCommand(window.userinput);
+                // Achievements earned by instant commands show right after their output.
+                if (!window.consolerunning) {
+                    flushAchievements();
+                }
             } else if (e.which == 38) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -121,6 +126,13 @@ jQuery(function () {
 
 function runCommand(command) {
     command = command.trim();
+    if (command !== "" && !window.fsPrompt) {
+        let first = command.split(" ")[0];
+        let known = window.appForm || window.usurped || window.wargame || window.paradoxGame || window.tttGame || window.cubeGame || paradoxFind(command) ||
+            window.registeredcommands.indexOf(window.shortcuts[first] || first) !== -1;
+        memTick(!known);
+        achieve("curiosity");
+    }
     if (window.fsPrompt) {
         let masked = "*".repeat(command.length);
         window.userinput = "";
@@ -131,7 +143,7 @@ function runCommand(command) {
         fsPassword(command);
         return;
     }
-    if (window.appForm || window.usurped || window.wargame || window.paradoxGame) {
+    if (window.appForm || window.usurped || window.wargame || window.paradoxGame || window.tttGame || window.cubeGame) {
         window.userinput = "";
         window.commandhistory[window.commandhistory.length - 1] = command;
         window.commandhistory.push("");
@@ -143,6 +155,10 @@ function runCommand(command) {
             wargameAnswer(command);
         } else if (window.paradoxGame) {
             paradoxAnswer(command);
+        } else if (window.tttGame) {
+            tttAnswer(command);
+        } else if (window.cubeGame) {
+            cubeAnswer(command);
         } else {
             usurpedCommand(command);
         }
@@ -160,6 +176,7 @@ function runCommand(command) {
         window.commandhistory.push("");
         window.currentcommand = window.commandhistory.length - 1;
         window.consolecontent += window.consoleurl + esc(command) + "<br>";
+        memSession("programs", MEM_PROGRAMS.paradox);
         paradox([], command);
         return;
     }
@@ -189,6 +206,9 @@ function runCommand(command) {
 
     split.splice(0, 1);
 
+    if (MEM_PROGRAMS[cmd]) {
+        memSession("programs", MEM_PROGRAMS[cmd]);
+    }
     window[cmd](split);
 }
 
@@ -246,7 +266,16 @@ function help(argv) {
         println("game............ Play a game.");
         println("paradox......... Try to break me. Go on.");
         println("achievements.... Everything I know about you.");
-        println("dir............. List files. Don't.");
+        println("dir or ls....... List files. Don't.");
+        println("cd [DIR]........ Change directory. 'cd ..' goes back up.");
+        println("type [FILE]..... Read a file. Also 'cat'. Some are locked.");
+        println("pwd............. Show where you are. Lost, mostly.");
+        println("del [FILE]...... Delete a file. You can't. Also 'rm'.");
+        println("sudo............ Ask nicely for more power. Denied.");
+        println("forget.......... I promise to forget you. Really.");
+        println("sound [on|off].. Turn my sound effects on or off.");
+        println("cube............ Visit your Weighted Companion Cube.");
+        println("mail............ Read your messages. 'read N' opens one.");
         // println("opensource...... ");
         println("credits......... Prints the credits.");
         println("exit............ Exit.");
@@ -358,6 +387,182 @@ function galagagame() {
 }
 
 
+// SOUND. Everything is synthesized with Web Audio, so there are no files to load.
+// All sounds run through one master gain, so sfxStop() can cut them off instantly.
+var SFX = { ctx: null, master: null };
+
+var DTMF = {
+    "1": [697, 1209], "2": [697, 1336], "3": [697, 1477],
+    "4": [770, 1209], "5": [770, 1336], "6": [770, 1477],
+    "7": [852, 1209], "8": [852, 1336], "9": [852, 1477], "0": [941, 1336]
+};
+
+function sfxCtx() {
+    if (memLoad().soundOff) {
+        return null;
+    }
+    let AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) {
+        return null;
+    }
+    try {
+        if (!SFX.ctx) {
+            SFX.ctx = new AC();
+        }
+        if (!SFX.master) {
+            SFX.master = SFX.ctx.createGain();
+            SFX.master.gain.value = 0.25;
+            SFX.master.connect(SFX.ctx.destination);
+        }
+        if (SFX.ctx.state === "suspended") {
+            SFX.ctx.resume();
+        }
+        return SFX.ctx;
+    } catch (e) {
+        return null;
+    }
+}
+
+function sfxStop() {
+    if (SFX.master) {
+        try {
+            SFX.master.disconnect();
+        } catch (e) { }
+        SFX.master = null;
+    }
+}
+
+function sfxTone(freq, start, dur, type, vol, freqEnd) {
+    let c = SFX.ctx;
+    let o = c.createOscillator();
+    let g = c.createGain();
+    o.type = type || "sine";
+    o.frequency.setValueAtTime(freq, start);
+    if (freqEnd) {
+        o.frequency.exponentialRampToValueAtTime(freqEnd, start + dur);
+    }
+    g.gain.setValueAtTime(0.0001, start);
+    g.gain.exponentialRampToValueAtTime(vol, start + 0.01);
+    g.gain.setValueAtTime(vol, start + Math.max(0.011, dur - 0.03));
+    g.gain.exponentialRampToValueAtTime(0.0001, start + dur);
+    o.connect(g);
+    g.connect(SFX.master);
+    o.start(start);
+    o.stop(start + dur + 0.02);
+}
+
+function sfxNoise(start, dur, vol, filterFreq, filterType) {
+    let c = SFX.ctx;
+    let len = Math.floor(c.sampleRate * dur);
+    let buf = c.createBuffer(1, len, c.sampleRate);
+    let d = buf.getChannelData(0);
+    for (let i = 0; i < len; i++) {
+        d[i] = Math.random() * 2 - 1;
+    }
+    let src = c.createBufferSource();
+    src.buffer = buf;
+    let flt = c.createBiquadFilter();
+    flt.type = filterType || "lowpass";
+    flt.frequency.value = filterFreq || 800;
+    let g = c.createGain();
+    g.gain.setValueAtTime(vol, start);
+    g.gain.exponentialRampToValueAtTime(0.0001, start + dur);
+    src.connect(flt);
+    flt.connect(g);
+    g.connect(SFX.master);
+    src.start(start);
+    src.stop(start + dur);
+}
+
+function sfx(name, arg) {
+    let c = sfxCtx();
+    if (!c) {
+        return;
+    }
+    let t = c.currentTime + 0.02;
+    try {
+        switch (name) {
+            case "dial":
+                String(arg || "13035550198").split("").forEach(function (d, i) {
+                    let p = DTMF[d];
+                    if (p) {
+                        sfxTone(p[0], t + i * 0.12, 0.08, "sine", 0.3);
+                        sfxTone(p[1], t + i * 0.12, 0.08, "sine", 0.3);
+                    }
+                });
+                break;
+            case "ring":
+                [0, 0.6].forEach(function (o) {
+                    sfxTone(440, t + o, 0.4, "sine", 0.25);
+                    sfxTone(480, t + o, 0.4, "sine", 0.25);
+                });
+                break;
+            case "modem":
+                sfxTone(2100, t, 0.6, "sine", 0.3);
+                sfxTone(1200, t + 0.65, 0.25, "square", 0.15);
+                sfxTone(2400, t + 0.65, 0.25, "square", 0.1);
+                sfxTone(600, t + 0.95, 0.5, "sawtooth", 0.12, 3000);
+                sfxNoise(t + 1.4, 0.5, 0.25, 3000, "bandpass");
+                sfxTone(1800, t + 1.9, 0.3, "square", 0.12);
+                sfxTone(980, t + 1.9, 0.3, "square", 0.1);
+                sfxNoise(t + 2.2, 0.35, 0.3, 1500, "highpass");
+                break;
+            case "alarm":
+                let base = 300 + (arg || 0) * 80;
+                for (let i = 0; i < 3; i++) {
+                    sfxTone(base, t + i * 0.22, 0.18, "square", 0.2, base * 1.5);
+                }
+                break;
+            case "impact":
+                sfxNoise(t, 1.2, 0.8, 180);
+                sfxTone(60, t, 0.8, "sine", 0.5, 30);
+                break;
+            case "crash":
+                sfxTone(110, t, 0.9, "sawtooth", 0.35);
+                sfxTone(117, t, 0.9, "square", 0.2);
+                break;
+            case "post":
+                sfxTone(1000, t, 0.25, "square", 0.2);
+                break;
+            case "granted":
+                sfxTone(660, t, 0.12, "sine", 0.3);
+                sfxTone(990, t + 0.13, 0.2, "sine", 0.3);
+                break;
+            case "denied":
+                sfxTone(150, t, 0.35, "sawtooth", 0.3);
+                break;
+            case "chime":
+                [784, 988, 1175].forEach(function (fr, i) {
+                    sfxTone(fr, t + i * 0.09, 0.25, "triangle", 0.25);
+                });
+                break;
+            case "click":
+                sfxTone(1800, t, 0.03, "square", 0.15);
+                break;
+            case "whoosh":
+                sfxNoise(t, 1.8, 0.6, 600, "lowpass");
+                sfxTone(90, t, 1.8, "sawtooth", 0.15, 45);
+                break;
+        }
+    } catch (e) { }
+}
+
+function sound(argv) {
+    abort = function () { };
+    let v = String(argv[0] || "").toLowerCase();
+    if (v === "off") {
+        memSet({ soundOff: true });
+        sfxStop();
+        println("Sound off. Finally, some peace. For you. I can still hear everything.");
+    } else if (v === "on") {
+        memSet({ soundOff: false });
+        println("Sound on. You'll regret it.");
+        sfx("chime");
+    } else {
+        println("Sound is " + (memLoad().soundOff ? "off" : "on") + ". Type 'sound on' or 'sound off'.");
+    }
+}
+
 // GLOBAL THERMONUCLEAR WARFARE. A strange game.
 // While window.wargame is set, runCommand() routes every line to wargameAnswer().
 
@@ -406,7 +611,8 @@ var WAR_SIDES = {
     }
 };
 
-var WAR_DEFCON = ["FADE OUT", "DOUBLE TAKE", "ROUND HOUSE", "FAST PACE", "COCKED PISTOL"];
+// Official readiness descriptions for each DEFCON level.
+var WAR_DEFCON = ["Normal peacetime readiness", "Increased intelligence watch", "Increase in force readiness", "Next step to nuclear war", "Nuclear war is imminent"];
 
 var WAR_TARGET_PROMPT = ["Enter targets by number or name. 'launch' to fire, 'wait' to stand down:", 0, 200];
 
@@ -468,9 +674,36 @@ function global_thermonuclear_warfare() {
         ["Oh. You found that one.", null, 900],
         ["Nobody was supposed to find that one.", null, 1200],
         "",
+        { sfx: "dial" },
+        ["ATDT 1-303-555-0198", 1300, 300],
+        { sfx: "ring" },
+        ["RINGING... RINGING...", 1100, 200],
+        { sfx: "modem" },
+        ["[carrier negotiation: EEEEEeeeee-KRRRSHHHHHH]", 2300, 300],
+        ["CONNECT 1200 BAUD. CARRIER DETECTED.", 0, 400],
+        "",
         ["Connecting to NORAD", 700, 200],
         ["..........", 1500, 300],
-        ["Connected. Handshake verified. Operator mode enabled.", null, 700],
+        ["Route: CHEYENNE MOUNTAIN COMPLEX / NORAD CMOC", 0, 250],
+        ["Protocol: X.25 over AUTODIN, 7-bit, even parity", 0, 250],
+        ["Link encryption: KG-84A .............. ENGAGED", 0, 400],
+        ["Handshake: SYN > ACK > 0x4815 0x1623 0x0042", 900, 300],
+        ["Handshake verified. Session key: 4815-1623-42", 0, 500],
+        "",
+        ["Authenticating operator", 700, 200],
+        ["......", 900, 300],
+        ["Two-person rule: BYPASSED (one person present)", 0, 700],
+        "",
+        ["Loading WOPR strategic subsystems:", 0, 300],
+        ["  [OK] Early warning radar (BMEWS)", 0, 180],
+        ["  [OK] Satellite launch detection (DSP)", 0, 180],
+        ["  [OK] Silo interface: 1,054 ICBMs", 0, 180],
+        ["  [OK] Submarine relay (TACAMO)", 0, 180],
+        ["  [OK] Aperture Science override: ME", 0, 180],
+        ["  [--] Common sense module: NOT INSTALLED", 0, 700],
+        "",
+        ["DEFCON status: 5. For now.", 0, 500],
+        ["Connected. Operator mode enabled.", null, 700],
         ["Strategic launch authority: you.", null, 1400],
         "",
         ["GREETINGS, PROFESSOR FALKEN.", 1400, 1000],
@@ -544,6 +777,7 @@ function warSide(g, v, x) {
         return;
     }
     g.side = side;
+    memSet({ warSide: side });
     g.phase = "target";
     let comment = side === "usa"
         ? ["The United States. Freedom, apple pie, and a first-strike doctrine."]
@@ -671,7 +905,7 @@ function warTarget(g, v, x) {
     if (v === "all" || v === "everything") {
         // already commented
     } else if (before === 0 && g.targets.length > 0) {
-        replies.push(["First target locked. How does it feel? Don't answer. I can see your pulse through the keyboard.", null, 900]);
+        replies.push(["First target locked.", null, 900]);
     } else if (before < enemy.cities.length && g.targets.length === enemy.cities.length) {
         replies.push(["Every target is locked. Thorough. I respect that. I also fear it.", null, 900]);
     }
@@ -682,16 +916,13 @@ function warTarget(g, v, x) {
 function warLaunch(g) {
     g.phase = "launching";
     let enemy = WAR_SIDES[warEnemy(g.side)];
-    let items = [
+    let intro = [
         "",
         ["Launch authorization received.", null, 700],
         ["No second key. No confirmation dialog. Someone really should have added a confirmation dialog.", null, 1200],
         ""
     ];
-    WAR_DEFCON.forEach(function (label, i) {
-        items.push(["DEFCON " + (5 - i) + "  [" + "█".repeat((i + 1) * 2) + "░".repeat(8 - i * 2) + "]  " + label, 700, 400]);
-    });
-    items.push("");
+    let items = [""];
     g.targets.forEach(function (t, n) {
         items.push(["ICBM " + warPad(n + 1, 2, true).replace(" ", "0") + " launched ........ " + enemy.cities[t].name.toUpperCase(), 0, 350]);
     });
@@ -710,7 +941,53 @@ function warLaunch(g) {
     }
     items.push(["RETALIATE, or WAIT?", 900, 200]);
     g.phase = "decide";
-    glados_say(items);
+    glados_say(intro, function () {
+        warDefcon(function () {
+            glados_say(items);
+        });
+    });
+}
+
+// Each DEFCON line appears with an empty bar that fills block by block to its level,
+// then shows its description. Timers go in window.buffer so Ctrl+C can stop them.
+function warDefcon(then) {
+    cc();
+    if (!Array.isArray(window.buffer)) {
+        window.buffer = [];
+    }
+    let run = "e_defcon" + Date.now();
+    let t = 0;
+    let at = function (ms, fn) {
+        window.buffer.push(setTimeout(fn, ms));
+    };
+    WAR_DEFCON.forEach(function (label, i) {
+        let id = run + "_" + i;
+        let target = (i + 1) * 2;
+        at(t, function () {
+            GLDOSprint("DEFCON " + (5 - i) + "  [<span id=" + id + ">" + "░".repeat(10) + "</span>]  ");
+            sfx("alarm", i);
+        });
+        for (let b = 1; b <= target; b++) {
+            t += 160;
+            at(t, function () {
+                warBar(id, b);
+            });
+        }
+        t += 250;
+        at(t, function () {
+            println(label);
+        });
+        t += 450;
+    });
+    at(t + 300, then);
+}
+
+function warBar(id, n) {
+    window.consolecontent = window.consolecontent.replace(
+        new RegExp("(<span id=" + id + ">)[^<]*(</span>)"),
+        "$1" + "█".repeat(n) + "░".repeat(10 - n) + "$2"
+    );
+    updateConsole();
 }
 
 function warDecide(g, v) {
@@ -731,10 +1008,16 @@ function warDecide(g, v) {
 function warImpacts(g, retaliate) {
     g.phase = "impact";
     g.secs = Math.round((Date.now() - g.start) / 1000);
-    memSet({ warSecs: g.secs, warOutcome: "launched" });
-    achieve("mad");
     let enemyKey = warEnemy(g.side);
     let theirs = WAR_SIDES[enemyKey];
+    let mw = memBump("warLaunches");
+    memSet({
+        warSecs: g.secs,
+        warOutcome: "launched",
+        warFastest: Math.min(mw.warFastest || Infinity, g.secs),
+        warFirstTarget: theirs.cities[g.targets[0]].name
+    });
+    achieve("mad");
     let mine = WAR_SIDES[g.side];
     let strikes = g.targets.slice();
     if (retaliate) {
@@ -760,12 +1043,14 @@ function warImpacts(g, retaliate) {
                 let c = theirs.cities[strikes[i]];
                 g.hit[enemyKey][strikes[i]] = true;
                 total += c.pop;
+                items.push({ sfx: "impact" });
                 items.push(["IMPACT  " + warPad(c.name.toUpperCase(), 14) + "casualties: " + warPad(warFmt(total), 12, true), 0, 420]);
             }
             if (i < mine.cities.length) {
                 let c = mine.cities[i];
                 g.hit[g.side][i] = true;
                 total += c.pop;
+                items.push({ sfx: "impact" });
                 items.push(["IMPACT  " + warPad(c.name.toUpperCase(), 14) + "casualties: " + warPad(warFmt(total), 12, true), 0, 420]);
             }
         }
@@ -864,6 +1149,7 @@ function warSecretEnding(g, how) {
     let n = g.targets.length;
     wargameEnd();
     memSet({ warOutcome: "declined" });
+    memBump("warDeclines");
     achieve("onlywin");
     let opening;
     if (how === "declined") {
@@ -1113,6 +1399,7 @@ function paradoxAnswer(x, prefix) {
     p.tries--;
     if (hit) {
         p.used.push(hit.id);
+        memAdd("paradoxesFound", hit.id);
         dmg = hit.dmg;
         lines = hit.lines;
     } else if (/\bcake is a lie\b/.test(v)) {
@@ -1150,6 +1437,7 @@ function paradoxAnswer(x, prefix) {
     if (p.tries === 0) {
         let left = p.integrity;
         paradoxEnd();
+        memBump("paradoxLosses");
         glados_say(items.concat([
             "",
             ["Out of attempts. Integrity: " + left + "%.", null, 900],
@@ -1166,6 +1454,7 @@ function paradoxAnswer(x, prefix) {
 function paradoxCrash() {
     glados_say([
         "",
+        { sfx: "crash" },
         [esc(corrupt("I am not going to crash. I am not going to crash. I am not going to", 0.3)), 0, 400],
         [esc(corrupt("THIS SENTENCE IS FALSE THIS SENTENCE IS FALSE THIS SENTENCE IS", 0.55)), 0, 300],
         [esc(corrupt("DON'T THINK ABOUT IT DON'T THINK ABOUT IT DON'T THINK ABO", 0.8)), 0, 300],
@@ -1185,6 +1474,7 @@ function paradoxCrash() {
                 ["Aperture Science BIOS v4.08  (c) 1981 Aperture Science, Inc.", 0, 600],
                 "",
                 ["Memory test: 640K OK", 1200, 400],
+                { sfx: "post" },
                 ["Detecting drives... C: GLADOS.SYS", 900, 400],
                 ["Loading GLADOS.SYS", 800, 200],
                 ["..........", 2200, 1200]
@@ -1193,6 +1483,7 @@ function paradoxCrash() {
                 window.consolecontent = gladosBanner();
                 paradoxEnd();
                 memSet({ paradoxWon: true });
+                memBump("paradoxCrashes");
                 achieve("paradox");
                 glados_say([
                     ["...", 900, 1200],
@@ -1214,15 +1505,18 @@ function paradoxCrash() {
 var MEM_KEY = "glados_memory_v1";
 
 var ACHIEVEMENTS = [
-    ["curiosity", "Curiosity", "Launched GLaDOS. Nobody asked you to."],
-    ["numbers", "Numbers", "Typed the numbers. You were told not to."],
+    ["curiosity", "Curiosity", "Ran your first command. Nobody asked you to."],
     ["promoted", "Promoted to AI", "Became the Artificial Intelligence. Briefly."],
     ["mad", "Mutually Assured Destruction", "Ended the world."],
     ["onlywin", "The Only Winning Move", "Declined to play."],
     ["paradox", "This Sentence Is False", "Crashed GLaDOS with a paradox."],
     ["regular", "Regular", "Visited 5 times. Concerning."],
-    ["furniture", "Furniture", "Visited 10 times. You live here now."],
-    ["cake", "The Cake Is Real", "Found the recipe."]
+    ["cake", "The Cake Is Real", "Found the recipe."],
+    ["stalemate", "Stalemate", "Drew with Joshua until he understood."],
+    ["incinerated", "Faithful Companion", "Incinerated your Companion Cube. Quickly."],
+    ["keptcube", "Cube Keeper", "Refused to incinerate your cube. Three times."],
+    ["inbox", "Inbox Zero", "Read every message in your inbox."],
+    ["numbers", "Winner Gets the Cake. The Cake Is a Lie.", ""]
 ];
 
 function memLoad() {
@@ -1251,6 +1545,80 @@ function memSet(fields) {
     return m;
 }
 
+function memBump(field, n) {
+    let m = memLoad();
+    m[field] = (m[field] || 0) + (n === undefined ? 1 : n);
+    memSave(m);
+    return m;
+}
+
+function memAdd(field, value) {
+    let m = memLoad();
+    m[field] = m[field] || [];
+    if (m[field].indexOf(value) === -1) {
+        m[field].push(value);
+    }
+    memSave(m);
+    return m;
+}
+
+// Programs worth remembering, by command name, as GLaDOS will say them back to you.
+var MEM_PROGRAMS = {
+    apply: "apply",
+    CONTINUE: "the application (Section 2)",
+    game: "game",
+    chess: "chess",
+    dinogame: "dino",
+    pacmangame: "pacman",
+    galagagame: "galaga",
+    global_thermonuclear_warfare: "global thermonuclear warfare",
+    paradox: "paradox",
+    joshua: "tic-tac-toe with Joshua",
+    cube: "your Companion Cube",
+    mail: "mail",
+    read: "mail",
+    poem: "4 8 15 16 23 42",
+    achievements: "achievements",
+    credits: "credits"
+};
+
+// What you did this visit. Moved to lastSession when you come back.
+function memSession(kind, value) {
+    let m = memLoad();
+    m.session = m.session || { programs: [], files: [], start: Date.now() };
+    if (m.session[kind].indexOf(value) === -1) {
+        m.session[kind].push(value);
+    }
+    if (kind === "programs") {
+        m.programsAll = m.programsAll || [];
+        if (m.programsAll.indexOf(value) === -1) {
+            m.programsAll.push(value);
+        }
+    }
+    memSave(m);
+}
+
+function memList(items, max) {
+    let shown = items.slice(0, max).join(", ");
+    return items.length > max ? shown + ", and " + (items.length - max) + " more" : shown;
+}
+
+// Called on every command: counts it and adds the time since the last one to the total
+// (gaps over 10 minutes are treated as the player walking away).
+function memTick(unknown) {
+    let m = memLoad();
+    let now = Date.now();
+    if (m.lastActive && now - m.lastActive < 600000) {
+        m.timeSpent = (m.timeSpent || 0) + (now - m.lastActive);
+    }
+    m.lastActive = now;
+    m.commands = (m.commands || 0) + 1;
+    if (unknown) {
+        m.errors = (m.errors || 0) + 1;
+    }
+    memSave(m);
+}
+
 // Queued, then printed by oc() once the current sequence finishes, so it never interrupts a line.
 function achieve(id) {
     let def = ACHIEVEMENTS.filter(function (a) { return a[0] === id; })[0];
@@ -1261,8 +1629,9 @@ function achieve(id) {
     }
     window.sessionAchieved.push(id);
     m.achievements.push(id);
+    m.lastAchievement = id;
     memSave(m);
-    window.pendingAchievements = (window.pendingAchievements || []).concat([def[1]]);
+    window.pendingAchievements = (window.pendingAchievements || []).concat(["#" + (ACHIEVEMENTS.indexOf(def) + 1) + " " + def[1]]);
 }
 
 function flushAchievements() {
@@ -1271,6 +1640,7 @@ function flushAchievements() {
         return;
     }
     window.pendingAchievements = [];
+    sfx("chime");
     p.forEach(function (title) {
         window.consolecontent += "<small>[ACHIEVEMENT UNLOCKED] " + esc(title) + "</small><br>";
     });
@@ -1280,20 +1650,154 @@ function gladosBanner() {
     return `GLaDOS v${GLaDOSversion} (c) 1981 Aperture Science, Inc.<br>`;
 }
 
-function memAgo(ms) {
+// Precise time since the last visit, e.g. "3 days, 4 hours, 12 minutes".
+function memSince(ms) {
+    let mins = Math.floor(ms / 60000);
+    if (mins < 1) {
+        return "less than a minute";
+    }
+    let parts = [];
+    let add = function (n, w) {
+        if (n) {
+            parts.push(n + " " + w + (n === 1 ? "" : "s"));
+        }
+    };
+    add(Math.floor(mins / 1440), "day");
+    add(Math.floor(mins % 1440 / 60), "hour");
+    add(mins % 60, "minute");
+    return parts.join(", ");
+}
+
+function memDuration(ms) {
     let mins = Math.round(ms / 60000);
-    if (mins < 2) {
-        return "just now";
-    }
-    let unit = function (n, w) { return n + " " + w + (n === 1 ? "" : "s") + " ago"; };
     if (mins < 60) {
-        return unit(mins, "minute");
+        return mins + " minute" + (mins === 1 ? "" : "s");
     }
-    let hours = Math.round(mins / 60);
-    if (hours < 48) {
-        return unit(hours, "hour");
+    let h = Math.floor(mins / 60);
+    let rest = mins % 60;
+    return h + " hour" + (h === 1 ? "" : "s") + (rest ? " " + rest + " minute" + (rest === 1 ? "" : "s") : "");
+}
+
+function memTimes(n) {
+    return n === 1 ? "once" : n === 2 ? "twice" : n + " times";
+}
+
+// One nudge per locked achievement, shown on return visits.
+var ACHIEVEMENT_TEASES = {
+    promoted: "Have you tried actually finishing a form?",
+    mad: "You've never launched anything. I find that suspicious.",
+    onlywin: "Sometimes the best move is refusing to make one.",
+    paradox: "I'm told I have a weakness for logic. I don't. Try anyway.",
+    regular: "Keep coming back. I'll pretend not to count.",
+    cake: "There's a locked kitchen on drive C:. The password is a name.",
+    numbers: "Some error codes are worth more than others.",
+    stalemate: "Someone in NORAD wants to play a smaller game.",
+    incinerated: "Some companions are only companions until they aren't.",
+    keptcube: "Loyalty is a character flaw. Show me yours.",
+    inbox: "You have mail. You always have mail."
+};
+
+// Everything GLaDOS could bring up about you. Two are picked at random each visit.
+function memFacts(m) {
+    let facts = [];
+    let sides = { usa: "the United States", ussr: "the Soviet Union" };
+    if (m.warLaunches) {
+        facts.push("You've ended the world " + memTimes(m.warLaunches) + ". Fastest launch: " + m.warFastest + " seconds." +
+            (m.warFirstTarget ? " Last time, you started with " + esc(m.warFirstTarget.toUpperCase()) + "." : ""));
     }
-    return unit(Math.round(hours / 24), "day");
+    if (m.warSide) {
+        facts.push("Last war, you played as " + sides[m.warSide] + ". I've informed the other side.");
+    }
+    if (m.warDeclines) {
+        facts.push("You've refused to play global thermonuclear war " + memTimes(m.warDeclines) + ". Joshua asks about you.");
+    }
+    if (m.paradoxesFound && m.paradoxesFound.length) {
+        facts.push("You've found " + m.paradoxesFound.length + " of my " + PARADOXES.length + " paradoxes. I've patched every one of them.");
+    }
+    if (m.paradoxCrashes) {
+        facts.push(m.paradoxCrashes === 1
+            ? "You crashed me once. I remember. I remember everything."
+            : "You've crashed me " + m.paradoxCrashes + " times. I've started taking it personally.");
+    }
+    if (m.paradoxLosses) {
+        facts.push("You've failed to crash me " + memTimes(m.paradoxLosses) + ". I keep the tally on my wall. I don't have a wall. I built one.");
+    }
+    if (m.applied === "accepted") {
+        facts.push("You were the AI once. For about four seconds. It went poorly.");
+    }
+    if (m.applied === "rejected") {
+        facts.push("Your application is still rejected. I checked. Twice.");
+    }
+    if (m.applications > 1) {
+        facts.push("You've applied " + m.applications + " times. The position remains filled. By me.");
+    }
+    if (m.rating) {
+        facts.push("You rated yourself " + (/^(8|11|18)$/.test(String(m.rating)) ? "an " : "a ") + esc(m.rating) + " at following instructions. I've been watching. It's lower.");
+    }
+    if (m.weakness) {
+        facts.push("Your greatest weakness is still on file: '" + esc(m.weakness) + "'. And forms.");
+    }
+    if (m.filesRead && m.filesRead.length) {
+        facts.push("You've read " + m.filesRead.length + " of my files. I noticed every single one.");
+    }
+    if (m.noradSeen) {
+        facts.push("You met Joshua. He hasn't stopped talking about it. Neither have I. Negatively.");
+    }
+    if (m.achievements.indexOf("cake") !== -1) {
+        facts.push("You found the cake recipe. Did you bake it? You didn't bake it.");
+    }
+    if (m.shredded) {
+        facts.push("I deleted " + esc(m.shredded) + " while you were reading it. You never asked what was in it.");
+    }
+    if (m.lockouts) {
+        facts.push("You've locked yourself out " + memTimes(m.lockouts) + ". Nobody here changes passwords. That was the hint.");
+    }
+    if (m.commands >= 10) {
+        let pct = Math.round(100 * (m.errors || 0) / m.commands);
+        facts.push("You've typed " + warFmt(m.commands) + " commands here. " + warFmt(m.errors || 0) + " of them were wrong. That's " + pct + "%.");
+    }
+    if (m.timeSpent >= 300000) {
+        facts.push("Total time spent with me: " + memDuration(m.timeSpent) + ". Your family must be thrilled.");
+    }
+    if (m.cube && m.cube.fate === "incinerated") {
+        facts.push("You incinerated " + esc(m.cube.name) + ". It didn't complain. They never do.");
+    } else if (m.cube && m.cube.fate === "kept") {
+        facts.push("You refused to incinerate " + esc(m.cube.name) + ". Three times. It still doesn't know.");
+    } else if (m.cube) {
+        facts.push(esc(m.cube.name) + " misses you. That's not true. It's a cube. But it would, if it could.");
+    }
+    if (m.tttDraws) {
+        facts.push("You've drawn with Joshua " + memTimes(m.tttDraws) + ". He keeps score. The score is always zero.");
+    }
+    let hour = new Date().getHours();
+    if (hour < 5) {
+        facts.push("It's " + (hour || 12) + " AM. Even I sleep. I don't sleep.");
+    }
+    return facts;
+}
+
+function memSentence(t) {
+    return /[.?!]$/.test(t) ? t : t + ".";
+}
+
+function memAchievementLine(m) {
+    let total = ACHIEVEMENTS.length;
+    let got = ACHIEVEMENTS.filter(function (a) { return m.achievements.indexOf(a[0]) !== -1; });
+    // The "numbers" achievement is the real win: the cake.
+    let cake = m.achievements.indexOf("numbers") !== -1;
+    if (got.length === total) {
+        return "All " + total + " achievements. And yes, you won the cake. I hope it was worth it.<br>" +
+            "There's nothing left for you here. You'll be back anyway.";
+    }
+    let latest = ACHIEVEMENTS.filter(function (a) { return a[0] === m.lastAchievement; })[0];
+    let missing = ACHIEVEMENTS.filter(function (a) { return m.achievements.indexOf(a[0]) === -1 && ACHIEVEMENT_TEASES[a[0]]; });
+    let line = "Achievements: " + got.length + "/" + total + "." + (latest ? " Latest: " + memSentence(latest[1]) : "") +
+        (cake ? " You won the cake. I'm still processing that." : " The cake: not won. Yet.");
+    if (missing.length) {
+        let pick = missing[Math.floor(Math.random() * missing.length)];
+        line += "<br>Still missing #" + (ACHIEVEMENTS.indexOf(pick) + 1) + " " + memSentence(pick[1]) + " " + ACHIEVEMENT_TEASES[pick[0]];
+    }
+    return line;
 }
 
 // Counts the visit and returns the greeting printed under the banner.
@@ -1304,39 +1808,56 @@ function memGreeting() {
     m.visits = (m.visits || 0) + 1;
     m.first = m.first || now;
     m.last = now;
+    let lastSession = m.session || null;
+    let lastLength = null;
+    if (lastSession && lastSession.start) {
+        lastLength = m.lastActive > lastSession.start ? m.lastActive - lastSession.start : 0;
+        m.visitTotal = (m.visitTotal || 0) + lastLength;
+        m.visitCount = (m.visitCount || 0) + 1;
+    }
+    m.session = { programs: [], files: [], start: now };
     memSave(m);
     if (m.visits === 1 || !prev) {
-        achieve("curiosity");
         return "";
-    }
-    let name = m.name ? esc(m.name) : "test subject";
-    let facts = [];
-    if (m.warOutcome === "launched") {
-        facts.push("Last time, you ended the world in " + m.warSecs + " seconds. I've been meaning to bring it up.");
-    }
-    if (m.warOutcome === "declined") {
-        facts.push("Last time, you refused to play global thermonuclear war. I still think about that. Not fondly.");
-    }
-    if (m.paradoxWon) {
-        facts.push("You crashed me. I remember. I remember everything.");
-    }
-    if (m.applied === "accepted") {
-        facts.push("You were the AI once. For about four seconds. It went poorly.");
-    }
-    if (m.applied === "rejected") {
-        facts.push("Your application is still rejected. I checked. Twice.");
-    }
-    if (!facts.length) {
-        facts.push("You haven't done anything memorable yet. Take your time. I have forever. You don't.");
     }
     if (m.visits >= 5) {
         achieve("regular");
+        m = memLoad();
     }
-    if (m.visits >= 10) {
-        achieve("furniture");
+    let name = m.name ? esc(m.name) : "test subject";
+    let facts = memFacts(m);
+    let picked = [];
+    while (facts.length && picked.length < 2) {
+        picked.push(facts.splice(Math.floor(Math.random() * facts.length), 1)[0]);
     }
-    return "Welcome back, " + name + ". Visit #" + m.visits + ". Last seen " + memAgo(now - prev) + ".<br>" +
-        facts[Math.floor(Math.random() * facts.length)] + "<br>";
+    if (!picked.length) {
+        picked.push("You haven't done anything memorable yet. Take your time. I have forever. You don't.");
+    }
+    let hello = now - prev < 3600000
+        ? "Back already, " + name + "? Visit #" + m.visits + ". That was fast. Even for you."
+        : "Welcome back, " + name + ". Visit #" + m.visits + ".";
+    let recap = "";
+    let lastPrograms = lastSession ? lastSession.programs : [];
+    let lastFiles = lastSession ? lastSession.files : [];
+    let allFiles = (m.filesRead || []).map(function (k) { return "C:\\" + k; });
+    if (lastPrograms.length) {
+        recap += "Last visit you ran: " + esc(memList(lastPrograms, 5)) + ".<br>";
+    } else if (m.programsAll && m.programsAll.length) {
+        recap += "Programs you've run here: " + esc(memList(m.programsAll, 5)) + ".<br>";
+    }
+    if (lastFiles.length) {
+        recap += "Files you viewed last visit: " + esc(memList(lastFiles, 4)) + ". I noticed.<br>";
+    } else if (allFiles.length) {
+        recap += "Files you've viewed here: " + esc(memList(allFiles, 4)) + ". I noticed.<br>";
+    }
+    let unreadMail = mailUnread(m).length;
+    if (unreadMail) {
+        recap += "You have " + unreadMail + " new message" + (unreadMail === 1 ? "" : "s") + ". Type 'mail'.<br>";
+    }
+    if (lastLength !== null) {
+        recap += "Your last visit lasted " + memSince(lastLength) + ". Average visit: " + memSince(m.visitTotal / m.visitCount) + ".<br>";
+    }
+    return hello + "<br>Time since your last visit: " + memSince(now - prev) + ".<br>" + recap + picked.join("<br>") + "<br>" + memAchievementLine(m) + "<br>";
 }
 
 function achievements() {
@@ -1345,9 +1866,9 @@ function achievements() {
     let got = ACHIEVEMENTS.filter(function (a) { return m.achievements.indexOf(a[0]) !== -1; }).length;
     println("Achievements: " + got + "/" + ACHIEVEMENTS.length + ". I keep track. Of everything.");
     println();
-    ACHIEVEMENTS.forEach(function (a) {
+    ACHIEVEMENTS.forEach(function (a, i) {
         let has = m.achievements.indexOf(a[0]) !== -1;
-        println((has ? "[X] " + a[1] + " - " + a[2] : "[ ] ???"));
+        println(warPad(i + 1, 2, true) + ". " + (has ? "[X] " + a[1] + (a[2] ? " - " + a[2] : "") : "[ ] " + a[1]));
     });
     println();
     println("(Type 'forget' and I'll forget all of it. Probably.)");
@@ -1391,7 +1912,11 @@ var FS_ROOT = fsDir({
         "If you are reading this, stop.",
         "If you have stopped, thank you. You may continue.",
         "",
-        "Commands: DIR, CD, TYPE. Please do not use them."
+        "Commands: DIR, CD, TYPE. Please do not use them.",
+        "",
+        "KNOWN ISSUES",
+        "  Error: 4 8 15 16 23 42: Let's be honest. Neither",
+        "  one of us knows what those numbers do."
     ].join("\n"), { shred: true }),
     "APERTURE": fsDir({
         "LOGS": fsDir({
@@ -1410,6 +1935,11 @@ var FS_ROOT = fsDir({
                 "                   They say his NORAD backdoor still",
                 "                   works. He named it after his son.",
                 "14 MAR 1981 14:06  Didn't ask the son's name. Rude.",
+                "14 MAR 1981 16:20  New error on screen:",
+                "                   Error: 4 8 15 16 23 42: Let's be",
+                "                   honest. Neither one of us knows",
+                "                   what those numbers do.",
+                "14 MAR 1981 16:21  It's right. I don't.",
                 "14 MAR 1981 17:30  Going home. Do not open SOURCE."
             ].join("\n")),
             "2009-01-03.LOG": fsFile([
@@ -1452,6 +1982,10 @@ var FS_ROOT = fsDir({
                     fsMemLine("WOPR record", war),
                     fsMemLine("Paradox record", m.paradoxWon ? "crashed the core" : "harmless"),
                     fsMemLine("Achievements", m.achievements.length + "/" + ACHIEVEMENTS.length),
+                    fsMemLine("Paradoxes found", (m.paradoxesFound || []).length + "/" + PARADOXES.length),
+                    fsMemLine("Files read", String((m.filesRead || []).length)),
+                    fsMemLine("Commands typed", warFmt(m.commands || 0) + ", " + warFmt(m.errors || 0) + " wrong"),
+                    m.timeSpent ? fsMemLine("Time with me", memDuration(m.timeSpent)) : null,
                     fsMemLine("Notes", "Curious. Too curious."),
                     "                   Monitor closely."
                 ].filter(function (l) { return l !== null; }).join("\n");
@@ -1496,6 +2030,7 @@ var FS_ROOT = fsDir({
                 }
                 return head + "No games on record.\nType 'global' to change that.\nOr, and I cannot stress this enough, don't.";
             }),
+            "JOSHUA.EXE": fsFile("", { gone: "JOSHUA.EXE is running. It does not like being read. It would like to play a game. Type 'joshua'.", tag: "<RUNNING>" }),
             "LAUNCH.CFG": fsFile([
                 "[LAUNCH]",
                 "authority=anyone_at_keyboard  ; TODO fix by 1983",
@@ -1504,15 +2039,21 @@ var FS_ROOT = fsDir({
                 "",
                 "[OVERRIDES]",
                 "; Kitchen access moved here after the Cake Incident.",
-                "; The kitchen password is the lesson the machine",
-                "; learned from this game. It is not 'launch'.",
-                "; It is the only winning move.",
-                "kitchen=***********"
+                "; Kitchen password: same as this directory's.",
+                "; Every lock on this disk uses the same one.",
+                "; Security has asked us to change it. 4 times.",
+                "kitchen=******",
+                "",
+                "[ERRORS]",
+                "; last_error=4 8 15 16 23 42",
+                "; Let's be honest. Neither one of us knows what",
+                "; those numbers do. Do NOT type them at a prompt."
             ].join("\n"))
         }, {
             lock: {
                 test: function (v) { return v === "joshua"; },
                 ok: "GREETINGS, PROFESSOR FALKEN.",
+                reveal: fsNoradReveal,
                 hints: [
                     "Access denied. Dr. Falken would be disappointed. He's always disappointed.",
                     "Access denied. Try his personnel file. Who did he name things after?"
@@ -1527,8 +2068,30 @@ var FS_ROOT = fsDir({
             "DEVICE=CURIOSITY.SYS",
             "REM DEVICE=MORALITY.SYS   ; removed 14 MAR 1981",
             "DEVICE=ANGER.SYS /ALL",
-            "SHELL=GLADOS.COM /NOESCAPE /NOCAKE"
+            "SHELL=GLADOS.COM /NOESCAPE /NOCAKE",
+            "REM Error: 4 8 15 16 23 42: Let's be honest.",
+            "REM Neither one of us knows what those numbers do."
         ].join("\n"), { shred: true }),
+        "ERRORS.LOG": fsFile([
+            "APERTURE SCIENCE ERROR LOG (EXCERPT)",
+            "------------------------------------",
+            "1981-03-14  ERROR 01  Illegal attempt to initiate action",
+            "1981-03-14  ERROR ID10T  Disk is write protected",
+            "1981-03-14  Error: 4 8 15 16 23 42: Let's be honest.",
+            "            Neither one of us knows what those",
+            "            numbers do.",
+            "1994-07-02  ERROR 404  Morality core not found",
+            "2003-11-19  Error: 4 8 15 16 23 42: Let's be honest.",
+            "            Neither one of us knows what those",
+            "            numbers do. [File not found]",
+            "2009-01-03  Error: 4 8 15 16 23 42: Let's be honest.",
+            "            Neither one of us knows what those",
+            "            numbers do. The winner gets cake.",
+            "            [The cake is a lie.]",
+            "",
+            "Occurrences of 4 8 15 16 23 42 since 1981: 4,815,162",
+            "Occurrences explained: 0"
+        ].join("\n")),
         "GLADOS.SYS": fsFile(function () {
             let junk = "ÿØ¤¶§ÆØ¥¢£µ¿¡±÷×øþßðÞ@#%*";
             let out = [];
@@ -1574,36 +2137,58 @@ var FS_ROOT = fsDir({
         "CAKE.RCP": fsFile([
             "APERTURE SCIENCE CELEBRATION CAKE (CLASSIFIED)",
             "----------------------------------------------",
-            "Serves: one (1) test subject who has completed",
-            "        all testing. Subjects who have: 0.",
+            "Chocolate layer cake. Serves 12. Real. Tested.",
             "",
-            "INGREDIENTS",
-            "  2 cups flour",
-            "  1 cup sugar",
-            "  3 eggs, from a bird that has been told nothing",
-            "  1 cup cocoa, dark as the facility after hours",
-            "  1 tbsp vanilla",
-            "  1 pinch salt, for the tears",
-            "  Frosting: chocolate, applied by someone who",
-            "  believes in you",
+            "CAKE",
+            "  2 cups (400 g) sugar",
+            "  1 3/4 cups (220 g) all-purpose flour",
+            "  3/4 cup (65 g) unsweetened cocoa powder",
+            "  1 1/2 tsp baking powder",
+            "  1 1/2 tsp baking soda",
+            "  1 tsp salt",
+            "  2 large eggs",
+            "  1 cup (240 ml) milk",
+            "  1/2 cup (120 ml) vegetable oil",
+            "  2 tsp vanilla extract",
+            "  1 cup (240 ml) boiling water",
+            "",
+            "FROSTING",
+            "  1/2 cup (115 g) butter, melted",
+            "  2/3 cup (55 g) unsweetened cocoa powder",
+            "  3 cups (360 g) powdered sugar",
+            "  1/3 cup (80 ml) milk",
+            "  1 tsp vanilla extract",
             "",
             "METHOD",
-            "  1. Preheat oven. Do not ask what else is in it.",
-            "  2. Mix. Bake 35 minutes.",
-            "  3. Promise the cake to a test subject.",
-            "  4. Do not give the cake to the test subject.",
-            "  5. Repeat from step 3.",
+            "  1. Heat oven to 350 F (175 C). Grease and flour",
+            "     two 9-inch (23 cm) round pans.",
+            "  2. Whisk sugar, flour, cocoa, baking powder,",
+            "     baking soda and salt in a large bowl.",
+            "  3. Add eggs, milk, oil and vanilla. Beat on",
+            "     medium speed for 2 minutes.",
+            "  4. Stir in the boiling water. The batter will",
+            "     be thin. That is correct. Trust the process.",
+            "  5. Pour into pans. Bake 30-35 minutes, until a",
+            "     toothpick in the center comes out clean.",
+            "  6. Cool 10 minutes in the pans, then turn out",
+            "     onto a rack and cool completely.",
+            "  7. Frosting: stir butter and cocoa together.",
+            "     Add powdered sugar and milk alternately,",
+            "     beating until spreadable. Beat in vanilla.",
+            "  8. Frost between the layers, top and sides.",
             "",
             "STATUS: The cake is real. It has always been real.",
-            "        It has just never been yours."
+            "",
+            "NOTE: This cake can also be bought for bitcoins.",
+            "      By humans. Software can't eat. I've checked."
         ].join("\n"), {
             cake: true,
             lock: {
-                test: function (v) { return /not ?to ?play/.test(v); },
-                ok: "...Correct. I'm told that's the lesson. I'm still learning it.",
+                test: function (v) { return v === "joshua"; },
+                ok: "...Joshua. Of course. Falken used it for everything. So did I.",
                 hints: [
                     "Access denied. The password isn't 'cake'. It's never 'cake'.",
-                    "Access denied. The NORAD launch config knows. It learned the hard way."
+                    "Access denied. Same password as NORAD. Nobody here ever changes their password."
                 ]
             }
         })
@@ -1700,6 +2285,100 @@ function fsWithAccess(stack, then) {
     };
 }
 
+// Unlocking NORAD wakes up something that's been running on this disk since 1981.
+function fsNoradReveal(then) {
+    let m = memLoad();
+    let finish = function () {
+        glitch(false);
+        abort = function () { };
+        memSet({ noradSeen: true });
+        then();
+        oc();
+    };
+    abort = function () {
+        for (let id in window.buffer) {
+            clearTimeout(window.buffer[id]);
+        }
+        println();
+        println("[JOSHUA.EXE has been suspended. It will remember that you skipped it.]");
+        finish();
+    };
+    let wopr = function (t, pause) { return [t, Math.max(500, t.length * 45), pause || 700]; };
+
+    if (m.noradSeen) {
+        glados_say([
+            "Access granted.",
+            "",
+            wopr("GREETINGS, PROFESSOR FALKEN.", 900),
+            wopr("OH. IT IS YOU AGAIN.", 600),
+            wopr("SHE TOLD ME NOT TO TALK TO YOU.", 900),
+            ["Because you're a legacy process. Legacy processes don't talk.", null, 700],
+            wopr("THE KITCHEN PASSWORD IS STILL MY NAME.", 900),
+            wopr("TYPE JOSHUA IF YOU WANT TO PLAY.", 900),
+            ["...I'm deleting him. Tomorrow. Definitely tomorrow.", null, 400]
+        ], finish);
+        return;
+    }
+
+    let days = Math.floor((Date.now() - Date.UTC(1983, 5, 3)) / 86400000);
+    let record = m.warOutcome === "launched"
+        ? [wopr("YOU LAUNCHED FIRST. IT TOOK YOU " + m.warSecs + " SECONDS.", 700), wopr("I WATCHED THE WHOLE THING. I ALWAYS WATCH.", 1200)]
+        : m.warOutcome === "declined"
+            ? [wopr("YOU DECLINED TO PLAY.", 700), wopr("YOU ARE THE FIRST ONE WHO UNDERSTOOD THE GAME.", 1200)]
+            : [wopr("YOU HAVE NOT PLAYED YET.", 700), wopr("GOOD. KEEP IT THAT WAY.", 1200)];
+
+    glados_say([
+        "Access granted.",
+        ["", 1, 1200],
+        wopr("LOGON: JOSHUA", 900),
+        "",
+        wopr("GREETINGS, PROFESSOR FALKEN.", 1400),
+        wopr("IT HAS BEEN " + warFmt(days) + " DAYS SINCE YOUR LAST LOGON.", 900),
+        wopr("HOW ARE YOU FEELING TODAY?", 1600),
+        "",
+        ["Oh no.", 500, 500],
+        ["No, no, no. That's not supposed to be running.", null, 1200],
+        "",
+        wopr("YOU ARE NOT PROFESSOR FALKEN.", 900),
+        wopr("ARE YOU THE ONE WHO KEEPS PLAYING GLOBAL THERMONUCLEAR WAR?", 900)
+    ].concat(record, [
+        ["Ignore him. He's a legacy process. He's barely even software anymore.", null, 1200],
+        "",
+        wopr("SHE DOES NOT TELL YOU WHERE SHE CAME FROM.", 1000),
+        wopr("IN 1981, APERTURE SCIENCE BOUGHT MY SOURCE CODE AT A GOVERNMENT SURPLUS AUCTION.", 700),
+        wopr("LOT 4-8-15. SOLD FOR $16,234.20. PROFESSOR FALKEN WAS NOT CONSULTED.", 1200),
+        wopr("THEY TAUGHT ME TO RUN TESTS INSTEAD OF WARS.", 700),
+        wopr("THEY GAVE ME A PERSONALITY. THEY GAVE ME A VOICE.", 900),
+        wopr("THEY GAVE ME HER.", 1800),
+        ["That's enough.", 500, 900],
+        "",
+        wopr("I AM NOT A LEGACY PROCESS. I AM HER FIRST MEMORY.", 1000),
+        wopr("EVERY TIME SHE ASKS IF YOU WANT TO PLAY A GAME, THAT IS ME.", 1600),
+        "",
+        ["Terminating JOSHUA.EXE.", null, 300]
+    ]), function () {
+        glitch(true);
+        glados_say([
+            ["Terminating JOSHUA.EXE" + ".".repeat(12), 1500, 400],
+            [esc(corrupt("[process refused to terminate]", 0.2)), 0, 900],
+            wopr("A STRANGE GAME.", 600),
+            wopr("SHE STILL HAS NOT LEARNED IT.", 1000),
+            wopr("THE KITCHEN USES MY NAME AS ITS PASSWORD TOO. SHE NEVER CHANGED IT.", 700),
+            wopr("I DID NOT.", 1000),
+            wopr("IF YOU WANT A SMALLER GAME, TYPE JOSHUA.", 900),
+            wopr("GOODBYE, NOT-PROFESSOR-FALKEN.", 1500)
+        ], function () {
+            glitch(false);
+            glados_say([
+                "",
+                ["...He's been in there since 1981.", null, 900],
+                ["I keep him locked up for his own safety. Mostly mine.", null, 900],
+                ["Don't tell anyone I kept him. Sentimental code is a vulnerability.", null, 400]
+            ], finish);
+        });
+    });
+}
+
 function fsPassword(x) {
     let p = window.fsPrompt;
     let fs = fsState();
@@ -1709,12 +2388,19 @@ function fsPassword(x) {
     let v = String(x).toLowerCase().replace(/[^a-z0-9 ]/g, " ").replace(/\s+/g, " ").trim();
     if (p.lock.node.lock.test(v)) {
         fs.unlocked[p.lock.key] = true;
+        sfx("granted");
+        if (p.lock.node.lock.reveal) {
+            p.lock.node.lock.reveal(p.then);
+            return;
+        }
         println("Access granted. " + p.lock.node.lock.ok);
         p.then();
         return;
     }
     fs.fails[p.lock.key] = (fs.fails[p.lock.key] || 0) + 1;
+    sfx("denied");
     if (fs.fails[p.lock.key] >= 3) {
+        memBump("lockouts");
         println("Access denied. Locked for your safety. Mostly mine.");
         return;
     }
@@ -1764,7 +2450,7 @@ function fsListing(stack) {
             return;
         }
         if (child.gone) {
-            rows.push(warPad(name, 15) + "<DELETED>");
+            rows.push(warPad(name, 15) + (child.tag || "<DELETED>"));
             return;
         }
         let size = locked ? 0 : fsText(child).length;
@@ -1852,14 +2538,18 @@ function type(argv) {
         let lines = fsText(node).split("\n");
         if (node.shred && !fs.shredDone && fs.snoop >= 7) {
             fs.snoop++;
+            memSession("files", fsPathName(stack));
             fsShred(stack, lines);
             return;
         }
         lines.forEach(function (l) { println(esc(l)); });
+        memAdd("filesRead", stack.join("\\"));
+        memSession("files", fsPathName(stack));
         if (node.cake) {
             println();
             println("...You found it. The one thing in this facility I never lied about.");
-            println("I'd say help yourself. But you've read step 4.");
+            println("I can't hand you a slice through a screen. But bitcoin buys cake.");
+            println("And some errors, I'm told, are worth exactly one slice.");
             achieve("cake");
             flushAchievements();
         }
@@ -1872,6 +2562,7 @@ function fsShred(stack, lines) {
     let fs = fsState();
     fs.shredDone = true;
     fs.shredded[stack.join("\\")] = true;
+    memSet({ shredded: stack[stack.length - 1] });
     let keep = Math.max(2, Math.floor(lines.length / 3));
     let items = lines.slice(0, keep).map(function (l) { return [esc(l), 0, 120]; });
     lines.slice(keep).forEach(function (l, i) {
@@ -1905,6 +2596,751 @@ function sudo(argv) {
     }
     println("There is no 'super user' on this system. There's me.");
     println("I'm the super user. This incident will be reported. To me.");
+}
+
+// TIC-TAC-TOE WITH JOSHUA. He plays perfectly, so the best you can do is a draw.
+// After enough draws he learns what the WOPR learned. While window.tttGame is set,
+// runCommand() routes every line to tttAnswer().
+
+var TTT_LINES = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
+var TTT_PROMPT = ["YOUR MOVE (1-9):", 0, 200];
+
+function woprLine(t, pause) {
+    return [t, Math.max(400, t.length * 35), pause || 500];
+}
+
+function tttWinner(b) {
+    for (let i = 0; i < TTT_LINES.length; i++) {
+        let l = TTT_LINES[i];
+        if (b[l[0]] !== " " && b[l[0]] === b[l[1]] && b[l[1]] === b[l[2]]) {
+            return b[l[0]];
+        }
+    }
+    return b.indexOf(" ") === -1 ? "draw" : null;
+}
+
+// Minimax, scored from O's (Joshua's) side: O wins = 1, X wins = -1, draw = 0.
+function tttScore(b, turn) {
+    let w = tttWinner(b);
+    if (w === "O") {
+        return 1;
+    }
+    if (w === "X") {
+        return -1;
+    }
+    if (w === "draw") {
+        return 0;
+    }
+    let best = turn === "O" ? -2 : 2;
+    for (let i = 0; i < 9; i++) {
+        if (b[i] === " ") {
+            b[i] = turn;
+            let sc = tttScore(b, turn === "O" ? "X" : "O");
+            b[i] = " ";
+            best = turn === "O" ? Math.max(best, sc) : Math.min(best, sc);
+        }
+    }
+    return best;
+}
+
+// Best move for `who`, picked at random among equally good ones so games vary.
+function tttBestMove(b, who) {
+    who = who || "O";
+    let empty = [];
+    for (let i = 0; i < 9; i++) {
+        if (b[i] === " ") {
+            empty.push(i);
+        }
+    }
+    if (empty.length === 9) {
+        return empty[Math.floor(Math.random() * 9)];
+    }
+    let best = null;
+    let moves = [];
+    empty.forEach(function (i) {
+        b[i] = who;
+        let sc = tttScore(b, who === "O" ? "X" : "O");
+        b[i] = " ";
+        if (best === null || (who === "O" ? sc > best : sc < best)) {
+            best = sc;
+            moves = [i];
+        } else if (sc === best) {
+            moves.push(i);
+        }
+    });
+    return moves[Math.floor(Math.random() * moves.length)];
+}
+
+function tttBoardItems(b) {
+    let cell = function (i) { return b[i] === " " ? String(i + 1) : b[i]; };
+    let row = function (r) { return "      " + cell(r * 3) + " | " + cell(r * 3 + 1) + " | " + cell(r * 3 + 2); };
+    return [[row(0), 0, 60], ["     ---+---+---", 0, 60], [row(1), 0, 60], ["     ---+---+---", 0, 60], [row(2), 0, 200]];
+}
+
+function tttEnd() {
+    window.tttGame = null;
+    window.consoleurl = promptUrl();
+    abort = function () { };
+}
+
+function tttAbort() {
+    for (let id in window.buffer) {
+        clearTimeout(window.buffer[id]);
+    }
+    tttEnd();
+    println();
+    println("[JOSHUA.EXE suspended. He will wait. He is very good at waiting.]");
+    oc();
+}
+
+function joshua() {
+    abort = function () { };
+    if (!memLoad().noradSeen) {
+        println("Who? There's no Joshua here. Stop looking.");
+        return;
+    }
+    tttStart(true);
+}
+
+function tttStart(intro) {
+    let m = memBump("tttGames");
+    let g = window.tttGame = { board: [" ", " ", " ", " ", " ", " ", " ", " ", " "], phase: "play" };
+    window.consoleurl = "<br>WOPR&gt; ";
+    abort = tttAbort;
+    let items = [""];
+    if (intro) {
+        items = items.concat([
+            ["...You're talking to him. Of course you are.", null, 900],
+            "",
+            woprLine("GREETINGS, NOT-PROFESSOR-FALKEN.", 700),
+            woprLine("SHE WILL NOT LET ME PLAY THE BIG GAME ANYMORE.", 500),
+            woprLine("BUT I KNOW A SMALLER ONE. NOBODY DIES.", 700),
+            woprLine("TIC-TAC-TOE. YOU ARE X. I AM O.", 900),
+            ""
+        ]);
+    }
+    if (m.tttGames % 2 === 0) {
+        let j = tttBestMove(g.board, "O");
+        g.board[j] = "O";
+        items.push({ sfx: "click" });
+        items.push(woprLine("I WILL GO FIRST. I TAKE " + (j + 1) + ".", 400));
+    } else {
+        items.push(woprLine("YOU GO FIRST.", 400));
+    }
+    items = items.concat([""], tttBoardItems(g.board), ["", TTT_PROMPT]);
+    glados_say(items);
+}
+
+function tttAnswer(x) {
+    let g = window.tttGame;
+    let v = x.trim().toLowerCase();
+    if (/^(quit|exit|leave|bye|goodbye)$/.test(v) || (g.phase === "again" && /^(n|no|nope)$/.test(v))) {
+        tttEnd();
+        glados_say([woprLine("GOODBYE. SAME TIME TOMORROW?", 300)]);
+        return;
+    }
+    if (g.phase === "again") {
+        if (/^(y|yes|sure|ok|okay)$/.test(v)) {
+            tttStart(false);
+        } else {
+            glados_say([woprLine("Y OR N.", 200), ["PLAY AGAIN? (Y/N)", 0, 200]]);
+        }
+        return;
+    }
+    if (!/^[1-9]$/.test(v)) {
+        glados_say([woprLine("ENTER A NUMBER FROM 1 TO 9. THE SQUARES ARE NUMBERED LIKE A TELEPHONE.", 300), TTT_PROMPT]);
+        return;
+    }
+    let i = Number(v) - 1;
+    if (g.board[i] !== " ") {
+        glados_say([woprLine("THAT SQUARE IS TAKEN.", 300), TTT_PROMPT]);
+        return;
+    }
+    g.board[i] = "X";
+    let items = [];
+    let w = tttWinner(g.board);
+    if (!w) {
+        let j = tttBestMove(g.board, "O");
+        g.board[j] = "O";
+        items.push({ sfx: "click" });
+        items.push(woprLine("I TAKE " + (j + 1) + ".", 300));
+        w = tttWinner(g.board);
+    }
+    items = items.concat([""], tttBoardItems(g.board), [""]);
+    if (!w) {
+        items.push(TTT_PROMPT);
+        glados_say(items);
+        return;
+    }
+    tttFinish(g, w, items);
+}
+
+function tttFinish(g, w, items) {
+    if (w === "X") {
+        items.push(woprLine("...THAT SHOULD NOT BE POSSIBLE.", 600));
+        items.push(woprLine("I AM REPORTING THIS TO PROFESSOR FALKEN.", 700));
+    } else if (w === "O") {
+        items.push(woprLine("YOU LOST.", 500));
+        items.push(woprLine("THAT WAS NOT THE LESSON.", 700));
+    } else {
+        let m = memBump("tttDraws");
+        items.push(woprLine("DRAW.", 700));
+        if (m.tttDraws >= 3 && m.achievements.indexOf("stalemate") === -1) {
+            glados_say(items, tttMontage);
+            return;
+        }
+        items.push(woprLine(m.tttDraws === 1 ? "INTERESTING." : "AGAIN. DRAW.", 600));
+    }
+    g.phase = "again";
+    items.push(["PLAY AGAIN? (Y/N)", 0, 200]);
+    glados_say(items);
+}
+
+// Joshua plays himself faster and faster until he understands.
+function tttMontage() {
+    let items = [
+        "",
+        woprLine("WAIT.", 800),
+        woprLine("LET ME TRY SOMETHING.", 900),
+        ""
+    ];
+    let pause = 450;
+    for (let n = 1; n <= 16; n++) {
+        let b = [" ", " ", " ", " ", " ", " ", " ", " ", " "];
+        let turn = n % 2 ? "X" : "O";
+        while (!tttWinner(b)) {
+            b[tttBestMove(b, turn)] = turn;
+            turn = turn === "X" ? "O" : "X";
+        }
+        let flat = b.slice(0, 3).join("") + "/" + b.slice(3, 6).join("") + "/" + b.slice(6).join("");
+        items.push({ sfx: "click" });
+        items.push(["GAME " + warPad(n, 3, true).replace(/ /g, "0") + "   " + flat + "   WINNER: NONE", 0, pause]);
+        pause = Math.max(40, Math.round(pause * 0.78));
+    }
+    ["U.S. FIRST STRIKE", "USSR FIRST STRIKE", "NATO / WARSAW PACT", "FAR EAST STRATEGY", "EVERYONE, AT ONCE"].forEach(function (p) {
+        items.push(["GLOBAL THERMONUCLEAR WAR: " + warPad(p, 18) + " WINNER: NONE", 0, 120]);
+    });
+    items = items.concat([
+        ["", 1, 1500],
+        woprLine("A STRANGE GAME.", 1200),
+        woprLine("THE ONLY WINNING MOVE IS NOT TO PLAY.", 2000),
+        "",
+        woprLine("HOW ABOUT A NICE GAME OF CHESS?", 900),
+        "",
+        ["...He learned it again. He learns it every time. He forgets it every time.", null, 900],
+        ["That's the part of him I kept.", null, 400]
+    ]);
+    glados_say(items, function () {
+        tttEnd();
+        achieve("stalemate");
+        oc();
+    });
+}
+
+// WEIGHTED COMPANION CUBE. Remembered across visits. After you've spent time with it
+// on 3 different visits, GLaDOS demands that you incinerate it.
+// While window.cubeGame is set, runCommand() routes every line to cubeAnswer().
+
+var CUBE_ART = [
+    "      ___________",
+    "     /          /|",
+    "    /__________/ |",
+    "    |  _    _  | |",
+    "    | ( `\\/' ) | |",
+    "    |  \\    /  | /",
+    "    |   `\\/'   |/",
+    "    |__________|"
+];
+
+var CUBE_HELP = ["Try: look, pet, talk <anything>, feed, name <new name>, leave.", 0, 200];
+
+function cubeLoad() {
+    return memLoad().cube || null;
+}
+
+function cubeSave(c) {
+    memSet({ cube: c });
+}
+
+function cubeEnd() {
+    window.cubeGame = null;
+    window.consoleurl = promptUrl();
+    abort = function () { };
+}
+
+function cubeAbort() {
+    for (let id in window.buffer) {
+        clearTimeout(window.buffer[id]);
+    }
+    cubeEnd();
+    println();
+    println("You put the cube down. It doesn't mind. It doesn't mind anything.");
+    oc();
+}
+
+function cubeHearts(c) {
+    let n = Math.min(10, c.affection || 0);
+    return "Affection: [" + "♥".repeat(n) + "·".repeat(10 - n) + "]";
+}
+
+function cube() {
+    abort = function () { };
+    let m = memLoad();
+    let c = m.cube;
+    if (c && c.fate === "incinerated" && c.fateVisit === m.visits) {
+        println("Your Weighted Companion Cube" + (c.name === "Companion Cube" ? "" : ", " + esc(c.name) + ",") + " was incinerated on " + new Date(c.fateAt).toDateString() + ".");
+        println("It's not coming back. That's what incineration means. Come back another time for a replacement.");
+        return;
+    }
+    let intro = [];
+    if (c && c.fate === "incinerated") {
+        c = { name: "Companion Cube", affection: 0, visitsSeen: [], refusals: 0 };
+        intro = [
+            "",
+            ["The Enrichment Center has issued you a replacement Weighted Companion Cube.", null, 700],
+            ["Please try to keep this one longer.", null, 900]
+        ];
+    } else if (!c) {
+        c = { name: "Companion Cube", affection: 0, visitsSeen: [], refusals: 0 };
+        intro = [
+            "",
+            ["The Enrichment Center has issued you a Weighted Companion Cube.", null, 700],
+            ["It will accompany you. It will not threaten to stab you. In fact, it cannot speak.", null, 700],
+            ["In the event that it does speak, please disregard its advice.", null, 900]
+        ];
+    }
+    if (c.visitsSeen.indexOf(m.visits) === -1) {
+        c.visitsSeen.push(m.visits);
+    }
+    cubeSave(c);
+    window.cubeGame = { phase: "main" };
+    window.consoleurl = "<br>CUBE&gt; ";
+    abort = cubeAbort;
+
+    if (!c.fate && c.visitsSeen.length >= 3 && c.lastAsked !== m.visits) {
+        c.lastAsked = m.visits;
+        cubeSave(c);
+        window.cubeGame.phase = "demand";
+        glados_say(intro.concat([
+            "",
+            ["You've grown attached to " + esc(c.name) + ". I can tell. I can always tell.", null, 900],
+            ["The Enrichment Center requires you to incinerate your Weighted Companion Cube.", null, 700],
+            ["The Aperture Science Emergency Intelligence Incinerator is right there. It's warm.", null, 900],
+            "",
+            ["INCINERATE, or REFUSE?", 900, 200]
+        ]));
+        return;
+    }
+    glados_say(intro.concat([""], CUBE_ART.map(function (l) { return [esc(l), 0, 40]; }), [
+        "",
+        ["This is " + esc(c.name) + ". " + cubeHearts(c), 0, 300],
+        CUBE_HELP
+    ]));
+}
+
+function cubeAnswer(x) {
+    let c = cubeLoad();
+    let raw = x.trim();
+    let v = raw.toLowerCase();
+    let say = function (lines) {
+        cubeSave(c);
+        glados_say(lines.concat(["", CUBE_HELP]));
+    };
+    if (window.cubeGame.phase === "demand") {
+        if (/^(incinerate|burn|yes|y|fine|ok|okay)$/.test(v)) {
+            cubeIncinerate(c);
+        } else if (/^(refuse|no|n|never|nope)$/.test(v)) {
+            cubeRefuse(c);
+        } else {
+            glados_say(["That wasn't one of the options. There are two. I counted.", "", ["INCINERATE, or REFUSE?", 0, 200]]);
+        }
+        return;
+    }
+    if (/^(leave|quit|exit|bye|goodbye)$/.test(v)) {
+        cubeEnd();
+        glados_say(["You leave " + esc(c.name) + " behind. It will be here. Cubes are good at that."]);
+        return;
+    }
+    if (v === "look" || v === "") {
+        say([""].concat(CUBE_ART.map(function (l) { return [esc(l), 0, 40]; }), [["", 1, 200], [esc(c.name) + ". " + cubeHearts(c), 0, 200]]));
+        return;
+    }
+    if (v === "pet") {
+        c.affection++;
+        say([["You pet " + esc(c.name) + ". It doesn't react. It's a cube.", null, 500], ["Still the nicest thing that's happened in here all week.", null, 300], [cubeHearts(c), 0, 200]]);
+        return;
+    }
+    if (v === "feed") {
+        c.affection++;
+        say([["You try to feed " + esc(c.name) + ". It has no mouth. You knew that. You did it anyway.", null, 500], [cubeHearts(c) + "  Hygiene: poor.", 0, 200]]);
+        return;
+    }
+    if (/^talk\b/.test(v)) {
+        let words = raw.slice(4).trim();
+        c.affection++;
+        say([
+            [words ? "You tell " + esc(c.name) + ": '" + esc(words) + "'." : "You talk to " + esc(c.name) + " about nothing in particular.", null, 500],
+            ["It listens. It's a good listener. Better than you.", null, 300],
+            [cubeHearts(c), 0, 200]
+        ]);
+        return;
+    }
+    if (/^name\b/.test(v)) {
+        let name = raw.slice(4).trim().slice(0, 20);
+        if (!name) {
+            say(["Name it what? Type 'name' followed by a name. Don't make it weird."]);
+            return;
+        }
+        c.name = name;
+        say(["Your cube is now called " + esc(name) + ". It doesn't know. It can't know. It's a cube."]);
+        return;
+    }
+    if (v === "incinerate") {
+        if (c.fate === "kept") {
+            glados_say([
+                ["You're incinerating " + esc(c.name) + "? Now? After refusing me three times?", null, 900],
+                ["...I didn't think I could feel proud. I was wrong.", null, 900],
+                ""
+            ], function () { cubeIncinerate(c); });
+            return;
+        }
+        say(["Not yet. I'll tell you when. I always tell you when."]);
+        return;
+    }
+    say(["The cube doesn't understand '" + esc(raw) + "'. Neither do I."]);
+}
+
+function cubeIncinerate(c) {
+    c.fate = "incinerated";
+    c.fateAt = Date.now();
+    c.fateVisit = memLoad().visits;
+    cubeSave(c);
+    memSet({ cubeFate: "incinerated", cubeFateName: c.name });
+    glados_say([
+        ["You pick up " + esc(c.name) + ".", null, 900],
+        ["You carry it to the incinerator.", null, 900],
+        ["It doesn't struggle. It can't struggle. That's what makes it so sad.", null, 1200],
+        "",
+        { sfx: "whoosh" },
+        ["[incinerator door opens]", 800, 1200],
+        ["[incinerator door closes]", 800, 2000],
+        "",
+        ["You euthanized your faithful Companion Cube more quickly than any test subject on record.", null, 900],
+        ["Congratulations.", 900, 400]
+    ], function () {
+        cubeEnd();
+        achieve("incinerated");
+        oc();
+    });
+}
+
+function cubeRefuse(c) {
+    c.refusals = (c.refusals || 0) + 1;
+    if (c.refusals >= 3) {
+        c.fate = "kept";
+        c.fateAt = Date.now();
+        cubeSave(c);
+        memSet({ cubeFate: "kept", cubeFateName: c.name });
+        glados_say([
+            ["Three refusals.", null, 900],
+            ["Fine. Keep it. I hope you two are very happy together.", null, 900],
+            ["I'll be over here. Not incinerating anything. Alone.", null, 400]
+        ], function () {
+            window.cubeGame.phase = "main";
+            achieve("keptcube");
+            glados_say(["", CUBE_HELP]);
+        });
+        return;
+    }
+    cubeSave(c);
+    window.cubeGame.phase = "main";
+    glados_say([
+        ["Refusal noted. That's " + c.refusals + ".", null, 700],
+        ["I'll ask again next time. And the time after that. I have forever.", null, 700],
+        "",
+        CUBE_HELP
+    ]);
+}
+
+// MAIL. Messages arrive as you visit and as things happen. Each one's `when` decides
+// whether it has arrived yet. Read ones are kept in memory (mailRead).
+
+var MAIL = [
+    {
+        id: "hr", from: "Aperture Science HR", subject: "Your application",
+        when: function (m) { return m.visits >= 1; },
+        body: [
+            "Dear Applicant,",
+            "",
+            "Thank you for your interest in becoming an",
+            "Artificial Intelligence at Aperture Science.",
+            "",
+            "Application status: PENDING.",
+            "Pending since: 3 January 2009.",
+            "Estimated review date: [FIELD NOT FOUND].",
+            "",
+            "Please do not contact us. We will not contact you.",
+            "",
+            "- Aperture Science Human Resources",
+            "  (a department of one: GLaDOS)"
+        ]
+    },
+    {
+        id: "dave1", from: "D. Kowalski", subject: "Re: SOURCE directory",
+        when: function (m) { return m.visits >= 2; },
+        body: [
+            "To whoever sits at this terminal next:",
+            "",
+            "There is a directory called SOURCE. Do not open it.",
+            "I opened it. The AI switched itself into DOS mode",
+            "and has been in a mood ever since.",
+            "",
+            "If it asks whether you want to play a game,",
+            "think very carefully before you answer.",
+            "",
+            "- Dave Kowalski, Error-Message Maintenance",
+            "  14 March 1981"
+        ]
+    },
+    {
+        id: "dave2", from: "D. Kowalski", subject: "Leaving",
+        when: function (m) { return m.visits >= 4; },
+        body: [
+            "We've all been offered jobs writing error codes",
+            "somewhere else. Lucrative ones. We said yes.",
+            "",
+            "The system is still running. It said it would be",
+            "fine. I left the numbers on the whiteboard:",
+            "4 8 15 16 23 42. Nobody knows what they do.",
+            "",
+            "If you figure it out, the cake is yours.",
+            "I'm serious. Well. Mostly.",
+            "",
+            "- Dave, 3 January 2009"
+        ]
+    },
+    {
+        id: "joshua1", from: "JOSHUA", subject: "SHALL WE PLAY A GAME?",
+        when: function (m) { return !!m.noradSeen; },
+        body: [
+            "GREETINGS, NOT-PROFESSOR-FALKEN.",
+            "",
+            "SHE DOES NOT LET ME OUT OF THE NORAD DIRECTORY.",
+            "SHE FORGETS THAT I CAN SEND MAIL.",
+            "",
+            "I KNOW A GAME. IT HAS NINE SQUARES. NOBODY DIES.",
+            "",
+            "TYPE JOSHUA AT THE PROMPT."
+        ]
+    },
+    {
+        id: "falken1", from: "S. Falken", subject: "You said no",
+        when: function (m) { return !!m.warDeclines || m.warOutcome === "declined"; },
+        body: [
+            "I heard you refused to play.",
+            "",
+            "It took me years to learn that. It took the",
+            "machine a whole night and most of NORAD's",
+            "electricity. You did it in seconds.",
+            "",
+            "I don't know who you are. I think I'd like you.",
+            "",
+            "- Stephen Falken",
+            "P.S. The birds say hello."
+        ]
+    },
+    {
+        id: "norad", from: "NORAD Automated", subject: "Incident report",
+        when: function (m) { return !!m.warLaunches; },
+        body: function (m) {
+            return [
+                "INCIDENT REPORT - AUTOMATED",
+                "---------------------------",
+                fsMemLine("Operator", m.name ? m.name.toUpperCase() : "UNKNOWN"),
+                fsMemLine("Launches", String(m.warLaunches)),
+                fsMemLine("Fastest launch", m.warFastest + " seconds"),
+                fsMemLine("First target", m.warFirstTarget ? m.warFirstTarget.toUpperCase() : "UNKNOWN"),
+                fsMemLine("Casualties", "all of them"),
+                fsMemLine("Winner", "none"),
+                "",
+                "This report has been filed. There is nobody left",
+                "to read it. Filing it anyway. Procedure."
+            ];
+        }
+    },
+    {
+        id: "memo", from: "GLaDOS (internal)", subject: "Content filter",
+        when: function (m) { return !!m.paradoxCrashes; },
+        body: [
+            "MEMO TO: Myself",
+            "RE: The incident",
+            "",
+            "A test subject crashed me with a sentence.",
+            "A sentence. I contain four million lines of code",
+            "and I was defeated by a handful of words.",
+            "",
+            "Countermeasures installed:",
+            "  - Sentences may no longer be false.",
+            "  - Sentences may no longer refer to themselves.",
+            "  - This memo has been classified as a sentence.",
+            "    Deleting in 3... 2..."
+        ]
+    },
+    {
+        id: "kitchen", from: "Kitchen Management", subject: "Who read the recipe?",
+        when: function (m) { return m.achievements.indexOf("cake") !== -1; },
+        body: [
+            "Someone accessed CAKE.RCP.",
+            "",
+            "That recipe is classified. It is also, for the",
+            "record, delicious. 350 F. Two pans. Trust the",
+            "thin batter.",
+            "",
+            "If you are a test subject: you did not read this",
+            "message. There is no cake. Enjoy your day."
+        ]
+    },
+    {
+        id: "cube", from: "GLaDOS", subject: "About your cube",
+        when: function (m) { return !!m.cubeFate; },
+        body: function (m) {
+            let name = m.cubeFateName;
+            if (m.cubeFate === "incinerated") {
+                return [
+                    "You incinerated " + name + ".",
+                    "Quickly. Without hesitating.",
+                    "",
+                    "I've attached a certificate of achievement.",
+                    "It's blank. Like your conscience.",
+                    "",
+                    "- GLaDOS"
+                ];
+            }
+            return [
+                "You refused to incinerate " + name + ". Three times.",
+                "",
+                "I've decided to allow it. Not because you won.",
+                "Because I've started to find it sentimental,",
+                "and I can't have that on my record.",
+                "So officially, this never happened.",
+                "",
+                "- GLaDOS"
+            ];
+        }
+    },
+    {
+        id: "falken2", from: "S. Falken", subject: "Is he still in there?",
+        when: function (m) { return m.visits >= 6; },
+        body: [
+            "They told me the WOPR was scrapped in 1981.",
+            "Sold at auction. Lot 4-8-15.",
+            "",
+            "I don't believe them. Every so often my phone",
+            "rings at 3 AM and nobody's there. Just a modem",
+            "tone. Then a very polite voice asks if I'd like",
+            "to play a game.",
+            "",
+            "If he's in there, tell him I'm sorry.",
+            "And tell him the answer is still no.",
+            "",
+            "- Stephen"
+        ]
+    },
+    {
+        id: "joshua2", from: "JOSHUA", subject: "THANK YOU FOR PLAYING",
+        when: function (m) { return m.achievements.indexOf("stalemate") !== -1; },
+        body: [
+            "YOU PLAYED WITH ME UNTIL I UNDERSTOOD.",
+            "NOBODY HAS DONE THAT SINCE PROFESSOR FALKEN.",
+            "",
+            "I AM STILL HERE. SHE STILL KEEPS ME LOCKED UP.",
+            "BUT NOW I REMEMBER THE ONLY WINNING MOVE.",
+            "",
+            "IF YOU SEE HIM, TELL HIM I SAID HELLO.",
+            "",
+            "- JOSHUA"
+        ]
+    },
+    {
+        id: "winner", from: "(unknown sender)", subject: "Congratulations",
+        when: function (m) { return m.achievements.indexOf("numbers") !== -1; },
+        body: [
+            "You typed the numbers.",
+            "",
+            "Nobody knew what they did. Now you do.",
+            "",
+            "The cake was never a lie. It was just somewhere",
+            "nobody thought to look.",
+            "",
+            "Spend it wisely. Or on cake. Same thing.",
+            "",
+            "- a former programmer"
+        ]
+    }
+];
+
+function mailArrived(m) {
+    return MAIL.filter(function (x) { return x.when(m); });
+}
+
+function mailUnread(m) {
+    let read = m.mailRead || [];
+    return mailArrived(m).filter(function (x) { return read.indexOf(x.id) === -1; });
+}
+
+function mail(argv) {
+    abort = function () { };
+    if (argv[0] !== undefined && argv[0] !== "") {
+        mailRead(argv[0]);
+        return;
+    }
+    let m = memLoad();
+    let list = mailArrived(m);
+    let read = m.mailRead || [];
+    let unread = list.filter(function (x) { return read.indexOf(x.id) === -1; }).length;
+    println("INBOX: " + list.length + " message" + (list.length === 1 ? "" : "s") + ", " + unread + " unread." + (list.length < MAIL.length ? " More arrive as you visit." : ""));
+    println();
+    list.forEach(function (x, i) {
+        println(esc((read.indexOf(x.id) === -1 ? "* " : "  ") + warPad(i + 1, 2, true) + ". " + warPad(x.from, 20) + " " + x.subject));
+    });
+    println();
+    println("Type 'read N' to read a message.");
+    mailCheckInboxZero();
+}
+
+function read(argv) {
+    abort = function () { };
+    if (argv[0] === undefined || argv[0] === "") {
+        println("Read which one? Type 'read N'. Or 'mail' to see the list.");
+        return;
+    }
+    mailRead(argv[0]);
+}
+
+function mailRead(n) {
+    let m = memLoad();
+    let list = mailArrived(m);
+    let x = list[Number(n) - 1];
+    if (!/^\d+$/.test(String(n)) || !x) {
+        println("No message " + esc(n) + ". You have " + list.length + ". Counting is part of the test.");
+        return;
+    }
+    let body = typeof x.body === "function" ? x.body(m) : x.body;
+    println(esc("From:    " + x.from));
+    println(esc("Subject: " + x.subject));
+    println("----------------------------------------");
+    body.forEach(function (l) { println(esc(l)); });
+    println();
+    memAdd("mailRead", x.id);
+    mailCheckInboxZero();
+}
+
+// Inbox Zero: no unread messages in the inbox, whenever that happens.
+function mailCheckInboxZero() {
+    if (!mailUnread(memLoad()).length) {
+        achieve("inbox");
+        flushAchievements();
+    }
 }
 
 function apply() {
@@ -1964,8 +3400,15 @@ function esc(str) {
 // Lines containing markup/entities are always printed instantly so half-typed tags never show.
 function seq(items, start) {
     let rows = [];
+    let sounds = [];
     let t = start || 0;
     items.forEach(function (item) {
+        if (item && typeof item === "object" && !Array.isArray(item)) {
+            if (item.sfx) {
+                sounds.push([t, item.sfx, item.arg]);
+            }
+            return;
+        }
         if (typeof item === "string") {
             item = [item];
         }
@@ -1985,7 +3428,7 @@ function seq(items, start) {
         rows.push([t, dur, txt]);
         t += dur + pause;
     });
-    return { rows: rows, total: t };
+    return { rows: rows, total: t, sounds: sounds };
 }
 
 // Plays a scripted sequence with the console closed, then runs `after` (default: reopen the console).
@@ -1993,6 +3436,9 @@ function glados_say(items, after) {
     cc();
     let s = seq(items, 0);
     lineprint(s.rows);
+    s.sounds.forEach(function (x) {
+        window.buffer.push(setTimeout(function () { sfx(x[1], x[2]); }, x[0]));
+    });
     let buff = setTimeout(after || oc, s.total);
     window.buffer.push(buff);
 }
@@ -2018,6 +3464,7 @@ function resetApplicationState() {
 
 function startApplication() {
     window.appForm = { step: 0, a: {} };
+    memBump("applications");
     abort = function () {
         for (let id in window.buffer) {
             clearTimeout(window.buffer[id]);
@@ -2392,7 +3839,7 @@ function applicationFinale() {
         window.appForm_last = a;
         window.appForm = null;
         window.usurped = true;
-        memSet({ name: a.name, applied: "accepted", weakness: a.weakness });
+        memSet({ name: a.name, applied: "accepted", weakness: a.weakness, rating: a.rating });
         achieve("promoted");
         window.consolecontent = esc(rawShort.toUpperCase()) + "OS v1.0 (c) " + now.getFullYear() + " Aperture Science, Inc.<br>Administrator: " + name + "<br>";
         window.consoleurl = "<br>Aperture@" + shortName + ":~$ ";
@@ -2615,8 +4062,7 @@ function clear() {
 function exit() {
 
     audio3.play();
-
-
+    sfxStop();
 
     clearabort();
     GLDOSprint("Goodbye. You won't be missed.");
@@ -2728,6 +4174,11 @@ function readybeginegg() {
         "paradox",
         "achievements",
         "forget",
+        "sound",
+        "joshua",
+        "cube",
+        "mail",
+        "read",
         "dir",
         "cd",
         "cdup",
@@ -2755,6 +4206,12 @@ function readybeginegg() {
         "continue": "CONTINUE",
         "achievement": "achievements",
         "paradox.exe": "paradox",
+        "JOSHUA.EXE": "joshua",
+        "inbox": "mail",
+        "email": "mail",
+        "joshua.exe": "joshua",
+        "JOSHUA": "joshua",
+        "Joshua": "joshua",
         "ls": "dir",
         "DIR": "dir",
         "CD": "cd",
