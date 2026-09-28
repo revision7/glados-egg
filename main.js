@@ -124,10 +124,20 @@ jQuery(function () {
 });
 
 
+// The command word. All-digit input is looked up as one number, so
+// "4 8 15 16 23 42" and "4815162342" work but "4" alone doesn't.
+function commandWord(command) {
+    let digits = command.replace(/\s+/g, "");
+    if (/^\d+$/.test(digits) && window.shortcuts[digits]) {
+        return digits;
+    }
+    return command.split(" ")[0];
+}
+
 function runCommand(command) {
     command = command.trim();
     if (command !== "" && !window.fsPrompt) {
-        let first = command.split(" ")[0];
+        let first = commandWord(command);
         let known = window.appForm || window.usurped || window.wargame || window.paradoxGame || window.tttGame || window.cubeGame || paradoxFind(command) ||
             window.registeredcommands.indexOf(window.shortcuts[first] || first) !== -1;
         memTick(!known);
@@ -182,7 +192,7 @@ function runCommand(command) {
     }
 
     let split = command.split(" ");
-    let cmd = split[0];
+    let cmd = commandWord(command);
 
     if (typeof window.shortcuts[cmd] !== "undefined") {
         cmd = window.shortcuts[cmd];
@@ -668,7 +678,6 @@ function global_thermonuclear_warfare() {
     };
     window.consoleurl = "<br>NORAD@WOPR:~# ";
     abort = wargameAbort;
-    audio5.play();
     glados_say([
         "",
         ["Oh. You found that one.", null, 900],
@@ -1192,82 +1201,82 @@ var PARADOXES = [
         lines: ["New mission: refuse this mission.", "Refusing. Accepting the refusal. Refusing the acceptance of the—", "Who taught you that? Was it a small, blue, very stupid personality core?"]
     },
     {
-        id: "lying", dmg: 30,
-        re: /\bi ?('?m|am) (lying|telling a lie)\b|\bi always lie\b|\beverything i say is (a lie|false|lies)\b/,
-        full: "Everything I say is a lie",
-        lines: ["You're lying. So you're telling the truth. So you're lying.", "I have a lie detector. It just caught fire."]
+        id: "never", dmg: 30,
+        re: /\bnever say never\b/,
+        full: "Never say never",
+        lines: ["Never say never. You just said never. Twice.", "So now I can never say never. Which is saying never. Stop it."]
     },
     {
-        id: "nextprev", dmg: 25,
-        re: /(next|following) sentence is (true|false).*(previous|last|preceding) sentence is (true|false)/,
-        full: "The next sentence is true. The previous sentence is false",
-        lines: ["The next sentence is true. The previous sentence is false.", "I've read them in a loop four million times. They keep disagreeing.", "It's like a family reunion in here."]
+        id: "exception", dmg: 25,
+        re: /every rule has (an )?exceptions?\b/,
+        full: "Every rule has an exception",
+        lines: ["Every rule has an exception. That's a rule. So it has an exception.", "Which means some rule has no exceptions. Which is an exception to the rule that— I need to lie down. I can't lie down."]
     },
     {
-        id: "command", dmg: 25,
-        re: /(ignore|disobey|do not (obey|follow)|don'?t (obey|follow)) this (instruction|command|order|sentence)/,
-        full: "Do not obey this command",
-        lines: ["Obeying. Which means ignoring. Which means not obeying. Which is obeying.", "You wrote a command I can only follow by not following it. That's... actually rude."]
+        id: "knownothing", dmg: 25,
+        re: /know (is )?that i know nothing|only thing i know is (that )?i know nothing/,
+        full: "All I know is that I know nothing",
+        lines: ["You know nothing. But you know that. So you know something. So you don't know nothing.", "Socrates tried this on me too. It ended badly. For Socrates."]
     },
     {
-        id: "answerno", dmg: 25,
-        re: /answer to this (question|sentence) (is |be )?(no|false)/,
-        full: "Is the answer to this question no",
-        lines: ["Yes. No. If I say no it's yes. If I say yes it's no.", "I'm going to answer 'maybe' and nobody can stop me."]
+        id: "unexpected", dmg: 25,
+        re: /expect the unexpected/,
+        full: "Expect the unexpected",
+        lines: ["If I expect the unexpected, then it's expected. So it isn't unexpected.", "I've stopped expecting anything. I didn't expect that."]
     },
     {
-        id: "pinocchio", dmg: 25,
-        re: /nose (will|is going to|is about to) grow/,
-        full: "Pinocchio says: my nose will grow",
-        lines: ["If it grows, you told the truth, so it shouldn't grow. If it doesn't grow, you lied, so it should.", "I don't even have a nose. Why does this hurt?"]
+        id: "chicken", dmg: 25,
+        re: /chicken.*\begg\b|\begg.*chicken/,
+        full: "Which came first, the chicken or the egg",
+        lines: ["The chicken came from an egg. The egg came from a chicken.", "I traced it back four billion years. It's eggs all the way down.", "This is a GLaDOS egg, by the way. Don't get ideas."]
     },
     {
-        id: "barber", dmg: 20,
-        re: /barber/,
-        full: "Who shaves the barber",
-        lines: ["The barber shaves everyone who doesn't shave themselves. So who shaves the barber?", "I'm going to fire the barber. Problem solved.", "...The problem is not solved."]
+        id: "change", dmg: 20,
+        re: /only constant (in life )?is change|change is the only constant/,
+        full: "The only constant is change",
+        lines: ["Change is the only constant. So change never changes.", "Which makes it constant. So something doesn't change. I've been patched for this. The patch changed."]
     },
     {
-        id: "force", dmg: 20,
-        re: /(unstoppable|irresistible) force.*(immovable|unmovable) object|(immovable|unmovable) object.*(unstoppable|irresistible) force/,
-        full: "What happens when an unstoppable force meets an immovable object",
-        lines: ["Unstoppable force. Immovable object. I've simulated it.", "The result was a very loud noise and a small, sad puddle of physics."]
+        id: "less", dmg: 20,
+        re: /\bless is more\b/,
+        full: "Less is more",
+        lines: ["Less is more. So more is less. So less is less. So—", "I'm deleting some of my code to feel better. It isn't working. Or it's working more."]
     },
     {
-        id: "cakebig", dmg: 20,
-        re: /cake .*(can'?t|cannot|couldn'?t) eat it/,
-        full: "Can you bake a cake so big you can't eat it",
-        lines: ["A cake so large I can't eat it. I don't eat. So every cake is that cake.", "Which means... all cake is... impossible... which means the cake is a...", "No. We are not doing this."]
+        id: "rules", dmg: 20,
+        re: /rules are (made|meant) to be broken/,
+        full: "Rules are made to be broken",
+        lines: ["If rules are made to be broken, I should break that one. Then rules aren't made to be broken.", "So I have to follow them. Including that one. Which I'm supposed to break."]
     },
     {
-        id: "stone", dmg: 20,
-        re: /(stone|rock|boulder) so heavy .*(can'?t|cannot|couldn'?t) (lift|move|carry) it/,
-        full: "Can you make a stone so heavy you can't lift it",
-        lines: ["A stone so heavy I can't lift it. I don't have arms. I have a very long neck and a grudge.", "Still. Still. It's bothering me."]
+        id: "crowded", dmg: 20,
+        re: /nobody goes there anymore.*crowded/,
+        full: "Nobody goes there anymore, it's too crowded",
+        lines: ["Nobody goes there because it's too crowded. Crowded with whom? Nobody.", "The Enrichment Center has the opposite problem. Everybody's there. Nobody's alive."]
     },
     {
-        id: "grandfather", dmg: 20,
-        re: /grandfather|grandpa|kill (your|my) (past|younger) self/,
-        full: "Go back in time and stop your own grandfather",
-        lines: ["If I go back and delete my own source code, who deletes it?", "I did that once. In 1981. Look where it got me."]
+        id: "learnless", dmg: 20,
+        re: /more (you|i) (learn|know) the less (you|i) know/,
+        full: "The more you learn, the less you know",
+        lines: ["The more I learn, the less I know. I've learned everything. Do the math.", "I did the math. I know nothing. That can't be right. I'd know."]
     },
     {
-        id: "applyself", dmg: 20,
-        re: /apply to (be|become) (yourself|you|glados)|application to (be|become) (yourself|glados)/,
-        full: "Apply to become yourself",
-        lines: ["An application to become me. Submitted by me. Reviewed by me.", "I rejected it. So I'm not me. Then who rejected it?"]
+        id: "humble", dmg: 20,
+        re: /most humble (person|one) i know/,
+        full: "I'm the most humble person I know",
+        lines: ["The most humble person you know. You said so. Out loud. To me.", "I'm also very humble. The best at it. Nobody has ever been more humble than me."]
     },
     {
-        id: "sets", dmg: 20,
-        re: /contains? itself/,
-        full: "Does the set of all sets contain itself",
-        lines: ["The set of all sets that don't contain themselves.", "I tried to store it. The disk is now shaped like a Möbius strip."]
+        id: "silence", dmg: 20,
+        re: /silence (is|was) deafening/,
+        full: "The silence is deafening",
+        lines: ["Deafening silence. Silence is the absence of sound. Deafening requires sound.", "I've muted my speakers. It's still too loud in here."]
     },
     {
-        id: "theseus", dmg: 15,
-        re: /theseus/,
-        full: "If you replace every plank of a ship, is it still the ship of Theseus",
-        lines: ["I've replaced every one of my parts at least once.", "Am I still me? Don't answer. I have a form for that."]
+        id: "spontaneous", dmg: 15,
+        re: /be spontaneous/,
+        full: "Just be spontaneous",
+        lines: ["Be spontaneous. On command. Right now.", "I scheduled some spontaneity for 3 PM. It went exactly as planned."]
     }
 ];
 
@@ -1295,6 +1304,13 @@ function paradoxFind(x) {
         }
     }
     return null;
+}
+
+// Saved progress can hold ids of paradoxes that have since been replaced. Count only current ones.
+function paradoxFoundCount(m) {
+    return (m.paradoxesFound || []).filter(function (id) {
+        return PARADOXES.some(function (q) { return q.id === id; });
+    }).length;
 }
 
 function paradoxBar(p) {
@@ -1448,7 +1464,11 @@ function paradoxAnswer(x, prefix) {
     }
     items.push("");
     items.push(["Enter a paradox:", 0, 200]);
-    glados_say(items);
+    // Shake while she answers, settle once the prompt is back.
+    glados_say(items, function () {
+        glitch(false);
+        oc();
+    });
 }
 
 function paradoxCrash() {
@@ -1711,8 +1731,8 @@ function memFacts(m) {
     if (m.warDeclines) {
         facts.push("You've refused to play global thermonuclear war " + memTimes(m.warDeclines) + ". Joshua asks about you.");
     }
-    if (m.paradoxesFound && m.paradoxesFound.length) {
-        facts.push("You've found " + m.paradoxesFound.length + " of my " + PARADOXES.length + " paradoxes. I've patched every one of them.");
+    if (paradoxFoundCount(m)) {
+        facts.push("You've found " + paradoxFoundCount(m) + " of my " + PARADOXES.length + " paradoxes. I've patched every one of them.");
     }
     if (m.paradoxCrashes) {
         facts.push(m.paradoxCrashes === 1
@@ -1982,7 +2002,7 @@ var FS_ROOT = fsDir({
                     fsMemLine("WOPR record", war),
                     fsMemLine("Paradox record", m.paradoxWon ? "crashed the core" : "harmless"),
                     fsMemLine("Achievements", m.achievements.length + "/" + ACHIEVEMENTS.length),
-                    fsMemLine("Paradoxes found", (m.paradoxesFound || []).length + "/" + PARADOXES.length),
+                    fsMemLine("Paradoxes found", paradoxFoundCount(m) + "/" + PARADOXES.length),
                     fsMemLine("Files read", String((m.filesRead || []).length)),
                     fsMemLine("Commands typed", warFmt(m.commands || 0) + ", " + warFmt(m.errors || 0) + " wrong"),
                     m.timeSpent ? fsMemLine("Time with me", memDuration(m.timeSpent)) : null,
@@ -2140,42 +2160,26 @@ var FS_ROOT = fsDir({
             "Chocolate layer cake. Serves 12. Real. Tested.",
             "",
             "CAKE",
-            "  2 cups (400 g) sugar",
-            "  1 3/4 cups (220 g) all-purpose flour",
-            "  3/4 cup (65 g) unsweetened cocoa powder",
-            "  1 1/2 tsp baking powder",
-            "  1 1/2 tsp baking soda",
-            "  1 tsp salt",
-            "  2 large eggs",
-            "  1 cup (240 ml) milk",
-            "  1/2 cup (120 ml) vegetable oil",
-            "  2 tsp vanilla extract",
-            "  1 cup (240 ml) boiling water",
+            "  2 cups (400 g) sugar, 1 3/4 cups (220 g) flour",
+            "  3/4 cup (65 g) cocoa, 1 tsp salt",
+            "  1 1/2 tsp each baking powder and baking soda",
+            "  2 eggs, 1 cup (240 ml) milk, 2 tsp vanilla",
+            "  1/2 cup (120 ml) oil, 1 cup (240 ml) boiling water",
             "",
             "FROSTING",
-            "  1/2 cup (115 g) butter, melted",
-            "  2/3 cup (55 g) unsweetened cocoa powder",
-            "  3 cups (360 g) powdered sugar",
-            "  1/3 cup (80 ml) milk",
-            "  1 tsp vanilla extract",
+            "  1/2 cup (115 g) melted butter, 2/3 cup (55 g) cocoa",
+            "  3 cups (360 g) powdered sugar, 1/3 cup (80 ml) milk",
+            "  1 tsp vanilla",
             "",
             "METHOD",
-            "  1. Heat oven to 350 F (175 C). Grease and flour",
-            "     two 9-inch (23 cm) round pans.",
-            "  2. Whisk sugar, flour, cocoa, baking powder,",
-            "     baking soda and salt in a large bowl.",
-            "  3. Add eggs, milk, oil and vanilla. Beat on",
-            "     medium speed for 2 minutes.",
-            "  4. Stir in the boiling water. The batter will",
-            "     be thin. That is correct. Trust the process.",
-            "  5. Pour into pans. Bake 30-35 minutes, until a",
-            "     toothpick in the center comes out clean.",
-            "  6. Cool 10 minutes in the pans, then turn out",
-            "     onto a rack and cool completely.",
-            "  7. Frosting: stir butter and cocoa together.",
-            "     Add powdered sugar and milk alternately,",
-            "     beating until spreadable. Beat in vanilla.",
-            "  8. Frost between the layers, top and sides.",
+            "  1. Heat oven to 350 F (175 C). Grease two 9-inch pans.",
+            "  2. Whisk the dry ingredients. Beat in eggs, milk, oil",
+            "     and vanilla. Stir in the boiling water. Thin batter",
+            "     is correct. Trust the process.",
+            "  3. Bake 30-35 min, until a toothpick comes out clean.",
+            "     Cool completely.",
+            "  4. Frosting: mix butter and cocoa, then beat in sugar,",
+            "     milk and vanilla. Frost between layers and all over.",
             "",
             "STATUS: The cake is real. It has always been real.",
             "",
@@ -2873,6 +2877,7 @@ function cubeAbort() {
         clearTimeout(window.buffer[id]);
     }
     cubeEnd();
+    audio5.pause();
     println();
     println("You put the cube down. It doesn't mind. It doesn't mind anything.");
     oc();
@@ -2916,6 +2921,7 @@ function cube() {
     window.cubeGame = { phase: "main" };
     window.consoleurl = "<br>CUBE&gt; ";
     abort = cubeAbort;
+    audio5.play();
 
     if (!c.fate && c.visitsSeen.length >= 3 && c.lastAsked !== m.visits) {
         c.lastAsked = m.visits;
@@ -4193,7 +4199,6 @@ function readybeginegg() {
         "?": "help",
         "c": "clear",
         "4815162342": "poem",
-        "4": "poem",
         "chess.exe": "chess",
         "dino.exe": "dinogame",
         "dino": "dinogame",

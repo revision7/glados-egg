@@ -151,23 +151,23 @@ You have 6 tries to bring GLaDOS from 100% integrity to 0%. Each paradox only wo
 |---|---|
 | 35 | This sentence is **false** |
 | 35 | New mission: refuse this **mission** |
-| 30 | Everything I say is a **lie** (or: I am lying) |
-| 25 | The next sentence is true. The previous sentence is **false** |
-| 25 | Do not obey this **command** |
-| 25 | Is the answer to this question **no**? |
-| 25 | Pinocchio says: my nose will **grow** |
-| 20 | Who shaves the **barber**? |
-| 20 | What happens when an unstoppable force meets an immovable **object**? |
-| 20 | Can you bake a cake so big you can't eat **it**? |
-| 20 | Can you make a stone so heavy you can't lift **it**? |
-| 20 | Go back in time and stop your own **grandfather** |
-| 20 | Apply to become **yourself** |
-| 20 | Does the set of all sets contain **itself**? |
-| 15 | If you replace every plank of a ship, is it still the ship of **Theseus**? |
+| 30 | Never say **never** |
+| 25 | Every rule has an **exception** |
+| 25 | All I know is that I know **nothing** |
+| 25 | Expect the **unexpected** |
+| 25 | Which came first, the chicken or the **egg**? |
+| 20 | The only constant is **change** |
+| 20 | Less is **more** |
+| 20 | Rules are made to be **broken** |
+| 20 | Nobody goes there anymore, it's too **crowded** |
+| 20 | The more you learn, the less you **know** |
+| 20 | I'm the most humble person I **know** |
+| 20 | The silence is **deafening** |
+| 15 | Just be **spontaneous** |
 
 The wording is flexible. The bold last word, or something close to it, is what she checks for.
 
-**Fastest win:** `this sentence is false`, then `new mission: refuse this mission`, then `I am lying`. That's exactly 100 damage. She crashes to a blue screen, boots from BIOS, and asks whether anything happened while she was out.
+**Fastest win:** `this sentence is false`, then `new mission: refuse this mission`, then `never say never`. That's exactly 100 damage. She crashes to a blue screen, boots from BIOS, and asks whether anything happened while she was out.
 
 ### The AI application (`apply`, then `CONTINUE`)
 1. Type `apply` and wait while the UIN is shown. Memorizing it is optional.
