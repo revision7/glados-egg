@@ -1736,8 +1736,8 @@ var ACHIEVEMENT_HOWTO = {
     regular: "Launch me 5 times. Exit and come back, or reload the page. I'll be here. I'm always here.",
     cake: "Read C:\\KITCHEN\\CAKE.RCP. It's locked. The password is a name, and the Aperture logs and personnel files know whose.",
     stalemate: "Unlock C:\\APERTURE\\NORAD, then type 'joshua'. Draw with him at tic-tac-toe 3 times. Visits in between are allowed. He never loses. Try not to either.",
-    incinerated: "Visit your cube with 'cube' on 3 different visits. When I tell you to incinerate it, type 'incinerate'. It won't feel a thing. Probably.",
-    keptcube: "Visit your cube on 3 different visits. When I tell you to incinerate it, type 'refuse'. Refuse 3 times and I'll give up. I never give up.",
+    incinerated: "Type 'cube', give your cube a name, then come back to it with 'cube' again. When I tell you to incinerate it, type 'incinerate'. Naming things makes this so much easier. For me.",
+    keptcube: "Name your cube and come back to it. When I tell you to incinerate it, type 'refuse'. I ask once per visit. Refuse 3 times and I'll give up. I never give up.",
     inbox: "Type 'mail', then 'read N' until nothing is unread. New mail keeps arriving as you visit and do things. Keep up.",
     numbers: "That one you work out yourself. It's the whole point. Some error codes are worth more than others."
 };
@@ -2896,8 +2896,8 @@ function tttMontage() {
     });
 }
 
-// WEIGHTED COMPANION CUBE. Remembered across visits. After you've spent time with it
-// on 3 different visits, GLaDOS demands that you incinerate it.
+// WEIGHTED COMPANION CUBE. Remembered across visits. Once you've named it and come
+// back to it (a 2nd 'cube'), GLaDOS demands that you incinerate it. Once per visit.
 // While window.cubeGame is set, runCommand() routes every line to cubeAnswer().
 
 var CUBE_ART = [
@@ -2954,14 +2954,14 @@ function cube() {
     }
     let intro = [];
     if (c && c.fate === "incinerated") {
-        c = { name: "Companion Cube", affection: 0, visitsSeen: [], refusals: 0 };
+        c = { name: "Companion Cube", affection: 0, runs: 0, refusals: 0 };
         intro = [
             "",
             ["The Enrichment Center has issued you a replacement Weighted Companion Cube.", null, 700],
             ["Please try to keep this one longer.", null, 900]
         ];
     } else if (!c) {
-        c = { name: "Companion Cube", affection: 0, visitsSeen: [], refusals: 0 };
+        c = { name: "Companion Cube", affection: 0, runs: 0, refusals: 0 };
         intro = [
             "",
             ["The Enrichment Center has issued you a Weighted Companion Cube.", null, 700],
@@ -2969,16 +2969,20 @@ function cube() {
             ["In the event that it does speak, please disregard its advice.", null, 900]
         ];
     }
-    if (c.visitsSeen.indexOf(m.visits) === -1) {
-        c.visitsSeen.push(m.visits);
+    // Cubes saved before 'runs' existed tracked visits instead. Each of those was at least one run.
+    if (typeof c.runs !== "number") {
+        c.runs = (c.visitsSeen || []).length;
+        delete c.visitsSeen;
     }
+    c.runs++;
     cubeSave(c);
     window.cubeGame = { phase: "main" };
     window.consoleurl = "<br>CUBE&gt; ";
     abort = cubeAbort;
     audio5.play();
 
-    if (!c.fate && c.visitsSeen.length >= 3 && c.lastAsked !== m.visits) {
+    let named = c.named || c.name !== "Companion Cube";
+    if (!c.fate && named && c.runs >= 2 && c.lastAsked !== m.visits) {
         c.lastAsked = m.visits;
         cubeSave(c);
         window.cubeGame.phase = "demand";
@@ -3053,6 +3057,7 @@ function cubeAnswer(x) {
             return;
         }
         c.name = name;
+        c.named = true;
         say(["Your cube is now called " + esc(name) + ". It doesn't know. It can't know. It's a cube."]);
         return;
     }

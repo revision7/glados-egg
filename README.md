@@ -209,7 +209,7 @@ Joshua only answers after you've unlocked `C:\APERTURE\NORAD` at least once. Bef
 
 ### Companion Cube (`cube`)
 `look`, `pet`, `talk <anything>`, `feed`, `name <new name>`, `leave`.
-- Once you've visited the cube on **3 different visits**, GLaDOS demands that you incinerate it.
+- Give the cube a name (`name <new name>`), then open it again with `cube` (your **2nd time** or later). GLaDOS demands that you incinerate it. She asks once per visit.
   - `incinerate`: you get **Faithful Companion**. On your next visit you're issued a replacement cube.
   - `refuse`: she asks again on each later visit. Refuse **3 times** and she gives up, and you get **Cube Keeper**.
 - To get both: incinerate the first cube and refuse three times on the replacement, or keep the first cube and type `incinerate` on a later visit.
@@ -238,7 +238,7 @@ Type `achievements` to see your progress, `help` plus an achievement's name or n
 | 6 | Regular | Launch GLaDOS 5 times. Each `exit` + relaunch or page reload counts. |
 | 7 | The Cake Is Real | Read `C:\KITCHEN\CAKE.RCP` in the file system. |
 | 8 | Stalemate | Draw with Joshua (`joshua`) 3 times. |
-| 9 | Faithful Companion | Incinerate your Companion Cube when GLaDOS demands it. |
+| 9 | Faithful Companion | Name your cube, run `cube` again, and incinerate it when GLaDOS demands it. |
 | 10 | Cube Keeper | Refuse to incinerate your cube 3 times. |
 | 11 | Inbox Zero | Read every message in your inbox, so none are unread. |
 | 12 | Winner Gets the Cake. The Cake Is a Lie. | Type `4 8 15 16 23 42` after at least one other command (the real win: the cake ending). |
