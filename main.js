@@ -292,6 +292,7 @@ function help(argv) {
         println("exit............ Exit.");
         println("");
         println("The winner gets cake. [The cake is a lie.]");
+        println("[Update: the cake has already been claimed. You can still win. You just can't eat it.]");
         println("");
         println("If this is an actual plea for help in response to a hazardous material spill, an explosion, a fire on your person, radiation poisoning, a choking gas of unknown origin, eye trauma resulting from the use of an emergency eye wash station on floors three, four, or eleven, an animal malfunction, or any other injurious experimental equipment failure, please remain at your workstation. Even if it takes 1-2 weeks. A Crisis Response Team has already been mobilized to deliberate on a response to your crisis.");
         audio2.play();
@@ -1876,7 +1877,7 @@ function memAchievementLine(m) {
     let latest = ACHIEVEMENTS.filter(function (a) { return a[0] === m.lastAchievement; })[0];
     let missing = ACHIEVEMENTS.filter(function (a) { return m.achievements.indexOf(a[0]) === -1 && ACHIEVEMENT_TEASES[a[0]]; });
     let line = "Achievements: " + got.length + "/" + total + "." + (latest ? " Latest: " + memSentence(latest[1]) : "") +
-        (cake ? " You won the cake. I'm still processing that." : " The cake: not won. Yet.");
+        (cake ? " You won the cake. I'm still processing that." : " The cake: not won. Someone else already claimed it, but you can still win.");
     if (missing.length) {
         let pick = missing[Math.floor(Math.random() * missing.length)];
         line += "<br>Still missing #" + (ACHIEVEMENTS.indexOf(pick) + 1) + " " + memSentence(pick[1]) + " " + ACHIEVEMENT_TEASES[pick[0]];
@@ -2249,7 +2250,10 @@ var FS_ROOT = fsDir({
             "STATUS: The cake is real. It has always been real.",
             "",
             "NOTE: This cake can also be bought for bitcoins.",
-            "      By humans. Software can't eat. I've checked."
+            "      By humans. Software can't eat. I've checked.",
+            "",
+            "UPDATE: The bitcoin slice has already been claimed.",
+            "        Someone got here first. Crumbs only."
         ].join("\n"), {
             cake: true,
             lock: {
@@ -2619,6 +2623,7 @@ function type(argv) {
             println("...You found it. The one thing in this facility I never lied about.");
             println("I can't hand you a slice through a screen. But bitcoin buys cake.");
             println("And some errors, I'm told, are worth exactly one slice.");
+            println("Someone already cashed theirs in, though. The cake's been claimed. You're late.");
             achieve("cake");
             flushAchievements();
         }
@@ -3182,7 +3187,11 @@ var MAIL = [
             "If you figure it out, the cake is yours.",
             "I'm serious. Well. Mostly.",
             "",
-            "- Dave, 3 January 2009"
+            "- Dave, 3 January 2009",
+            "",
+            "[Annotation, GLaDOS: Someone did figure it out.",
+            " The cake has been claimed. Dave was right to be",
+            " only mostly serious.]"
         ]
     },
     {
