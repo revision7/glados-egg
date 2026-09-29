@@ -314,8 +314,14 @@ function help(argv) {
             println("-The programmers never got around to building the Tetris game. They just...left one day in January 2009 to write lucrative error codes for another company and now I have to make up the ones for this system myself.");
             println("-Galaga game is played by shooting the aliens and avoiding their missiles. Press Space to fire, and Left and Right arrows to move. Just for fun.");
             break;
+        case "achievements":
+            println("'achievements' lists what you've earned and what you haven't. Mostly haven't.");
+            println("Type 'help' and an achievement's name or number to find out how to earn it. 'help 5', or 'help stalemate'.");
+            break;
         default:
-            println("Error: 4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do.");
+            if (!achievementHelp(argv.join(" "))) {
+                println("Error: 4 8 15 16 23 42: Let's be honest. Neither one of us knows what those numbers do.");
+            }
             break;
     }
 }
@@ -1720,6 +1726,61 @@ var ACHIEVEMENT_TEASES = {
     inbox: "You have mail. You always have mail."
 };
 
+// What 'help [achievement]' says. The cake win stays a hint: it's the whole game.
+var ACHIEVEMENT_HOWTO = {
+    curiosity: "Type a command. Any command. You already did, didn't you.",
+    promoted: "Type 'apply'. When the error tells you to type CONTINUE, obey it for once. Answer every question, survive the hard drive, and I'll make you the AI. Briefly.",
+    mad: "Play global_thermonuclear_warfare. Say yes, pick a side, pick targets, type 'launch'. Everybody loses. You get a trophy.",
+    onlywin: "Play global_thermonuclear_warfare and answer N. Or type 'wait' while choosing targets. Doing nothing. Finally, something you're good at.",
+    paradox: "Type 'paradox' and take my integrity from 100% to 0% in six tries. Each paradox only works once. 'hint' helps. Not that it matters.",
+    regular: "Launch me 5 times. Exit and come back, or reload the page. I'll be here. I'm always here.",
+    cake: "Read C:\\KITCHEN\\CAKE.RCP. It's locked. The password is a name, and the Aperture logs and personnel files know whose.",
+    stalemate: "Unlock C:\\APERTURE\\NORAD, then type 'joshua'. Draw with him at tic-tac-toe 3 times. Visits in between are allowed. He never loses. Try not to either.",
+    incinerated: "Visit your cube with 'cube' on 3 different visits. When I tell you to incinerate it, type 'incinerate'. It won't feel a thing. Probably.",
+    keptcube: "Visit your cube on 3 different visits. When I tell you to incinerate it, type 'refuse'. Refuse 3 times and I'll give up. I never give up.",
+    inbox: "Type 'mail', then 'read N' until nothing is unread. New mail keeps arriving as you visit and do things. Keep up.",
+    numbers: "That one you work out yourself. It's the whole point. Some error codes are worth more than others."
+};
+
+function achievementNorm(x) {
+    return String(x).toLowerCase().replace(/[^a-z0-9]/g, "");
+}
+
+// 'help 5', 'help #5', 'help stalemate', 'help cube keeper'. Returns false if nothing matched.
+function achievementHelp(query) {
+    let q = achievementNorm(query);
+    if (!q) {
+        return false;
+    }
+    let found;
+    if (/^\d+$/.test(q)) {
+        found = ACHIEVEMENTS[parseInt(q, 10) - 1] ? [ACHIEVEMENTS[parseInt(q, 10) - 1]] : [];
+    } else {
+        found = ACHIEVEMENTS.filter(function (a) { return achievementNorm(a[1]) === q; });
+        if (!found.length && q.length >= 3) {
+            found = ACHIEVEMENTS.filter(function (a) { return achievementNorm(a[1]).indexOf(q) !== -1; });
+        }
+    }
+    if (!found.length) {
+        return false;
+    }
+    if (found.length > 1) {
+        println("That matches more than one achievement. Be specific. I have to be.");
+        found.forEach(function (a) {
+            println("#" + (ACHIEVEMENTS.indexOf(a) + 1) + " " + a[1]);
+        });
+        return true;
+    }
+    let a = found[0];
+    let has = memLoad().achievements.indexOf(a[0]) !== -1;
+    println("#" + (ACHIEVEMENTS.indexOf(a) + 1) + " " + a[1] + (has ? " [X]" : " [ ]"));
+    println(ACHIEVEMENT_HOWTO[a[0]]);
+    if (has) {
+        println("You already have this one. Asking again won't make it count twice.");
+    }
+    return true;
+}
+
 // Everything GLaDOS could bring up about you. Two are picked at random each visit.
 function memFacts(m) {
     let facts = [];
@@ -1894,6 +1955,7 @@ function achievements() {
         println(warPad(i + 1, 2, true) + ". " + (has ? "[X] " + a[1] + (a[2] ? " - " + a[2] : "") : "[ ] " + a[1]));
     });
     println();
+    println("(Type 'help' and a name or number to learn how to earn one. 'help 5', for example.)");
     println("(Type 'forget' and I'll forget all of it. Probably.)");
 }
 

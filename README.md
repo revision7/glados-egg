@@ -41,7 +41,7 @@ Your progress is saved in your browser, with nothing sent anywhere. When you com
 
 | Command | What it does |
 |---|---|
-| `help` / `?` | List commands. `help [command]` for more on one. |
+| `help` / `?` | List commands. `help [command]` for more on one, or `help [achievement]` (name or number) to learn how to earn it. |
 | `clear` | Clear the console. |
 | `apply` | Start or continue applying to be an AI. |
 | `game` | List the games, including `paradox`. |
@@ -226,7 +226,7 @@ Messages arrive as you keep visiting and as you do things: unlock NORAD, refuse 
 The war game, paradox crash, passwords and achievements have sound effects, all generated in the browser. `sound off` / `sound on` turns them off or on, and the choice is remembered.
 
 ## All achievements
-Type `achievements` to see your progress, and `forget` to wipe it. GLaDOS remembers you through your browser's storage, so a private window, or clearing site data, starts over.
+Type `achievements` to see your progress, `help` plus an achievement's name or number (`help 8`, `help stalemate`) to learn how to earn it, and `forget` to wipe it all. GLaDOS remembers you through your browser's storage, so a private window, or clearing site data, starts over.
 
 | # | Achievement | How to get it |
 |---|---|---|
