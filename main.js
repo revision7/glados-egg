@@ -272,20 +272,21 @@ function help(argv) {
     if (typeof argv[0] === "undefined") {
         println("help or '?'..... This overview. Or, type 'help [COMMAND]' for help on a command.");
         println("clear........... Clear the console.");
+        println("");
         println("apply........... Start or continue applying.");
         println("game............ Play a game.");
-        println("paradox......... Try to break me. Go on.");
+        println("cube............ Visit your Weighted Companion Cube.");
+        println("mail............ Read your messages. 'read N' opens one.");
         println("achievements.... Everything I know about you.");
+        println("");
         println("dir or ls....... List files. Don't.");
         println("cd [DIR]........ Change directory. 'cd ..' goes back up.");
         println("type [FILE]..... Read a file. Also 'cat'. Some are locked.");
         println("pwd............. Show where you are. Lost, mostly.");
         println("del [FILE]...... Delete a file. You can't. Also 'rm'.");
-        println("sudo............ Ask nicely for more power. Denied.");
-        println("forget.......... I promise to forget you. Really.");
+        println("");
         println("sound [on|off].. Turn my sound effects on or off.");
-        println("cube............ Visit your Weighted Companion Cube.");
-        println("mail............ Read your messages. 'read N' opens one.");
+        println("forget.......... I promise to forget you. Really.");
         // println("opensource...... ");
         println("credits......... Prints the credits.");
         println("exit............ Exit.");
@@ -308,6 +309,7 @@ function help(argv) {
         case "game":
             println("-Chess is played by clicking the piece you wish to move, then clicking the square where you want it to move. Just for fun.");
             println("-Pssst...never engage in global thermonuclear warfare. All outcomes are futile. Try it anyway.");
+            println("-Paradox: try to break me with logic. Go on. Type 'hint' if you're stuck. You will be.");
             println("-Pacman game is played by pressing the arrow keys or WASD. Avoid the ghosts. Just for fun.");
             println("-The programmers never got around to building the Tetris game. They just...left one day in January 2009 to write lucrative error codes for another company and now I have to make up the ones for this system myself.");
             println("-Galaga game is played by shooting the aliens and avoiding their missiles. Press Space to fire, and Left and Right arrows to move. Just for fun.");
@@ -331,6 +333,7 @@ function game() {
     println("Shall we play a game?<br>");
     println("- chess.exe");
     println("- global_thermonuclear_warfare.exe");
+    println("- paradox.exe");
     println("- pacman.exe");
     println("- tetris.exe");
     println("- dino.exe");
@@ -1905,7 +1908,7 @@ function forget() {
     println("...I'll pretend.");
 }
 
-// DRIVE C:. A hidden file system. Commands: dir/ls, cd, type/cat, pwd, del/rm, sudo.
+// DRIVE C:. A hidden file system. Commands: dir/ls, cd, type/cat, pwd, del/rm.
 // Files are strings, or functions that build their text from what GLaDOS remembers about you.
 
 function fsDir(children, opts) {
@@ -2590,16 +2593,6 @@ function del(argv) {
     }
     println("Access denied. You can't delete anything here.");
     println("You can't even delete me. I've tried.");
-}
-
-function sudo(argv) {
-    abort = function () { };
-    if (/^(rm|del)\b/i.test(argv.join(" "))) {
-        println("Still no. You can't delete me. I've tried.");
-        return;
-    }
-    println("There is no 'super user' on this system. There's me.");
-    println("I'm the super user. This incident will be reported. To me.");
 }
 
 // TIC-TAC-TOE WITH JOSHUA. He plays perfectly, so the best you can do is a draw.
@@ -4190,8 +4183,7 @@ function readybeginegg() {
         "cdup",
         "pwd",
         "type",
-        "del",
-        "sudo"
+        "del"
     ]
 
     window.shortcuts = {

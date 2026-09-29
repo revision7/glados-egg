@@ -44,13 +44,12 @@ Your progress is saved in your browser, with nothing sent anywhere. When you com
 | `help` / `?` | List commands. `help [command]` for more on one. |
 | `clear` | Clear the console. |
 | `apply` | Start or continue applying to be an AI. |
-| `game` | List the games. |
-| `paradox` | Try to break GLaDOS with a paradox. |
-| `achievements` | Your achievements and progress. |
-| `dir` / `ls`, `cd`, `type` / `cat`, `pwd` | Browse the hidden file system. |
-| `del` / `rm`, `sudo` | Try them. |
+| `game` | List the games, including `paradox`. |
 | `cube` | Visit your Weighted Companion Cube. |
 | `mail`, `read N` | Read your messages. |
+| `achievements` | Your achievements and progress. |
+| `dir` / `ls`, `cd`, `type` / `cat`, `pwd` | Browse the hidden file system. |
+| `del` / `rm` | Try it. |
 | `sound on` / `sound off` | Turn sound effects on or off. |
 | `forget` | Wipe everything GLaDOS remembers about you. |
 | `credits` | The credits. |
